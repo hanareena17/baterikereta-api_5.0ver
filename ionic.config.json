@@ -1,0 +1,7 @@
+{
+  "name": "bateriKereta",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

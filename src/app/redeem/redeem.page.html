@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Redeem Rewards</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="points-info">
+    <h2>Your Points</h2>
+    <p>{{ userPoints }} pts</p>
+  </div>
+
+  <div class="rewards-grid">
+    <ion-card *ngFor="let item of rewards" class="reward-card">
+      <img [src]="item.img" />
+      <ion-card-header>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+        <p>{{ item.points }} pts</p>
+      </ion-card-header>
+      <ion-button expand="block" color="warning" (click)="redeemItem(item)">Redeem</ion-button>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngFor="let order of orderHistory">
+    <ion-card class="order-card">
+      <div class="order-header">
+        <span>{{ order.date }}</span>
+        <span class="order-id">#{{ order.code }}</span>
+        <span class="order-detail">Details</span>
+      </div>
+
+      <ion-list>
+        <ion-item *ngFor="let item of order.items">
+          <ion-thumbnail slot="start">
+            <img [src]="item.img" alt="product image" />
+          </ion-thumbnail>
+          <ion-label>
+            <h3>{{ item.name }}</h3>
+            <p>Quantity: {{ item.qty }} | RM{{ item.price }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </div>
+</ion-content>
