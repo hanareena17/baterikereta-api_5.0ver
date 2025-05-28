@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OutletController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserProfileController;
@@ -34,6 +35,11 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 // Public route to get available rewards
 Route::get('/rewards', [UserPointsController::class, 'getRewards']);
+
+// Outlets routes
+Route::get('/outlets', [OutletController::class, 'index']);
+Route::get('/outlets/{id}', [OutletController::class, 'show']);
+Route::get('/districts/{districtId}/outlets', [OutletController::class, 'getByDistrict']);
 
 /**
  * Protected Routes - Sanctum

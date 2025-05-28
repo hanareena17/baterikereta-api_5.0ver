@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CarBrandSeeder::class,
             CarModelSeeder::class,
             RewardItemSeeder::class,
+            DistrictSeeder::class,
         ]);
     }
 }
