@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -25,6 +27,55 @@ class User extends Authenticatable
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
+
+        static::deleting(function ($user) {
+            try {
+                DB::beginTransaction();
+
+                // Delete points
+                if ($user->points) {
+                    Log::info('Deleting user points for user: ' . $user->id);
+                    $user->points->delete();
+                }
+
+                // Delete profile
+                if ($user->profile) {
+                    Log::info('Deleting user profile for user: ' . $user->id);
+                    $user->profile->delete();
+                }
+
+                // Delete cars
+                if ($user->cars()->exists()) {
+                    Log::info('Deleting user cars for user: ' . $user->id);
+                    $user->cars()->delete();
+                }
+
+                // Delete payments
+                if ($user->payments()->exists()) {
+                    Log::info('Deleting user payments for user: ' . $user->id);
+                    $user->payments()->delete();
+                }
+
+                // Delete service history
+                if ($user->serviceHistory()->exists()) {
+                    Log::info('Deleting user service history for user: ' . $user->id);
+                    $user->serviceHistory()->delete();
+                }
+
+                // Delete tokens
+                if ($user->tokens()->exists()) {
+                    Log::info('Deleting user tokens for user: ' . $user->id);
+                    $user->tokens()->delete();
+                }
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Error in User model deleting event: ' . $e->getMessage());
+                Log::error('Stack trace: ' . $e->getTraceAsString());
+                throw $e;
+            }
+        });
     }
 
     /**
@@ -40,7 +91,8 @@ class User extends Authenticatable
         'ic',
         'otp',
         'otp_expires_at',
-        'two_fa_enabled'
+        'two_fa_enabled',
+        'role',
     ];
 
     /**
@@ -70,11 +122,26 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
+    public function cars()
+    {
+        return $this->hasMany(UserCar::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function serviceHistory()
+    {
+        return $this->hasMany(ServiceHistory::class);
+    }
+
     /**
      * Get the points for the user.
      */
     public function points()
     {
-        return $this->hasOne(UserPoint::class);
+        return $this->hasOne(UserPoint::class)->withDefault();
     }
 }

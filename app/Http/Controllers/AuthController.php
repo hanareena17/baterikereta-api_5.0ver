@@ -360,4 +360,34 @@ class AuthController extends Controller
             return response()->json(['message' => 'Error verifying token'], 500);
         }
     }
+
+    public function changePassword(Request $request): JsonResponse
+    {
+        try {
+            $request->validate([
+                'current_password' => 'required',
+                'password' => 'required|confirmed|min:8',
+            ]);
+
+            $user = Auth::user();
+
+            if (!Hash::check($request->current_password, $user->password)) {
+                return response()->json([
+                    'message' => 'Kata laluan semasa tidak sah'
+                ], 422);
+            }
+
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return response()->json([
+                'message' => 'Kata laluan berjaya ditukar'
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Password change error: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Ralat menukar kata laluan'
+            ], 500);
+        }
+    }
 }

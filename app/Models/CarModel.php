@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany; // Added
 use Illuminate\Support\Str;
 
 class CarModel extends Model
@@ -69,5 +70,13 @@ class CarModel extends Model
     public function userCars()
     {
         return $this->hasMany(UserCar::class);
+    }
+
+    /**
+     * Get the compatible battery records for the car model.
+     */
+    public function compatibleBatteries(): HasMany
+    {
+        return $this->hasMany(CarCompatibleBattery::class, 'car_model_id');
     }
 }

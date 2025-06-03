@@ -8,6 +8,12 @@ use App\Http\Controllers\UserPointsController;
 use App\Http\Controllers\Api\UserCarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarBrandController;
+use App\Http\Controllers\Api\BatteryBrandController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductCategoryController;
+use App\Http\Controllers\Api\BatteryBrandSeriesController;
+use App\Http\Controllers\Api\BatterySuggestionController; // Added
+use App\Http\Controllers\Api\BookingController; // Added
 
 
 /*
@@ -41,6 +47,23 @@ Route::get('/outlets', [OutletController::class, 'index']);
 Route::get('/outlets/{id}', [OutletController::class, 'show']);
 Route::get('/districts/{districtId}/outlets', [OutletController::class, 'getByDistrict']);
 
+// Battery Brands routes
+Route::get('/battery_brands', [BatteryBrandController::class, 'index']);
+Route::get('/battery_brands/{id}', [BatteryBrandController::class, 'show']);
+Route::get('/battery_brands/{batteryBrandId}/products', [ProductController::class, 'getByBatteryBrand']);
+
+// Products routes
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
+
+// Product Categories routes
+Route::apiResource('/product-categories', ProductCategoryController::class)->only(['index', 'show']);
+
+// Battery Brand Series routes
+Route::apiResource('/battery-brand-series', BatteryBrandSeriesController::class)->only(['index', 'show']);
+Route::get('/battery-brands/{batteryBrand}/battery-brand-series', [BatteryBrandSeriesController::class, 'getByBatteryBrand']);
+
+
 /**
  * Protected Routes - Sanctum
  */
@@ -59,6 +82,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user/points', [UserPointsController::class, 'index']);
     Route::post('/user/points/add', [UserPointsController::class, 'addPoints']);
     Route::post('/user/points/redeem', [UserPointsController::class, 'redeem']);
+
+    // Change Password
+    Route::post('/change-password', [AuthController::class, 'changePassword']);
+
+    // Delete account route
+    Route::delete('/user/delete-account', [UserController::class, 'deleteAccount']);
+
+    // Battery Suggestions
+    Route::get('/battery-suggestions', [BatterySuggestionController::class, 'suggestByMyCars']);
+
+    // Bookings
+    Route::post('/bookings', [BookingController::class, 'store']);
+    Route::get('/bookings', [BookingController::class, 'index']);
 });
 
 Route::get('/car-brands', [CarBrandController::class, 'index']);
