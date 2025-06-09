@@ -8,6 +8,7 @@ use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -30,54 +31,52 @@ class BookingController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $user = Auth::user();
-        \Illuminate\Support\Facades\Log::info('Booking store request received:', $request->all());
-
-        $validator = Validator::make($request->all(), [
-            'service_type' => 'required|string|max:255',
-            'preferred_date' => 'nullable|date',
-            // Allow more flexible time format, or ensure frontend sends H:i
-            'preferred_time' => 'nullable|string', // Changed from date_format:H:i for broader acceptance initially
-            'location' => 'nullable|string|max:255',
-            'notes' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            \Illuminate\Support\Facades\Log::error('Booking validation failed:', $validator->errors()->toArray());
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $bookingData = [
-            'user_id' => $user->id,
-            'service_type' => $request->service_type,
-            'preferred_date' => $request->preferred_date,
-            'preferred_time' => $request->preferred_time ? date('H:i:s', strtotime($request->preferred_time)) : null, // Ensure H:i:s format for DB
-            'location' => $request->location,
-            'notes' => $request->notes,
-            'status' => 'pending', // Default status
-        ];
-        
-        \Illuminate\Support\Facades\Log::info('Attempting to create booking with data:', $bookingData);
-
         try {
-            $booking = Booking::create($bookingData);
-            \Illuminate\Support\Facades\Log::info('Booking created successfully:', $booking->toArray());
+            $validator = Validator::make($request->all(), [
+                'service_type' => 'required|string',
+                'preferred_date' => 'required|date',
+                'preferred_time' => 'required',
+                'location' => 'required|string',
+                'latitude' => 'required|numeric',
+                'longitude' => 'required|numeric',
+                'notes' => 'nullable|string',
+                'user_car_id' => 'required|exists:user_cars,id'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation error',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $booking = new Booking();
+            $booking->id = \Illuminate\Support\Str::uuid();
+            $booking->user_id = auth()->id();
+            $booking->user_car_id = $request->user_car_id;
+            $booking->service_type = $request->service_type;
+            $booking->preferred_date = $request->preferred_date;
+            $booking->preferred_time = $request->preferred_time;
+            $booking->location = $request->location;
+            $booking->latitude = $request->latitude;
+            $booking->longitude = $request->longitude;
+            $booking->notes = $request->notes;
+            $booking->status = 'pending';
+            $booking->save();
+
             return response()->json([
                 'success' => true,
-                'message' => 'Booking created successfully.',
+                'message' => 'Booking created successfully',
                 'data' => $booking
             ], 201);
+
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Error creating booking: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString()
-            ]);
+            Log::error('Booking creation error: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to create booking. ' . $e->getMessage()
+                'message' => 'Failed to create booking',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -87,7 +86,31 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $booking = Booking::where('id', $id)
+                ->where('user_id', auth()->id())
+                ->first();
+
+            if (!$booking) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Booking not found'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $booking
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Booking retrieval error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve booking',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -104,5 +127,52 @@ class BookingController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateLocation(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'latitude' => 'required|numeric',
+                'longitude' => 'required|numeric'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation error',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $booking = Booking::where('id', $id)
+                ->where('user_id', auth()->id())
+                ->first();
+
+            if (!$booking) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Booking not found'
+                ], 404);
+            }
+
+            $booking->latitude = $request->latitude;
+            $booking->longitude = $request->longitude;
+            $booking->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Location updated successfully',
+                'data' => $booking
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Location update error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update location',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

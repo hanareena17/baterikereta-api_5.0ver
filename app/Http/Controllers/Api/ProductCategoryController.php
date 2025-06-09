@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use App\Models\Products;
+use App\Models\batteryBrands;
 
 class ProductCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    public function index(): JsonResponse
     {
-        return ProductCategory::all();
+        // return ProductCategory::all();        
+        $outlets = Outlet::with(['district', 'mapLinks'])->get();
+
     }
 
     /**
