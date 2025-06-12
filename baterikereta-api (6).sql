@@ -1,0 +1,3278 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 12, 2025 at 11:23 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `baterikereta-api`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `battery_brands`
+--
+
+CREATE TABLE `battery_brands` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `seq` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `battery_brands`
+--
+
+INSERT INTO `battery_brands` (`id`, `name`, `image`, `seq`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('1a15a65b-13df-4b56-acee-eaf7011fb9cf', 'Emtrac', 'partner-emtrac.webp', 9, '2024-11-05 10:54:57', '2024-11-05 10:54:57', NULL),
+('22615e77-d9be-4686-a2b2-d647c56e2e41', 'Camel', 'partner-camel.webp', 7, '2024-11-05 10:43:51', '2024-11-05 10:43:51', NULL),
+('283dcdcd-1934-40af-9803-bcd0222a7d4f', 'Asahi', 'partner-asahi.webp', NULL, '2024-11-05 10:43:51', '2024-11-05 10:43:51', '2024-12-11 09:07:31'),
+('2d12d219-3091-4a24-900c-728824632f6b', 'FBM Energy', 'partner-fbm.webp', 1, '2024-11-04 07:25:43', '2024-11-04 07:25:43', NULL),
+('33801b4f-5488-418c-b2e8-e475f4ab058f', 'Tuflong', 'partner-tuflong.webp', 2, '2024-11-04 07:25:44', '2024-11-04 07:25:44', NULL),
+('533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'Amaron', 'partner-amaron.webp', 4, '2024-11-04 07:25:46', '2024-11-04 07:25:46', NULL),
+('761520d1-7da1-42b0-9da1-ecc238084fad', 'Bosch', 'partner-bosch.webp', 6, '2024-11-04 07:25:47', '2024-11-04 07:25:47', NULL),
+('a73b3a30-20c3-4bce-a015-0f675ab15b93', 'Varta', 'partner-varta.webp', 5, '2024-11-04 07:25:48', '2024-11-04 07:25:48', NULL),
+('b38345ed-878e-4463-bd1e-ec6fefcb2241', 'Hitec', 'partner-hitec.webp', 8, '2024-11-05 10:43:35', '2024-11-05 10:43:35', NULL),
+('bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'Century', 'partner-century.webp', 3, '2024-11-04 07:25:49', '2024-11-04 07:25:49', NULL),
+('c26c5189-caa3-4821-8088-b1ed97e6f848', 'Sprinter', 'partner-sprinter.webp', 10, '2024-11-05 10:43:55', '2024-11-05 10:43:55', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `battery_brand_series`
+--
+
+CREATE TABLE `battery_brand_series` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `battery_brand_id` char(36) DEFAULT NULL,
+  `seq` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `battery_brand_series`
+--
+
+INSERT INTO `battery_brand_series` (`id`, `name`, `battery_brand_id`, `seq`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('5f857529-1c50-4d50-9f5e-ca76342736f0', 'Marathoner Max', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 1, '2024-11-05 10:50:16', '2024-12-12 10:59:46', NULL),
+('64748ad4-43e7-4203-91a1-7358aa8e6879', 'Motolite', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 2, '2024-11-05 10:52:56', '2024-12-23 04:39:42', '2024-12-12 10:59:46'),
+('6b850556-63d2-4205-af41-c2d645a48954', 'Pro', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', NULL, '2024-11-05 10:48:35', '2024-11-05 10:48:35', NULL),
+('84787c5d-1c3a-48f3-b5b4-807bf32c34f6', 'Start', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 0, '2024-11-05 10:50:55', '2024-12-12 10:59:46', NULL),
+('8853b7ce-7af6-4516-b3f2-22cf2f151829', 'Hi Life', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', NULL, '2024-11-05 10:49:03', '2024-11-05 10:49:03', NULL),
+('9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', 'Silver', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', NULL, '2024-11-05 10:52:25', '2024-11-05 10:52:25', NULL),
+('a3c0519a-1fe4-4f83-aecb-ad392adbae85', 'Go', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', NULL, '2024-11-05 10:48:08', '2024-11-05 10:48:08', NULL),
+('b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', 'Hybrid Wet', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 3, '2024-11-05 10:53:24', '2024-12-12 10:59:46', NULL),
+('d2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', 'Blue', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', NULL, '2024-11-05 10:52:12', '2024-11-05 10:52:12', NULL),
+('df808c27-80e8-450b-b25c-606154344554', 'Onyx', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', NULL, '2024-11-05 10:48:45', '2024-12-17 05:38:05', NULL),
+('f31f8ebb-54cb-4ca6-82c6-dfcb6dbef783', 'Wet', '283dcdcd-1934-40af-9803-bcd0222a7d4f', NULL, '2024-11-05 10:51:29', '2024-11-05 10:51:29', NULL),
+('faafb0ac-449b-4fa1-adbb-8c20fd5e0c3d', 'Premium', '2d12d219-3091-4a24-900c-728824632f6b', NULL, '2024-11-05 10:47:29', '2024-12-12 11:04:48', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `battery_sizes`
+--
+
+CREATE TABLE `battery_sizes` (
+  `id` char(36) NOT NULL DEFAULT uuid(),
+  `name` varchar(255) NOT NULL,
+  `battery_type_id` char(36) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `battery_sizes`
+--
+
+INSERT INTO `battery_sizes` (`id`, `name`, `battery_type_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('04045a7c-9c12-11ef-81ed-d067e528c8df', 'LN2R', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:37:46', '2024-11-06 07:37:46', NULL),
+('241d12ee-b44f-11ef-818d-00155d060d12', 'NX120-7L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-12-07 03:55:47', '2024-12-07 03:57:21', NULL),
+('301832f8-9c0d-11ef-81ed-d067e528c8df', 'NS40ZL', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:12', '2024-11-06 07:03:12', NULL),
+('303a45c4-9c0d-11ef-81ed-d067e528c8df', 'NS60L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:12', '2024-11-06 07:03:12', NULL),
+('3071259e-9c0d-11ef-81ed-d067e528c8df', 'NS60R', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:13', '2024-11-06 07:03:13', NULL),
+('30a1142a-9c0d-11ef-81ed-d067e528c8df', 'NS60LS', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:13', '2024-11-06 07:03:13', NULL),
+('30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'NS60RS', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:13', '2024-11-06 07:03:13', NULL),
+('312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'NS70L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:14', '2024-11-06 07:03:14', NULL),
+('3133a349-9c0d-11ef-81ed-d067e528c8df', 'NS70R', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:14', '2024-11-06 07:03:14', NULL),
+('313e3c20-9c0d-11ef-81ed-d067e528c8df', 'N70ZL', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:14', '2024-11-06 07:03:14', NULL),
+('3149cefa-9c0d-11ef-81ed-d067e528c8df', 'N70ZR', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:14', '2024-11-06 07:03:14', NULL),
+('3180c167-9c0d-11ef-81ed-d067e528c8df', 'N100', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('319cb370-9c0d-11ef-81ed-d067e528c8df', 'N120', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('31bd5784-9c0d-11ef-81ed-d067e528c8df', 'N150', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('31d9f8ea-9c0d-11ef-81ed-d067e528c8df', 'N200', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('31ec989a-9c0d-11ef-81ed-d067e528c8df', 'D23L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('31f0a9a7-9c0d-11ef-81ed-d067e528c8df', 'LN0', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('31f50390-9c0d-11ef-81ed-d067e528c8df', 'LN1L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:39:57', NULL),
+('31fa7183-9c0d-11ef-81ed-d067e528c8df', 'LN2L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:39:13', NULL),
+('31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'LN3', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('32013a97-9c0d-11ef-81ed-d067e528c8df', 'LN4L', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:42:58', NULL),
+('3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'LN5', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('3207290b-9c0d-11ef-81ed-d067e528c8df', 'LN6', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('320a4edc-9c0d-11ef-81ed-d067e528c8df', 'EFB M42L', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:15', '2024-11-06 07:03:15', NULL),
+('3211764c-9c0d-11ef-81ed-d067e528c8df', 'EFB M42R', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('32147ec4-9c0d-11ef-81ed-d067e528c8df', 'EFB M55L', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('32178b89-9c0d-11ef-81ed-d067e528c8df', 'EFB M55R', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('321b0922-9c0d-11ef-81ed-d067e528c8df', 'EFB N55', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('321e22b8-9c0d-11ef-81ed-d067e528c8df', 'EFB Q85', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('32227c57-9c0d-11ef-81ed-d067e528c8df', 'EFB S85', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('32250347-9c0d-11ef-81ed-d067e528c8df', 'EFB S95', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('3228c134-9c0d-11ef-81ed-d067e528c8df', 'EFB LN2', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('322bb08f-9c0d-11ef-81ed-d067e528c8df', 'EFB LN3', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('3233a5a5-9c0d-11ef-81ed-d067e528c8df', 'AGM LN0', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('32369978-9c0d-11ef-81ed-d067e528c8df', 'AGM LN1', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('323a7a98-9c0d-11ef-81ed-d067e528c8df', 'AGM LN2', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('323d28c3-9c0d-11ef-81ed-d067e528c8df', 'AGM LN3', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('32402874-9c0d-11ef-81ed-d067e528c8df', 'AGM LN4', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('3243b4e4-9c0d-11ef-81ed-d067e528c8df', 'AGM LN5', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('3246fc42-9c0d-11ef-81ed-d067e528c8df', 'AGM LN6', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('3249ef6c-9c0d-11ef-81ed-d067e528c8df', 'AGM TX14', 'bff570d4-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:03:16', '2024-11-06 07:03:16', NULL),
+('3bf8e048-b44f-11ef-818d-00155d060d12', 'NX120-7R', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-12-07 03:56:27', '2024-12-07 03:56:27', NULL),
+('85b552da-9c12-11ef-81ed-d067e528c8df', 'LN1R', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:41:23', '2024-11-06 07:41:23', NULL),
+('c4462fa3-9c12-11ef-81ed-d067e528c8df', 'LN4R', 'bff4eb87-7ed9-11ef-a1cb-401a58b01058', '2024-11-06 07:43:08', '2024-11-06 07:43:08', NULL),
+('f5483151-b44e-11ef-818d-00155d060d12', 'EFB T110', 'bff56e8d-7ed9-11ef-a1cb-401a58b01058', '2024-12-07 03:54:28', '2024-12-07 03:54:28', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `battery_types`
+--
+
+CREATE TABLE `battery_types` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `battery_types`
+--
+
+INSERT INTO `battery_types` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('bff4eb87-7ed9-11ef-a1cb-401a58b01058', 'Standard', '2024-09-30 03:11:56', '2024-09-30 03:11:56', NULL),
+('bff56e8d-7ed9-11ef-a1cb-401a58b01058', 'EFB', '2024-09-30 03:11:56', '2024-09-30 03:11:56', NULL),
+('bff570d4-7ed9-11ef-a1cb-401a58b01058', 'AGM', '2024-09-30 03:11:56', '2024-09-30 03:11:56', NULL),
+('bff57160-7ed9-11ef-a1cb-401a58b01058', 'Heavy Duty', '2024-09-30 03:11:56', '2024-09-30 03:11:56', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `id` char(36) NOT NULL,
+  `user_id` char(36) NOT NULL,
+  `user_car_id` char(36) DEFAULT NULL,
+  `technician_id` varchar(191) DEFAULT NULL,
+  `service_type` varchar(191) NOT NULL,
+  `preferred_date` date DEFAULT NULL,
+  `preferred_time` time DEFAULT NULL,
+  `location` varchar(191) DEFAULT NULL,
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `longitude` decimal(11,8) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `status` varchar(191) NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `user_id`, `user_car_id`, `technician_id`, `service_type`, `preferred_date`, `preferred_time`, `location`, `latitude`, `longitude`, `notes`, `status`, `created_at`, `updated_at`) VALUES
+('068d14c2-9ac4-4f89-b2de-f0ebff537bf2', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'install', '2025-06-24', '11:57:00', 'Al-Kauthar, Jalan Meranti 17, Taman Rinting, Masai, Johor Bahru, Johor, 81750, Malaysia', 1.48931657, 103.87774944, NULL, 'pending', '2025-06-04 19:58:59', '2025-06-04 19:58:59'),
+('08d143fa-b621-405d-9590-0ed47c90d517', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'install', '2025-06-25', '10:59:00', NULL, NULL, NULL, NULL, 'pending', '2025-06-04 18:52:27', '2025-06-04 18:52:27'),
+('0e19c5bb-8112-43f9-8864-a625875235c0', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', NULL, NULL, 'install', '2025-06-11', '11:42:00', 'Jalan Suria 43, Bandar Seri Alam, Masai, Johor Bahru, Johor, 81700, Malaysia', NULL, NULL, NULL, 'pending', '2025-06-04 19:46:07', '2025-06-04 19:46:07'),
+('1b1d7fea-00b7-4267-ab85-9e622afa4c3f', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'install', '2025-06-11', '11:26:00', 'Pangsapuri Megah Ria, Jalan Api-Api, Taman Megah Ria, Taman Rinting, Pasir Gudang, Johor Bahru, Johor, 81700, Malaysia', 1.48766720, 103.85489920, NULL, 'pending', '2025-06-11 19:26:03', '2025-06-11 19:26:03'),
+('2ba40f32-c310-431c-94e3-05a081cf3ae9', 'ea80f906-1c86-4639-84b8-3de2f03ad192', '8adaa4ab-9d6b-4d03-959a-cb3e3b76d99d', NULL, 'check', '2025-06-05', '16:30:00', 'Sekolah Kebangsaan Seri Alam 2, Jalan Suria 90, Bandar Seri Alam, Masai, Johor Bahru, Johor, 81700, Malaysia', 1.49603054, 103.88545275, NULL, 'pending', '2025-06-04 22:39:59', '2025-06-04 22:39:59'),
+('4e2bd6a5-6d77-489f-b3d8-4742ea6ba691', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', NULL, NULL, 'install', '2024-06-02', '15:08:00', NULL, NULL, NULL, 'cepat sikit', 'pending', '2025-06-03 01:09:34', '2025-06-03 01:09:34'),
+('4f44481b-011a-4613-800a-e98cc0117db0', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '5bc2ae00-0d81-40fe-8b41-255e6959e90d', NULL, 'install', '2025-06-12', '12:57:00', 'Hentian Teksi Masai, Jalan Masai Lama, Masai, Johor Bahru, Johor, 81750, Malaysia', 1.48665135, 103.88596773, NULL, 'pending', '2025-06-04 20:44:09', '2025-06-04 20:44:09'),
+('5a886257-5caa-49ec-af83-04c11fac87e4', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '5bc2ae00-0d81-40fe-8b41-255e6959e90d', NULL, 'install', '2025-06-10', '12:24:00', 'Klinik Kesihatan Masai, Jalan Sekolah, Kampung Baru Masai, Masai, Johor Bahru, Johor, 81750, Malaysia', 1.50832156, 103.87426794, NULL, 'pending', '2025-06-04 20:23:45', '2025-06-04 20:23:45'),
+('6d3a8134-e015-46d7-8994-ee6f9c10583a', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'check', '2025-08-20', '09:05:00', NULL, NULL, NULL, NULL, 'pending', '2025-06-04 19:05:38', '2025-06-04 19:05:38'),
+('7c20859e-56ef-4366-925e-9500194fb2a4', 'ea80f906-1c86-4639-84b8-3de2f03ad192', '8adaa4ab-9d6b-4d03-959a-cb3e3b76d99d', NULL, 'install', '2025-06-24', '14:32:00', 'Sekolah Kebangsaan Seri Alam 2, Jalan Suria 90, Bandar Seri Alam, Masai, Johor Bahru, Johor, 81700, Malaysia', 1.49603054, 103.88545275, NULL, 'pending', '2025-06-04 22:33:33', '2025-06-04 22:33:33'),
+('8e280e51-c6e9-41c7-9495-c6ba3ecb30e6', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'check', '2025-06-17', '09:08:00', NULL, NULL, NULL, NULL, 'pending', '2025-06-04 17:23:55', '2025-06-04 17:23:55'),
+('98a0a8bc-860e-4b5a-9627-3599f8c5824a', 'ea80f906-1c86-4639-84b8-3de2f03ad192', '8adaa4ab-9d6b-4d03-959a-cb3e3b76d99d', NULL, 'install', '2025-06-24', '14:32:00', 'Sekolah Kebangsaan Seri Alam 2, Jalan Suria 90, Bandar Seri Alam, Masai, Johor Bahru, Johor, 81700, Malaysia', 1.49603054, 103.88545275, NULL, 'pending', '2025-06-04 22:42:18', '2025-06-04 22:42:18'),
+('9daf493f-0114-41d9-9cf8-e32307a5857b', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'install', '2025-06-12', '13:27:00', 'Masai, Johor Bahru, Johor, 81750, Malaysia', 1.49654535, 103.88122022, NULL, 'pending', '2025-06-04 20:26:57', '2025-06-04 20:26:57'),
+('a3e7a711-f768-49fd-a9b1-80fd974e182c', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '7dd70d8b-ebcd-4a16-813e-70448adbc097', NULL, 'check', '2025-06-20', '11:12:00', 'Pangsapuri Megah Ria, Jalan Api-Api, Taman Megah Ria, Taman Rinting, Pasir Gudang, Johor Bahru, Johor, 81700, Malaysia', 1.48766720, 103.85489920, NULL, 'pending', '2025-06-11 19:21:22', '2025-06-11 19:21:22'),
+('a69c374d-a3ae-4fd3-9c2b-c9e15a0ab6c2', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '5bc2ae00-0d81-40fe-8b41-255e6959e90d', NULL, 'install', '2025-06-05', '10:26:00', NULL, NULL, NULL, NULL, 'pending', '2025-06-04 18:42:00', '2025-06-04 18:42:00'),
+('b04f5c18-749e-4808-adbe-13cb669d5637', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '9211f5d3-ba0c-407b-9966-fbbd8314698b', NULL, 'check', '2025-06-19', '12:43:00', 'Doreen Ong Law Office 王丽云律师楼, Jalan Masai Lama, Masai, Johor Bahru, Johor, 81750, Malaysia', 1.48628670, 103.88303876, NULL, 'pending', '2025-06-04 20:46:02', '2025-06-04 20:46:02'),
+('b99bd074-1308-4b22-9468-fdf7938ae84e', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '1d1103c0-7b97-4d02-aed0-384a40093110', NULL, 'install', '2025-06-12', '11:27:00', NULL, 1.50890072, 103.85530472, NULL, 'pending', '2025-06-04 19:24:47', '2025-06-04 19:24:47'),
+('bde610b2-4001-4342-84cf-9046620dbbc1', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', NULL, NULL, 'check', '2025-06-02', NULL, NULL, NULL, NULL, NULL, 'pending', '2025-06-03 01:08:49', '2025-06-03 01:08:49'),
+('c10e5d10-f4a8-4cd5-9c6f-a6416dbf4e11', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '5bc2ae00-0d81-40fe-8b41-255e6959e90d', NULL, 'check', '2025-06-11', '12:35:00', 'Sekolah Kebangsaan Seri Alam 2, Jalan Suria 90, Bandar Seri Alam, Masai, Johor Bahru, Johor, 81700, Malaysia', 1.49603054, 103.88545275, NULL, 'pending', '2025-06-04 23:44:12', '2025-06-04 23:44:12'),
+('d9faad87-7da2-4d95-a4ca-e67589a58c89', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '5bc2ae00-0d81-40fe-8b41-255e6959e90d', NULL, 'install', '2025-06-19', '11:09:00', 'Sekolah Kebangsaan Seri Alam 2, Jalan Suria 90, Bandar Seri Alam, Masai, Johor Bahru, Johor, 81700, Malaysia', 1.49603054, 103.88545275, NULL, 'pending', '2025-06-11 19:19:05', '2025-06-11 19:19:05'),
+('e1cb3e7a-9cd9-4c44-a121-030a82cf16d9', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'a4b72916-c34e-4d0a-b549-a3efc50cc2b8', NULL, 'install', '2025-06-12', '09:00:00', NULL, NULL, NULL, NULL, 'pending', '2025-06-04 17:19:45', '2025-06-04 17:19:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car_brands`
+--
+
+CREATE TABLE `car_brands` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `car_brands`
+--
+
+INSERT INTO `car_brands` (`id`, `name`, `country`, `logo`, `created_at`, `updated_at`, `slug`) VALUES
+('02326548-0741-486f-8e57-e1a9ee278158', 'Mercedes benz', 'Germany', 'bf3632ac77d616aa5c02a94456fa7898_1688714030.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'mercedes-benz'),
+('047a4ec6-1cd9-482d-8380-4114d3201770', 'Saab', 'Sweden', '1deed55c5d4ee2b9341f4abd24932408_1688717858.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'saab'),
+('0a797bea-4226-4625-856b-487e7328f2d4', 'Suzuki', 'Japan', '29193519cc6270deffa229b677bfee14_1688717990.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'suzuki'),
+('0d258dcd-2392-4fbc-8659-20d23f08fe51', 'Ssangyong', 'South Korea', '699ddd8861cb4a487e1c47185e5db5da_1689819555.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'ssangyong'),
+('10fbe85b-09fd-411d-9b9d-ee8cb0e2620b', 'Infiniti', 'Japan', '8fc3431d06d544c982811c7751f59165_1689560023.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'infiniti'),
+('1724c2aa-7971-4bfe-ae06-79eeb0b32503', 'Audi', 'Germany', 'e971f52f049e2a2dd1ecf1c8fc1b1e47_1688630989.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'audi'),
+('22bc005d-9a6c-42a3-afe3-10c216bbefbb', 'Toyota', 'Japan', '6447ade1cb34c4a64c1d7f23269a795e_1688718124.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'toyota'),
+('2aec14d2-08da-4c89-ab76-601f7b5048a6', 'Ferrari', 'Italy', 'ab032d57525015703e00f69dce27b39a_1689325448.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'ferrari'),
+('343d10d9-f329-4196-8344-2f451750c13a', 'Chery', 'China', '0b83836b7f95f0b8bc377190dab4e6f1_1688637086.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'chery'),
+('36e037e6-08cf-437c-b61f-368a855f953a', 'Kia', 'South Korea', '4047e1f4e1205aac5bec23b2e675de7e_1688711413.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'kia'),
+('3ca78056-ec98-43f3-94d4-d9955a62c466', 'Chevrolet', 'USA', 'ffcc8fdd01d620e9679f44bb5ba1d9b6_1688637312.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'chevrolet'),
+('3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', 'Peugeot', 'France', 'f80399e0488717654a1af58eba58be68_1688715387.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'peugeot'),
+('4a17d403-022c-4eb7-a8ba-fa34182d9415', 'Chana', 'China', '1140d980d9c924c08506809729b0e314_1688720102.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'chana'),
+('4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', 'Fiat', 'Italy', '2190659e275c8d16d790c9e1df3caf77_1688638348.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'fiat'),
+('5dda2287-a152-4d75-8794-9e844d913a5e', 'Volvo', 'Sweden', 'ad90eafcecf534e811cffa9ddc089267_1689822074.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'volvo'),
+('612d260b-6bb9-46fd-8047-d2b4d256ff31', 'Jeep', 'USA', '6356572ad75d2de5811718129bc7f9f8_1688711309.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'jeep'),
+('627ad86b-e936-42ee-8214-88d874633082', 'Lamborghini', 'Italy', 'e558ca93267c34bb41ca8c689f49bfcf_1689562772.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'lamborghini'),
+('68773e16-0623-4d4d-b159-b6f36c357a79', 'Naza', 'Malaysia', '2912281861b37a771673883d60b0ab39_1688715310.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'naza'),
+('76ef3c9d-b21b-4dc7-9713-b3357719548d', 'Inokom', 'Malaysia', '929be360e4059969198f9adfa75a6dee_1688711208.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'inokom'),
+('828c809c-b067-11ef-b176-00155d060d12', 'Bufori', 'Australia', NULL, '2024-12-02 04:44:43', '2024-12-02 04:44:43', 'bufori'),
+('8459225a-e733-41de-9ac7-7568a1f60157', 'Nissan', 'Japan', 'dc446f1c3fde680e21ae786bff409ff6_1688956404.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'nissan'),
+('86a3ef3a-11f5-4a3e-861a-748832cb66f0', 'Mazda', 'Japan', 'bcfff62b4005b3d4b8a2a2636970a2a8_1688713966.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'mazda'),
+('8792aad3-aac7-4b41-8765-521ddb0b6dca', 'Ford', 'USA', '7e21348bbdb0f75d7d72ef1fdc14087e_1688708833.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'ford'),
+('8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', 'Mini cooper', 'United Kingdom', '3da6002f21432f810a9476b715f009a9_1688714125.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'mini-cooper'),
+('8e112e38-869c-4434-89c3-6c33dd1fd147', 'BYD', 'China', '3f1ecb90f90da2a12408c28f13c05c81_1689322821.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'byd'),
+('929e1351-eb98-4870-b277-dcf1e8dfc275', 'Alfa romeo', 'Italy', '73ba4804a384828cf8a803e1c0984a53_1688628802.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'alfa-romeo'),
+('9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', 'Perodua', 'Malaysia', 'e135e8cfd5c1e1f66966e72a86947b1a_1688968106.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'perodua'),
+('9afa4fd0-743a-4053-a53e-da18ef9a43f7', 'Citroen', 'France', '8a8c3b8ff2d742f8d60663efd898fd93_1688637926.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'citroen'),
+('9e9e55a4-0348-4119-a831-e54ee747e35a', 'Honda', 'Japan', '7690df5904cb5c72697d13c42471e378_1688709572.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'honda'),
+('9fbbecb6-a15d-42a6-ba56-f43de4096aed', 'Hyundai', 'South Korea', '7897538203166ef989ad836f711a9fec_1688710134.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'hyundai'),
+('a32b4fef-a97c-4aa6-8f26-c17c3f68f739', 'Volkswagen', 'Germany', '048f153d2298d182383888e3ab02b2d5_1688718278.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'volkswagen'),
+('a950ec74-c5f5-463f-9e2d-83242ae488db', 'Jaguar', 'United Kingdom', '4571138334ccd47569da1020b274eb8d_1689561249.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'jaguar'),
+('aedffade-1569-478e-8916-aed8d97b489b', 'Land rover', 'United Kingdom', 'daacb6eea7817a51a52d03f76221bd19_1688969894.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'land-rover'),
+('af7b95ea-f83c-4cc0-912c-10380d373dd8', 'Daihatsu', 'Japan', 'a460d52f152f721ba09705d3b3c5f3ee_1688720794.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'daihatsu'),
+('b1058203-f07c-4e77-8787-8332c997d74e', 'BMW', 'Germany', '359c7523f0030d18650e35e04b948f65_1688634359.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'bmw'),
+('b67d4ea3-aeda-4b96-85d8-26804b1f6a41', 'Renault', 'France', 'b6fdd3e90c598b206af87b3105cf659a_1688717662.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'renault'),
+('c819b099-69f1-4dcf-b1a5-8fc89867ee75', 'Lexus', 'Japan', 'bfe0afa4f358ace3a1fc4a95ddf1a4ea_1688713883.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'lexus'),
+('cb3aef6a-a716-4e24-9945-d74207e63875', 'Proton', 'Malaysia', '498f016855e43452abc6f6e18c6edd39_1688715807.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'proton'),
+('e2173bc6-38be-4ad6-974f-d0ae27e4dcf6', 'Smart', 'Germany', '3b2fd7648ffd2ec2972ab91c4cbc9942_1688717915.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'smart'),
+('e45ace14-549f-4430-b4d3-4f5777c448b2', 'Range rover', 'United Kingdom', '1a4ae8b3a37a902ff2bc1f295f9cfb79_1689819139.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'range-rover'),
+('eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', 'Isuzu', 'Japan', '5a71046e2b43f53bd252a254ab09f75c_1689560532.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'isuzu'),
+('ee158ab3-dab8-4ad2-944c-677ac1e7604b', 'Hino', 'Japan', 'e2671d3b4cce33fbf8d41fd6db4ff387_1689326475.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'hino'),
+('f81dcf81-b067-11ef-b176-00155d060d12', 'Hummer', 'Australia', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'hummer'),
+('f81f4314-b067-11ef-b176-00155d060d12', 'Lotus', 'England ', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'lotus'),
+('f820c569-b067-11ef-b176-00155d060d12', 'Maserati', 'Italy ', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'maserati'),
+('f8224a53-b067-11ef-b176-00155d060d12', 'Opel', 'Germany', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'opel'),
+('f8245d82-b067-11ef-b176-00155d060d12', 'Porsche', 'Germany', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'porsche'),
+('f825f5df-b067-11ef-b176-00155d060d12', 'Skoda', 'Czech Republic', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'skoda'),
+('f827b38e-b067-11ef-b176-00155d060d12', 'Tata', 'India', NULL, '2024-12-02 04:43:26', '2024-12-02 04:43:26', 'tata'),
+('f8abdeb3-9424-4b22-976f-e8462ab4c053', 'Subaru', 'Japan', '2a7ce7fb9cc7d78b39c0196add3ed3ca_1688958255.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'subaru'),
+('fa375e79-8fa6-4eaa-bef0-e9feee8b9e4c', 'Hicom', 'Malaysia', 'a2f3fc503a2cd5d7b8f9761ad6fec46a_1689326397.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'hicom'),
+('ff771745-cc23-4cfe-bfc4-332412699715', 'Mitsubishi', 'Japan', 'ed9e1a79469c0e971bcac338244b9cf2_1688955376.webp', '2024-09-09 04:42:07', '2024-09-09 04:42:07', 'mitsubishi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car_compatible_battery`
+--
+
+CREATE TABLE `car_compatible_battery` (
+  `id` char(36) NOT NULL DEFAULT uuid(),
+  `car_model_id` char(36) NOT NULL,
+  `battery_sizes` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `car_compatible_battery`
+--
+
+INSERT INTO `car_compatible_battery` (`id`, `car_model_id`, `battery_sizes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('11e43641-b613-11ef-818d-00155d060d12', '6dcf598d-b611-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-09 09:50:49', '2024-12-09 09:50:49', NULL),
+('b4ebe3d8-b450-11ef-818d-00155d060d12', '1f1d040b-b38c-11ef-818d-00155d060d12', '32369978-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4edd55f-b450-11ef-818d-00155d060d12', '1f202cf7-b38c-11ef-818d-00155d060d12', '32369978-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4efacdd-b450-11ef-818d-00155d060d12', '2013e6e0-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4f1504f-b450-11ef-818d-00155d060d12', '20174280-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4f4011d-b450-11ef-818d-00155d060d12', '201aa2a4-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4f6851c-b450-11ef-818d-00155d060d12', '26ce7b21-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4f8ffb5-b450-11ef-818d-00155d060d12', '201ee5fb-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4fbcbf4-b450-11ef-818d-00155d060d12', '26d1cbf4-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b4ff8e93-b450-11ef-818d-00155d060d12', '20224fd4-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b5025c1c-b450-11ef-818d-00155d060d12', '245c885d-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b50563a4-b450-11ef-818d-00155d060d12', '2460a650-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b507ee7a-b450-11ef-818d-00155d060d12', '25245c54-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b50a05b3-b450-11ef-818d-00155d060d12', '2528466c-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b50c3744-b450-11ef-818d-00155d060d12', '252bf160-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b50eb311-b450-11ef-818d-00155d060d12', '252f1680-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b5116110-b450-11ef-818d-00155d060d12', '253256ec-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:06:59', '2024-12-07 04:06:59', NULL),
+('b515e0c9-b450-11ef-818d-00155d060d12', '2025e525-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b519db74-b450-11ef-818d-00155d060d12', '2029db3e-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b51cd0d0-b450-11ef-818d-00155d060d12', '202d890a-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b51f342e-b450-11ef-818d-00155d060d12', '2030493d-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b52241e4-b450-11ef-818d-00155d060d12', '20344ba9-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b526034d-b450-11ef-818d-00155d060d12', '2036c215-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b52871e8-b450-11ef-818d-00155d060d12', '1e6d0a2c-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b52c28a8-b450-11ef-818d-00155d060d12', '24656de4-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b52eea7c-b450-11ef-818d-00155d060d12', '2467b238-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5317dfc-b450-11ef-818d-00155d060d12', '246b2672-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b53401a9-b450-11ef-818d-00155d060d12', '1ea29af1-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5362019-b450-11ef-818d-00155d060d12', '225227d6-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b538ee42-b450-11ef-818d-00155d060d12', '2536c29d-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b53bb792-b450-11ef-818d-00155d060d12', '2539a67c-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b53e3c3f-b450-11ef-818d-00155d060d12', '253d89bb-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b540b931-b450-11ef-818d-00155d060d12', '233df318-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b543695b-b450-11ef-818d-00155d060d12', '2343f674-b38c-11ef-818d-00155d060d12', '323d28c3-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5465287-b450-11ef-818d-00155d060d12', '2536c29d-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5497d18-b450-11ef-818d-00155d060d12', '2539a67c-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b54d92b8-b450-11ef-818d-00155d060d12', '253d89bb-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b551ae0f-b450-11ef-818d-00155d060d12', '1ea64528-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b555c439-b450-11ef-818d-00155d060d12', '1ea940c1-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b55a627e-b450-11ef-818d-00155d060d12', '246dbf0e-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b55febb0-b450-11ef-818d-00155d060d12', '1e716840-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b565eae9-b450-11ef-818d-00155d060d12', '247190e7-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5715138-b450-11ef-818d-00155d060d12', '24743d32-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b57b4b90-b450-11ef-818d-00155d060d12', '1f636b90-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5807998-b450-11ef-818d-00155d060d12', '2477986a-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b585930f-b450-11ef-818d-00155d060d12', '247c894e-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b589a7a7-b450-11ef-818d-00155d060d12', '248006ab-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b58e6e6e-b450-11ef-818d-00155d060d12', '248456c7-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b59077a5-b450-11ef-818d-00155d060d12', '2487ae2e-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5928c3a-b450-11ef-818d-00155d060d12', '248af509-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b594d58b-b450-11ef-818d-00155d060d12', '248e4cad-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5970139-b450-11ef-818d-00155d060d12', '2492d5eb-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5993463-b450-11ef-818d-00155d060d12', '249571e5-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b59af86a-b450-11ef-818d-00155d060d12', '2080de93-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b59cf373-b450-11ef-818d-00155d060d12', '20846f14-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b59f6188-b450-11ef-818d-00155d060d12', '2307faa0-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5a185b2-b450-11ef-818d-00155d060d12', '1e741131-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5a4a631-b450-11ef-818d-00155d060d12', '1e767564-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5a7c1db-b450-11ef-818d-00155d060d12', '1e7a0bb9-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:00', '2024-12-07 04:07:00', NULL),
+('b5aabe12-b450-11ef-818d-00155d060d12', '2a197c64-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5acd9fb-b450-11ef-818d-00155d060d12', '2a1c8799-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5b096bd-b450-11ef-818d-00155d060d12', '2a1f138a-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5b2c73f-b450-11ef-818d-00155d060d12', '1eabdf84-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5b65d5b-b450-11ef-818d-00155d060d12', '1eae5d88-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5b8e13d-b450-11ef-818d-00155d060d12', '22c9d235-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5bafe5c-b450-11ef-818d-00155d060d12', '22cd4355-b38c-11ef-818d-00155d060d12', '32402874-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5bcead5-b450-11ef-818d-00155d060d12', '1eb0e659-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5bff998-b450-11ef-818d-00155d060d12', '1eb3e7d9-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5c222a1-b450-11ef-818d-00155d060d12', '1eb64f7a-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5c52c21-b450-11ef-818d-00155d060d12', '1eb8f1cc-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5c782af-b450-11ef-818d-00155d060d12', '1ebbfae1-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5ca0999-b450-11ef-818d-00155d060d12', '1ebea28c-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5cf9b42-b450-11ef-818d-00155d060d12', '1ec2553d-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5d2eb4e-b450-11ef-818d-00155d060d12', '1e7c9985-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5d67222-b450-11ef-818d-00155d060d12', '1e7fd269-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5d92f6f-b450-11ef-818d-00155d060d12', '1e836c51-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5dbacbd-b450-11ef-818d-00155d060d12', '1e8637ad-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5de3bf5-b450-11ef-818d-00155d060d12', '1e89c28d-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5e3d748-b450-11ef-818d-00155d060d12', '230b4245-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5e6c5be-b450-11ef-818d-00155d060d12', '230f0f7e-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5e99a96-b450-11ef-818d-00155d060d12', '2498769c-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5ebe122-b450-11ef-818d-00155d060d12', '231372ac-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5eed923-b450-11ef-818d-00155d060d12', '22554c1d-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5f249b7-b450-11ef-818d-00155d060d12', '225b2a19-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5f47c98-b450-11ef-818d-00155d060d12', '2180ea9d-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5f671b0-b450-11ef-818d-00155d060d12', '249d2be5-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5f8bda7-b450-11ef-818d-00155d060d12', '24a003a3-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5fabaaa-b450-11ef-818d-00155d060d12', '1ec51041-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5fcdcba-b450-11ef-818d-00155d060d12', '24a3304e-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b5ff34a8-b450-11ef-818d-00155d060d12', '274ad5f3-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b601616b-b450-11ef-818d-00155d060d12', '1e8cb9a7-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b603b8fd-b450-11ef-818d-00155d060d12', '1e903585-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b605b711-b450-11ef-818d-00155d060d12', '24a624d6-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b60824a9-b450-11ef-818d-00155d060d12', '1e931126-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b60a27e6-b450-11ef-818d-00155d060d12', '23166913-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b60c0eb5-b450-11ef-818d-00155d060d12', '231adb77-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b60e2854-b450-11ef-818d-00155d060d12', '231e5361-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b6106479-b450-11ef-818d-00155d060d12', '24ab9cba-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b6124c7b-b450-11ef-818d-00155d060d12', '24af89de-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b6159944-b450-11ef-818d-00155d060d12', '24b42cac-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b619a163-b450-11ef-818d-00155d060d12', '225f455f-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b61d49c2-b450-11ef-818d-00155d060d12', '24b8101a-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b621b64f-b450-11ef-818d-00155d060d12', '1ec81ee9-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b623a9bb-b450-11ef-818d-00155d060d12', '1ecada2d-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b6261c19-b450-11ef-818d-00155d060d12', '1ece26f4-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b628a1b9-b450-11ef-818d-00155d060d12', '1ed1e021-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b62acf3c-b450-11ef-818d-00155d060d12', '226451b6-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b62da7be-b450-11ef-818d-00155d060d12', '2266d82c-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b630298a-b450-11ef-818d-00155d060d12', '2269a44f-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b6329365-b450-11ef-818d-00155d060d12', '226ecaa9-b38c-11ef-818d-00155d060d12', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b635f6b8-b450-11ef-818d-00155d060d12', '274e74ca-b38c-11ef-818d-00155d060d12', '3246fc42-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b63b46d4-b450-11ef-818d-00155d060d12', '23b34bfd-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b63fcdd7-b450-11ef-818d-00155d060d12', '28be73a9-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b641f703-b450-11ef-818d-00155d060d12', '28c0ff48-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:01', '2024-12-07 04:07:01', NULL),
+('b6446346-b450-11ef-818d-00155d060d12', '23b81cd6-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6477bd4-b450-11ef-818d-00155d060d12', '254586ae-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b64f1ec6-b450-11ef-818d-00155d060d12', '254a4b1f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6538d7e-b450-11ef-818d-00155d060d12', '2869b141-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6569163-b450-11ef-818d-00155d060d12', '28c416af-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b659a387-b450-11ef-818d-00155d060d12', '28c8b442-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b65c2d93-b450-11ef-818d-00155d060d12', '229db8fc-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b65f5d06-b450-11ef-818d-00155d060d12', '28cd83d0-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b66239e8-b450-11ef-818d-00155d060d12', '2185ab63-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b666085c-b450-11ef-818d-00155d060d12', '23bc5327-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b668d708-b450-11ef-818d-00155d060d12', '25c90b14-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b66b29f4-b450-11ef-818d-00155d060d12', '23bf9c33-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b66e176e-b450-11ef-818d-00155d060d12', '23c6b11f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6717ce1-b450-11ef-818d-00155d060d12', '254e5cc3-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6770106-b450-11ef-818d-00155d060d12', '218baf08-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b67af3f7-b450-11ef-818d-00155d060d12', '25cc44e8-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b67e972a-b450-11ef-818d-00155d060d12', '276ced87-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b680fc8d-b450-11ef-818d-00155d060d12', '286d784c-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6838734-b450-11ef-818d-00155d060d12', '288e1ee1-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6861fc7-b450-11ef-818d-00155d060d12', '25520d55-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b68924c1-b450-11ef-818d-00155d060d12', '217ca912-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b68cad66-b450-11ef-818d-00155d060d12', '286feb0f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b68fdafc-b450-11ef-818d-00155d060d12', '28d0e973-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b69376a4-b450-11ef-818d-00155d060d12', '2772091e-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b695c13f-b450-11ef-818d-00155d060d12', '28d5aac7-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6995204-b450-11ef-818d-00155d060d12', '28dadba1-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b69c49a8-b450-11ef-818d-00155d060d12', '289141ac-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6a256a8-b450-11ef-818d-00155d060d12', '25554692-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6a580c8-b450-11ef-818d-00155d060d12', '23cb1b50-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6a8d129-b450-11ef-818d-00155d060d12', '20895641-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6aba7e1-b450-11ef-818d-00155d060d12', '208e1055-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6ae416b-b450-11ef-818d-00155d060d12', '2090f759-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6b0b6fb-b450-11ef-818d-00155d060d12', '2094168e-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6b36024-b450-11ef-818d-00155d060d12', '28dfe986-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6b6ab96-b450-11ef-818d-00155d060d12', '23d13cbe-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6b96b2c-b450-11ef-818d-00155d060d12', '23d5fa40-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6bc7e24-b450-11ef-818d-00155d060d12', '23d8dae3-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6bf2227-b450-11ef-818d-00155d060d12', '23dcf1f5-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6c16a0e-b450-11ef-818d-00155d060d12', '25589871-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6c38bad-b450-11ef-818d-00155d060d12', '25cf96c5-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6c4d515-b450-11ef-818d-00155d060d12', '23e201b3-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6c61bb2-b450-11ef-818d-00155d060d12', '20f8911b-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6c7ce7c-b450-11ef-818d-00155d060d12', '255c9b8b-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6c93b63-b450-11ef-818d-00155d060d12', '23e61032-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6ca7691-b450-11ef-818d-00155d060d12', '2775c7a2-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6cbc799-b450-11ef-818d-00155d060d12', '25b53b4f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6cd1dd9-b450-11ef-818d-00155d060d12', '255f1231-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6ce7672-b450-11ef-818d-00155d060d12', '22a2dc05-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d06efb-b450-11ef-818d-00155d060d12', '25d2f14d-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d2041a-b450-11ef-818d-00155d060d12', '277afec3-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d35b60-b450-11ef-818d-00155d060d12', '25d6cca9-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d55a38-b450-11ef-818d-00155d060d12', '25d998df-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d6b2f3-b450-11ef-818d-00155d060d12', '28e723fe-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d7ec0d-b450-11ef-818d-00155d060d12', '28737d7f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6d945f9-b450-11ef-818d-00155d060d12', '2191a552-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6daa034-b450-11ef-818d-00155d060d12', '25dc5bd5-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:02', '2024-12-07 04:07:02', NULL),
+('b6dc1461-b450-11ef-818d-00155d060d12', '2877ed42-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6ddea02-b450-11ef-818d-00155d060d12', '28ec3b6e-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6df5e2c-b450-11ef-818d-00155d060d12', '28ef55d9-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e096ed-b450-11ef-818d-00155d060d12', '28f38a5a-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e1d1b5-b450-11ef-818d-00155d060d12', '28f8060f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e30ea1-b450-11ef-818d-00155d060d12', '25e089f2-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e45ba2-b450-11ef-818d-00155d060d12', '25e54fd1-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e5ca1e-b450-11ef-818d-00155d060d12', '20fb10ef-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e70c0d-b450-11ef-818d-00155d060d12', '28fc1b3e-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e85f6d-b450-11ef-818d-00155d060d12', '20fda67a-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6e9beeb-b450-11ef-818d-00155d060d12', '28ff90c3-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6eb3a17-b450-11ef-818d-00155d060d12', '25b7eb02-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6ecd2e7-b450-11ef-818d-00155d060d12', '20964b83-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6ee3dcb-b450-11ef-818d-00155d060d12', '2099baf0-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f04714-b450-11ef-818d-00155d060d12', '22c5a41a-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f19698-b450-11ef-818d-00155d060d12', '21b3fd4e-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f31352-b450-11ef-818d-00155d060d12', '21b985c1-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f4b58a-b450-11ef-818d-00155d060d12', '262a77e5-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f618cf-b450-11ef-818d-00155d060d12', '243104a3-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f751a6-b450-11ef-818d-00155d060d12', '244b3e55-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f881a6-b450-11ef-818d-00155d060d12', '21dc3fa2-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6f9f59f-b450-11ef-818d-00155d060d12', '21e0c8c8-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6fb5e61-b450-11ef-818d-00155d060d12', '2207fe1f-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6fcdcd8-b450-11ef-818d-00155d060d12', '2304ab82-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6fe2326-b450-11ef-818d-00155d060d12', '21e40a98-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b6ffb2dd-b450-11ef-818d-00155d060d12', '21e85347-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b700e9eb-b450-11ef-818d-00155d060d12', '244f2091-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b70245bd-b450-11ef-818d-00155d060d12', '2452c40b-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b703a23c-b450-11ef-818d-00155d060d12', '21ed0609-b38c-11ef-818d-00155d060d12', '31ec989a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b704ff71-b450-11ef-818d-00155d060d12', '26d88d2f-b38c-11ef-818d-00155d060d12', '322bb08f-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b707242e-b450-11ef-818d-00155d060d12', '27f2fa0e-b38c-11ef-818d-00155d060d12', '322bb08f-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7086b22-b450-11ef-818d-00155d060d12', '29d840bc-b38c-11ef-818d-00155d060d12', '322bb08f-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b70a90e4-b450-11ef-818d-00155d060d12', '29daf0e1-b38c-11ef-818d-00155d060d12', '322bb08f-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b70c31f5-b450-11ef-818d-00155d060d12', '22c9d235-b38c-11ef-818d-00155d060d12', '322bb08f-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b70d73fa-b450-11ef-818d-00155d060d12', '22cd4355-b38c-11ef-818d-00155d060d12', '322bb08f-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b70ecb68-b450-11ef-818d-00155d060d12', '2692a024-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7110c8c-b450-11ef-818d-00155d060d12', '2695cd4e-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7124c68-b450-11ef-818d-00155d060d12', '2903a96b-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7138cba-b450-11ef-818d-00155d060d12', '2698883d-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7154f3f-b450-11ef-818d-00155d060d12', '269bb92a-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b716bd54-b450-11ef-818d-00155d060d12', '269f0c4e-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b718207d-b450-11ef-818d-00155d060d12', '25e7cac9-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7196d62-b450-11ef-818d-00155d060d12', '25ebefe3-b38c-11ef-818d-00155d060d12', '320a4edc-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b71aa63a-b450-11ef-818d-00155d060d12', '26a2a38f-b38c-11ef-818d-00155d060d12', '3211764c-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b71c4023-b450-11ef-818d-00155d060d12', '26a5b1a5-b38c-11ef-818d-00155d060d12', '3211764c-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b71d8b9a-b450-11ef-818d-00155d060d12', '29073ed2-b38c-11ef-818d-00155d060d12', '3211764c-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b71eec30-b450-11ef-818d-00155d060d12', '21014e1c-b38c-11ef-818d-00155d060d12', '321b0922-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7201ff4-b450-11ef-818d-00155d060d12', '28ec3b6e-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b722209f-b450-11ef-818d-00155d060d12', '28ef55d9-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7237649-b450-11ef-818d-00155d060d12', '28f38a5a-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b724c3aa-b450-11ef-818d-00155d060d12', '28f8060f-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b72618df-b450-11ef-818d-00155d060d12', '23ec6ea1-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7283bfc-b450-11ef-818d-00155d060d12', '23f1696a-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b72b4e46-b450-11ef-818d-00155d060d12', '23f6aa64-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b72ccec0-b450-11ef-818d-00155d060d12', '23fc085f-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b72e4c11-b450-11ef-818d-00155d060d12', '240392bb-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b72f9f0e-b450-11ef-818d-00155d060d12', '2407a221-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b730e0b3-b450-11ef-818d-00155d060d12', '240cd297-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b73261e8-b450-11ef-818d-00155d060d12', '2410ab4c-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b733cb93-b450-11ef-818d-00155d060d12', '2662b3ab-b38c-11ef-818d-00155d060d12', '321e22b8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7350f8e-b450-11ef-818d-00155d060d12', '23575461-b38c-11ef-818d-00155d060d12', '32250347-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b73654e9-b450-11ef-818d-00155d060d12', '235ab6e5-b38c-11ef-818d-00155d060d12', '32250347-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b737de33-b450-11ef-818d-00155d060d12', '290bb840-b38c-11ef-818d-00155d060d12', '32250347-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7393bba-b450-11ef-818d-00155d060d12', '24142181-b38c-11ef-818d-00155d060d12', 'f5483151-b44e-11ef-818d-00155d060d12', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b73a633b-b450-11ef-818d-00155d060d12', '24177389-b38c-11ef-818d-00155d060d12', 'f5483151-b44e-11ef-818d-00155d060d12', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b73bbb84-b450-11ef-818d-00155d060d12', '1f1d040b-b38c-11ef-818d-00155d060d12', '31f50390-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b73d464e-b450-11ef-818d-00155d060d12', '1f202cf7-b38c-11ef-818d-00155d060d12', '31f50390-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b73ebd23-b450-11ef-818d-00155d060d12', '290ee118-b38c-11ef-818d-00155d060d12', '31f50390-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b740d504-b450-11ef-818d-00155d060d12', '29124c13-b38c-11ef-818d-00155d060d12', '31f50390-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7424eb2-b450-11ef-818d-00155d060d12', '21963512-b38c-11ef-818d-00155d060d12', '85b552da-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7434b4b-b450-11ef-818d-00155d060d12', '26de14b5-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b744755d-b450-11ef-818d-00155d060d12', '26e448b0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b745ba53-b450-11ef-818d-00155d060d12', '26e8e4cc-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7471212-b450-11ef-818d-00155d060d12', '26ebae39-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b74835d1-b450-11ef-818d-00155d060d12', '26ee6756-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b749f740-b450-11ef-818d-00155d060d12', '27092676-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b74b79eb-b450-11ef-818d-00155d060d12', '270cd4d3-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b74cac9c-b450-11ef-818d-00155d060d12', '2712c93e-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b74e0cc0-b450-11ef-818d-00155d060d12', '27169939-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b74f53a4-b450-11ef-818d-00155d060d12', '203bc2ac-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b75094e2-b450-11ef-818d-00155d060d12', '271b455d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b751ee2c-b450-11ef-818d-00155d060d12', '271dfa6e-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7532344-b450-11ef-818d-00155d060d12', '272155d4-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b754afb2-b450-11ef-818d-00155d060d12', '2724f328-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b755e6a4-b450-11ef-818d-00155d060d12', '2727e086-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7576f6f-b450-11ef-818d-00155d060d12', '1e04fe49-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7592d9f-b450-11ef-818d-00155d060d12', '203fda75-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b75c154d-b450-11ef-818d-00155d060d12', '1e967b1f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b760cf5b-b450-11ef-818d-00155d060d12', '29dd9f45-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b76ba0c7-b450-11ef-818d-00155d060d12', '20435efc-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b76d93a8-b450-11ef-818d-00155d060d12', '204772c0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b7700279-b450-11ef-818d-00155d060d12', '1e09a88c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b772a7b3-b450-11ef-818d-00155d060d12', '1e0c636d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:03', '2024-12-07 04:07:03', NULL),
+('b774fe07-b450-11ef-818d-00155d060d12', '1e10d223-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b777efa7-b450-11ef-818d-00155d060d12', '1e1374ca-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b77a9b47-b450-11ef-818d-00155d060d12', '1e5d49ba-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b77db0a9-b450-11ef-818d-00155d060d12', '1e17480b-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b781d4cd-b450-11ef-818d-00155d060d12', '1e61e2d8-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b783eae7-b450-11ef-818d-00155d060d12', '1e1b9e84-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7862d69-b450-11ef-818d-00155d060d12', '1ed5d3e6-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7882012-b450-11ef-818d-00155d060d12', '272add23-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b78adf05-b450-11ef-818d-00155d060d12', '2a227269-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b78d988b-b450-11ef-818d-00155d060d12', '1eda5984-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b78fea78-b450-11ef-818d-00155d060d12', '272e78c8-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b79266ef-b450-11ef-818d-00155d060d12', '1e99d1aa-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b795a1df-b450-11ef-818d-00155d060d12', '281b16fd-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b797c3bb-b450-11ef-818d-00155d060d12', '2751c30d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b79a875e-b450-11ef-818d-00155d060d12', '27557dc2-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b79db586-b450-11ef-818d-00155d060d12', '27592fb5-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7a04427-b450-11ef-818d-00155d060d12', '281dc035-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7a25727-b450-11ef-818d-00155d060d12', '2821da29-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7a441df-b450-11ef-818d-00155d060d12', '275e013c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7a66211-b450-11ef-818d-00155d060d12', '24bd7287-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7a85127-b450-11ef-818d-00155d060d12', '1e9bec68-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7aa5afc-b450-11ef-818d-00155d060d12', '1f3bfbc8-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7ac0552-b450-11ef-818d-00155d060d12', '219964b0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7ae68be-b450-11ef-818d-00155d060d12', '1f391621-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7b0a1aa-b450-11ef-818d-00155d060d12', '1e244b52-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7b28e90-b450-11ef-818d-00155d060d12', '1e2790ba-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL);
+INSERT INTO `car_compatible_battery` (`id`, `car_model_id`, `battery_sizes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('b7b45632-b450-11ef-818d-00155d060d12', '1e2a5ad4-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7b6b666-b450-11ef-818d-00155d060d12', '1e2edf37-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7b87903-b450-11ef-818d-00155d060d12', '1e323bba-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7bad578-b450-11ef-818d-00155d060d12', '1e364da2-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7bcdc11-b450-11ef-818d-00155d060d12', '1e44f882-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7becbfa-b450-11ef-818d-00155d060d12', '1e494af9-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7c166f4-b450-11ef-818d-00155d060d12', '1e4cfc03-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7c316bb-b450-11ef-818d-00155d060d12', '1e50217f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7c529f5-b450-11ef-818d-00155d060d12', '26658878-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7c7b2fb-b450-11ef-818d-00155d060d12', '266876dc-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7c99be5-b450-11ef-818d-00155d060d12', '29e17922-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7cc2416-b450-11ef-818d-00155d060d12', '1e529835-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7ce2f7e-b450-11ef-818d-00155d060d12', '1f92b10f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7d02124-b450-11ef-818d-00155d060d12', '25bb23de-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7d26b98-b450-11ef-818d-00155d060d12', '204a1129-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7d5c984-b450-11ef-818d-00155d060d12', '1f95c411-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7d8d2de-b450-11ef-818d-00155d060d12', '1f9a329b-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7dbb644-b450-11ef-818d-00155d060d12', '1f9d8cc6-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7de16e6-b450-11ef-818d-00155d060d12', '2675b22c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7dffbf2-b450-11ef-818d-00155d060d12', '267930cd-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7e22b7a-b450-11ef-818d-00155d060d12', '29165ae3-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7e41577-b450-11ef-818d-00155d060d12', '22a6cf04-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7e5b3a1-b450-11ef-818d-00155d060d12', '22aafe18-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7e84a17-b450-11ef-818d-00155d060d12', '22af84ff-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7eaa3d9-b450-11ef-818d-00155d060d12', '2919f0a4-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7ecceb8-b450-11ef-818d-00155d060d12', '25be6f43-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7ef04ba-b450-11ef-818d-00155d060d12', '2104c19e-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7f0a5dd-b450-11ef-818d-00155d060d12', '27f5b4fe-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7f2b231-b450-11ef-818d-00155d060d12', '2541a05e-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7f4c61e-b450-11ef-818d-00155d060d12', '28393087-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7f6cc40-b450-11ef-818d-00155d060d12', '204d451d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7f9027c-b450-11ef-818d-00155d060d12', '29e46165-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7fabc5d-b450-11ef-818d-00155d060d12', '205047d2-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7fc816e-b450-11ef-818d-00155d060d12', '1fa2ff54-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b7fe5f45-b450-11ef-818d-00155d060d12', '1fa60e38-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b8007908-b450-11ef-818d-00155d060d12', '1fab80f8-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b801ebbb-b450-11ef-818d-00155d060d12', '209da554-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b8047a47-b450-11ef-818d-00155d060d12', '219d0db6-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b8063779-b450-11ef-818d-00155d060d12', '21a0adef-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b807fe04-b450-11ef-818d-00155d060d12', '239e0df0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b80a9d97-b450-11ef-818d-00155d060d12', '20a0f856-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:04', '2024-12-07 04:07:04', NULL),
+('b80ce605-b450-11ef-818d-00155d060d12', '2825b52e-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b80ef4cb-b450-11ef-818d-00155d060d12', '28290b78-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b810f02b-b450-11ef-818d-00155d060d12', '20a4388f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b812736b-b450-11ef-818d-00155d060d12', '20b0774b-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8145123-b450-11ef-818d-00155d060d12', '283d1f09-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8163e11-b450-11ef-818d-00155d060d12', '2920c53d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8185963-b450-11ef-818d-00155d060d12', '28414be7-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b81a7fd4-b450-11ef-818d-00155d060d12', '232252d6-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b81c3183-b450-11ef-818d-00155d060d12', '23269acf-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b81e7a58-b450-11ef-818d-00155d060d12', '232a7769-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8202009-b450-11ef-818d-00155d060d12', '232e5e4f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b821e1cf-b450-11ef-818d-00155d060d12', '21a50823-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b823dcc1-b450-11ef-818d-00155d060d12', '29e7353b-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8265623-b450-11ef-818d-00155d060d12', '1e552364-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8287ece-b450-11ef-818d-00155d060d12', '21a9b467-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b82a27bc-b450-11ef-818d-00155d060d12', '291df5f0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b82cca80-b450-11ef-818d-00155d060d12', '29f2eaac-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b82ee42a-b450-11ef-818d-00155d060d12', '266cce52-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b830cb90-b450-11ef-818d-00155d060d12', '266f363d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b833023d-b450-11ef-818d-00155d060d12', '27f9cbf8-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b835b394-b450-11ef-818d-00155d060d12', '27fd3791-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8385c31-b450-11ef-818d-00155d060d12', '1f664aa9-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b83a772f-b450-11ef-818d-00155d060d12', '2672c197-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b83d6847-b450-11ef-818d-00155d060d12', '20538583-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b83fa202-b450-11ef-818d-00155d060d12', '1f1653fa-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8427f22-b450-11ef-818d-00155d060d12', '1f6a1d5f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8453c25-b450-11ef-818d-00155d060d12', '220f0744-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b847dbf9-b450-11ef-818d-00155d060d12', '20a79e71-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b84a05c9-b450-11ef-818d-00155d060d12', '282cff98-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b84c9e98-b450-11ef-818d-00155d060d12', '267c3686-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b84f5c5f-b450-11ef-818d-00155d060d12', '1f3e9a69-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b851ae0a-b450-11ef-818d-00155d060d12', '205688df-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b853c995-b450-11ef-818d-00155d060d12', '29eac12a-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b856b859-b450-11ef-818d-00155d060d12', '20598d9d-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b85a2b78-b450-11ef-818d-00155d060d12', '205c94f1-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b85ca8f6-b450-11ef-818d-00155d060d12', '22b1f42f-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8603435-b450-11ef-818d-00155d060d12', '2060b4c9-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b862c9cd-b450-11ef-818d-00155d060d12', '28477d20-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8656a86-b450-11ef-818d-00155d060d12', '22b64ffa-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b86796e1-b450-11ef-818d-00155d060d12', '278428fe-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b869bfca-b450-11ef-818d-00155d060d12', '28017c4a-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b86c846d-b450-11ef-818d-00155d060d12', '289510d0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b86f964b-b450-11ef-818d-00155d060d12', '22b9fb3a-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b872bfc0-b450-11ef-818d-00155d060d12', '20ad5e67-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8750d1e-b450-11ef-818d-00155d060d12', '24c164c6-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b877fa4e-b450-11ef-818d-00155d060d12', '1f6df0c8-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b87a61f9-b450-11ef-818d-00155d060d12', '22c18123-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b87ccb13-b450-11ef-818d-00155d060d12', '1e586fe0-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b87ef71d-b450-11ef-818d-00155d060d12', '22bc767c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b881341d-b450-11ef-818d-00155d060d12', '23a93f99-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b883cf46-b450-11ef-818d-00155d060d12', '2064dd49-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8870f31-b450-11ef-818d-00155d060d12', '2068c96b-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b889c189-b450-11ef-818d-00155d060d12', '277f255c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b88ee9f0-b450-11ef-818d-00155d060d12', '29ee2c19-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8914be2-b450-11ef-818d-00155d060d12', '21b0373c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8938bae-b450-11ef-818d-00155d060d12', '29f0953c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b895db01-b450-11ef-818d-00155d060d12', '1f715116-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b898058e-b450-11ef-818d-00155d060d12', '206b4427-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b89ab87a-b450-11ef-818d-00155d060d12', '27884da6-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b89d77ad-b450-11ef-818d-00155d060d12', '1fae8f3c-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b89fb9b1-b450-11ef-818d-00155d060d12', '1fb30e11-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8a1ff40-b450-11ef-818d-00155d060d12', '1fba91a1-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8a41b0a-b450-11ef-818d-00155d060d12', '267f6f71-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:05', '2024-12-07 04:07:05', NULL),
+('b8a68673-b450-11ef-818d-00155d060d12', '1fb5f337-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8a8899f-b450-11ef-818d-00155d060d12', '22c5a41a-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8ab612a-b450-11ef-818d-00155d060d12', '21b3fd4e-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8affb79-b450-11ef-818d-00155d060d12', '21b985c1-b38c-11ef-818d-00155d060d12', '31fa7183-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8b4616e-b450-11ef-818d-00155d060d12', '1f41668b-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8b72d48-b450-11ef-818d-00155d060d12', '1f74ff46-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8b9d4c2-b450-11ef-818d-00155d060d12', '1f77cdab-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8bc14a1-b450-11ef-818d-00155d060d12', '228ceb97-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8bf19f9-b450-11ef-818d-00155d060d12', '278c291d-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8c1be5d-b450-11ef-818d-00155d060d12', '27907722-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8c40a67-b450-11ef-818d-00155d060d12', '1f7abdae-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8c684bd-b450-11ef-818d-00155d060d12', '27934487-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8c92686-b450-11ef-818d-00155d060d12', '2226938f-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8cbd179-b450-11ef-818d-00155d060d12', '2290f00d-b38c-11ef-818d-00155d060d12', '04045a7c-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8ce69d2-b450-11ef-818d-00155d060d12', '1e64bfe7-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8d0b54f-b450-11ef-818d-00155d060d12', '2731c901-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8d34091-b450-11ef-818d-00155d060d12', '273724ad-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8d5a28d-b450-11ef-818d-00155d060d12', '273bcb18-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8d7fc9d-b450-11ef-818d-00155d060d12', '1edd8aa0-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8dbbfdb-b450-11ef-818d-00155d060d12', '1ee0971c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8de5d03-b450-11ef-818d-00155d060d12', '206ecbd7-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8e299bd-b450-11ef-818d-00155d060d12', '1e673f86-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8e4ca73-b450-11ef-818d-00155d060d12', '1e69e591-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8e7d759-b450-11ef-818d-00155d060d12', '24c57ee3-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8eb721f-b450-11ef-818d-00155d060d12', '24c9edd1-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8ee12a6-b450-11ef-818d-00155d060d12', '27ded7b7-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8f17f27-b450-11ef-818d-00155d060d12', '24cd22d2-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8f3a252-b450-11ef-818d-00155d060d12', '27e2c4a2-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8f66238-b450-11ef-818d-00155d060d12', '1ee43c3f-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8f96ef0-b450-11ef-818d-00155d060d12', '1ee7d2fa-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8fcd4b8-b450-11ef-818d-00155d060d12', '1eeb7595-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b8ffab6d-b450-11ef-818d-00155d060d12', '273fdfc4-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b9026a78-b450-11ef-818d-00155d060d12', '1eee858c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b9061d0d-b450-11ef-818d-00155d060d12', '1ef21dfd-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b908bcbc-b450-11ef-818d-00155d060d12', '2742acd8-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b90b9acc-b450-11ef-818d-00155d060d12', '1ef4a45d-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b90e1098-b450-11ef-818d-00155d060d12', '27e8f674-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b910e281-b450-11ef-818d-00155d060d12', '1ef937e5-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b913a494-b450-11ef-818d-00155d060d12', '27ed2daa-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b916795b-b450-11ef-818d-00155d060d12', '2a25495b-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b9190f47-b450-11ef-818d-00155d060d12', '1e9eb1c6-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b91b9f34-b450-11ef-818d-00155d060d12', '276358bd-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b91e836b-b450-11ef-818d-00155d060d12', '2a2850d5-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b921288d-b450-11ef-818d-00155d060d12', '2a2bf56c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b9244317-b450-11ef-818d-00155d060d12', '24d3b9ae-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b926fa12-b450-11ef-818d-00155d060d12', '2108c764-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b929a3f1-b450-11ef-818d-00155d060d12', '24d7b506-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b92be7db-b450-11ef-818d-00155d060d12', '29f71087-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b92ea398-b450-11ef-818d-00155d060d12', '241bf4c3-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b931150b-b450-11ef-818d-00155d060d12', '1fbf2723-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b9340e7e-b450-11ef-818d-00155d060d12', '24db3631-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b936c845-b450-11ef-818d-00155d060d12', '24de7d9c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b939524b-b450-11ef-818d-00155d060d12', '1fc33d6b-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b93b7367-b450-11ef-818d-00155d060d12', '1fc69e67-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b93d9f22-b450-11ef-818d-00155d060d12', '1fc963bd-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:06', '2024-12-07 04:07:06', NULL),
+('b93ffe37-b450-11ef-818d-00155d060d12', '1fcd870e-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9429529-b450-11ef-818d-00155d060d12', '1fcfd6a4-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b94577cc-b450-11ef-818d-00155d060d12', '1fd2ba00-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b947953e-b450-11ef-818d-00155d060d12', '2a2ec4df-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b94a4f2a-b450-11ef-818d-00155d060d12', '1fd52e7f-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b94ca6f8-b450-11ef-818d-00155d060d12', '29f98415-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b94f78b7-b450-11ef-818d-00155d060d12', '20b404e8-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b951ef0c-b450-11ef-818d-00155d060d12', '29fdb70b-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b954367d-b450-11ef-818d-00155d060d12', '22954921-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b956e053-b450-11ef-818d-00155d060d12', '24e2cba1-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b959c00c-b450-11ef-818d-00155d060d12', '1f7d3b71-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b95bd9bb-b450-11ef-818d-00155d060d12', '1f811fcd-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b95e4658-b450-11ef-818d-00155d060d12', '1f83e4c3-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b961284c-b450-11ef-818d-00155d060d12', '2273979e-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b963d74c-b450-11ef-818d-00155d060d12', '23375f5f-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b96602c7-b450-11ef-818d-00155d060d12', '24e79575-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b968f7e9-b450-11ef-818d-00155d060d12', '2a013c09-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b96ba0cf-b450-11ef-818d-00155d060d12', '28048367-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b96e6e6b-b450-11ef-818d-00155d060d12', '23a44bcd-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b970d822-b450-11ef-818d-00155d060d12', '1fd986f9-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9735140-b450-11ef-818d-00155d060d12', '20b7e63e-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b975ef9e-b450-11ef-818d-00155d060d12', '2807f598-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9780466-b450-11ef-818d-00155d060d12', '20ba8c4a-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b97a924e-b450-11ef-818d-00155d060d12', '2923e833-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b97cf170-b450-11ef-818d-00155d060d12', '268258c8-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b980129b-b450-11ef-818d-00155d060d12', '2a059c98-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9823f97-b450-11ef-818d-00155d060d12', '20bdb785-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9843ab1-b450-11ef-818d-00155d060d12', '1fdd2341-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9872518-b450-11ef-818d-00155d060d12', '29266bc5-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9894cda-b450-11ef-818d-00155d060d12', '280c3173-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b98be944-b450-11ef-818d-00155d060d12', '20723bd1-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b98e8744-b450-11ef-818d-00155d060d12', '28112bce-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b990769a-b450-11ef-818d-00155d060d12', '2074d479-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b99300b7-b450-11ef-818d-00155d060d12', '1f86a97a-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9958e69-b450-11ef-818d-00155d060d12', '1f89aac3-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b997b7ac-b450-11ef-818d-00155d060d12', '2a084aab-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b999ba6b-b450-11ef-818d-00155d060d12', '23ad14c6-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b99bd842-b450-11ef-818d-00155d060d12', '20c243b2-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b99de515-b450-11ef-818d-00155d060d12', '27463a2e-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9a08fc8-b450-11ef-818d-00155d060d12', '24efe6d0-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9a4fd55-b450-11ef-818d-00155d060d12', '24f4399f-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9a730d5-b450-11ef-818d-00155d060d12', '2a31347d-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9a96f04-b450-11ef-818d-00155d060d12', '2a350571-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9ab86c0-b450-11ef-818d-00155d060d12', '2a38a8d6-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9af165c-b450-11ef-818d-00155d060d12', '2a3c7900-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9b15adb-b450-11ef-818d-00155d060d12', '2a0b8a18-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9b38050-b450-11ef-818d-00155d060d12', '2a0f7d18-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9b64446-b450-11ef-818d-00155d060d12', '2a1334eb-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9b8c988-b450-11ef-818d-00155d060d12', '24eab5a8-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9bb5b21-b450-11ef-818d-00155d060d12', '20c5517d-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9bf9bb3-b450-11ef-818d-00155d060d12', '2277548e-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9c2b239-b450-11ef-818d-00155d060d12', '27ef970d-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9c4e3d9-b450-11ef-818d-00155d060d12', '283018b1-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9c82169-b450-11ef-818d-00155d060d12', '21be409c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9caadd8-b450-11ef-818d-00155d060d12', '207783b0-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9cece65-b450-11ef-818d-00155d060d12', '207a4c15-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9d129d9-b450-11ef-818d-00155d060d12', '207d08da-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9d3b292-b450-11ef-818d-00155d060d12', '26854fa8-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9d63b4b-b450-11ef-818d-00155d060d12', '2797650c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:07', '2024-12-07 04:07:07', NULL),
+('b9d8e652-b450-11ef-818d-00155d060d12', '1fe04e4f-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9dc00e6-b450-11ef-818d-00155d060d12', '2a4082a7-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9de5c51-b450-11ef-818d-00155d060d12', '227b8a14-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9e0c7d2-b450-11ef-818d-00155d060d12', '22803439-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9e31f02-b450-11ef-818d-00155d060d12', '2283a690-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9e59a1a-b450-11ef-818d-00155d060d12', '22862bdc-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9e87f36-b450-11ef-818d-00155d060d12', '1fe3bc7d-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9eae468-b450-11ef-818d-00155d060d12', '2288cc92-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9ed2ffa-b450-11ef-818d-00155d060d12', '1efc9954-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9ef8f95-b450-11ef-818d-00155d060d12', '1f00074c-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9f1e72a-b450-11ef-818d-00155d060d12', '233df318-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9f455ba-b450-11ef-818d-00155d060d12', '2343f674-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9f6832c-b450-11ef-818d-00155d060d12', '22c9d235-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9f8f45c-b450-11ef-818d-00155d060d12', '22cd4355-b38c-11ef-818d-00155d060d12', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9fb25a1-b450-11ef-818d-00155d060d12', '20c82c0d-b38c-11ef-818d-00155d060d12', '32013a97-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9fdb2f1-b450-11ef-818d-00155d060d12', '20cc9aaa-b38c-11ef-818d-00155d060d12', '32013a97-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('b9ffbf4e-b450-11ef-818d-00155d060d12', '21c12dcf-b38c-11ef-818d-00155d060d12', 'c4462fa3-9c12-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba01ce8b-b450-11ef-818d-00155d060d12', '2516c59f-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba0411c6-b450-11ef-818d-00155d060d12', '2519f57e-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba06374b-b450-11ef-818d-00155d060d12', '24f7e8b5-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba08acc6-b450-11ef-818d-00155d060d12', '1f03be6c-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba0b3454-b450-11ef-818d-00155d060d12', '1f077952-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba0d8771-b450-11ef-818d-00155d060d12', '1f0cd326-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba10f844-b450-11ef-818d-00155d060d12', '1f11e246-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba131b47-b450-11ef-818d-00155d060d12', '2a47b049-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba16d022-b450-11ef-818d-00155d060d12', '2767237a-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba191b8d-b450-11ef-818d-00155d060d12', '251f0584-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba1bf4f5-b450-11ef-818d-00155d060d12', '2769bf3b-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba1e5f95-b450-11ef-818d-00155d060d12', '234ed0ae-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba215be8-b450-11ef-818d-00155d060d12', '23534edf-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba23bcd7-b450-11ef-818d-00155d060d12', '24fc500f-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba26bbc9-b450-11ef-818d-00155d060d12', '24ff7eaf-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba29520c-b450-11ef-818d-00155d060d12', '250394c3-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba2c369a-b450-11ef-818d-00155d060d12', '2507ed1b-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba2e751f-b450-11ef-818d-00155d060d12', '23472c6e-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba326ef2-b450-11ef-818d-00155d060d12', '234a287c-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba34a855-b450-11ef-818d-00155d060d12', '250cf9ec-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba36d633-b450-11ef-818d-00155d060d12', '25106450-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba394cd7-b450-11ef-818d-00155d060d12', '251336f8-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba3c7f5e-b450-11ef-818d-00155d060d12', '22d087d4-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba3eb355-b450-11ef-818d-00155d060d12', '2a160372-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba423325-b450-11ef-818d-00155d060d12', '2a43f828-b38c-11ef-818d-00155d060d12', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba4519eb-b450-11ef-818d-00155d060d12', '1fe75ba1-b38c-11ef-818d-00155d060d12', '3180c167-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba482cd8-b450-11ef-818d-00155d060d12', '22d4ec1b-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba4b49b6-b450-11ef-818d-00155d060d12', '2229fece-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba4dd5c9-b450-11ef-818d-00155d060d12', '222d97df-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba5071e4-b450-11ef-818d-00155d060d12', '22d88574-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba52e13d-b450-11ef-818d-00155d060d12', '20d1f634-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba5530fe-b450-11ef-818d-00155d060d12', '20d4fb71-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba576941-b450-11ef-818d-00155d060d12', '221244c6-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba5910fa-b450-11ef-818d-00155d060d12', '22dc1d9a-b38c-11ef-818d-00155d060d12', '313e3c20-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba5b0587-b450-11ef-818d-00155d060d12', '25eea222-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba5d44f2-b450-11ef-818d-00155d060d12', '241f62e6-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba5f5acb-b450-11ef-818d-00155d060d12', '284af732-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba611f83-b450-11ef-818d-00155d060d12', '2231bcd5-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba6391c6-b450-11ef-818d-00155d060d12', '22352c10-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba65e922-b450-11ef-818d-00155d060d12', '24252082-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba67a0d3-b450-11ef-818d-00155d060d12', '25f1e778-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba69a58e-b450-11ef-818d-00155d060d12', '284e5794-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba6bd06c-b450-11ef-818d-00155d060d12', '25620eba-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba6de952-b450-11ef-818d-00155d060d12', '22386ce0-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:08', '2024-12-07 04:07:08', NULL),
+('ba70a064-b450-11ef-818d-00155d060d12', '2567b2cd-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba72d5e1-b450-11ef-818d-00155d060d12', '1f271e51-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba752903-b450-11ef-818d-00155d060d12', '20d7cff8-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba775c22-b450-11ef-818d-00155d060d12', '242a61a5-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba7911ae-b450-11ef-818d-00155d060d12', '25f52bcd-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba7b6fbd-b450-11ef-818d-00155d060d12', '20dd0719-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba7db856-b450-11ef-818d-00155d060d12', '28513246-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba80920c-b450-11ef-818d-00155d060d12', '28545a7f-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba8287f1-b450-11ef-818d-00155d060d12', '256a9415-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba849287-b450-11ef-818d-00155d060d12', '221714f3-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL);
+INSERT INTO `car_compatible_battery` (`id`, `car_model_id`, `battery_sizes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('ba86e508-b450-11ef-818d-00155d060d12', '285a66e8-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba8926ab-b450-11ef-818d-00155d060d12', '221b55d9-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba8bca0f-b450-11ef-818d-00155d060d12', '285e29dd-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba8e27cf-b450-11ef-818d-00155d060d12', '223c11ee-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba90e08b-b450-11ef-818d-00155d060d12', '28626677-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba930491-b450-11ef-818d-00155d060d12', '25f7e78f-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba95a192-b450-11ef-818d-00155d060d12', '22e1b3c1-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba9823e0-b450-11ef-818d-00155d060d12', '21ca3f89-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba9ad31d-b450-11ef-818d-00155d060d12', '2866077d-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba9dc145-b450-11ef-818d-00155d060d12', '28b68edf-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('ba9f5be2-b450-11ef-818d-00155d060d12', '25fae1e9-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baa275c7-b450-11ef-818d-00155d060d12', '1f457b0e-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baa4ba71-b450-11ef-818d-00155d060d12', '22402b4f-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baa73c15-b450-11ef-818d-00155d060d12', '25fdbea0-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baaa4007-b450-11ef-818d-00155d060d12', '29c8d559-b38c-11ef-818d-00155d060d12', '3149cefa-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baacbeb8-b450-11ef-818d-00155d060d12', '292bb3cd-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baaf4aba-b450-11ef-818d-00155d060d12', '26a8f001-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bab2723b-b450-11ef-818d-00155d060d12', '21cd9ed0-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bab5a2bd-b450-11ef-818d-00155d060d12', '222059d5-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bab9bc15-b450-11ef-818d-00155d060d12', '1f239a39-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('babc51cb-b450-11ef-818d-00155d060d12', '26ab9181-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('babf28a7-b450-11ef-818d-00155d060d12', '26af3d66-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bac1c600-b450-11ef-818d-00155d060d12', '210c5af3-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bac50053-b450-11ef-818d-00155d060d12', '2110b66d-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bac7ad28-b450-11ef-818d-00155d060d12', '21169486-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baca00c9-b450-11ef-818d-00155d060d12', '211ad1ab-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bacc53b6-b450-11ef-818d-00155d060d12', '292f2601-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baced227-b450-11ef-818d-00155d060d12', '211f3723-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bad14cdb-b450-11ef-818d-00155d060d12', '1f2a54d9-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bad3f28b-b450-11ef-818d-00155d060d12', '1f2eb0ce-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bad7385f-b450-11ef-818d-00155d060d12', '279bf712-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bad9c2a0-b450-11ef-818d-00155d060d12', '242dbce3-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('badc6144-b450-11ef-818d-00155d060d12', '2122a3a5-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('badf6a85-b450-11ef-818d-00155d060d12', '1feb6113-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bae1f281-b450-11ef-818d-00155d060d12', '21d1e84d-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bae3dcfc-b450-11ef-818d-00155d060d12', '2125a54e-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bae634fd-b450-11ef-818d-00155d060d12', '2128d564-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bae98327-b450-11ef-818d-00155d060d12', '212c46fe-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baebb828-b450-11ef-818d-00155d060d12', '26b2b4c8-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baed4ae6-b450-11ef-818d-00155d060d12', '26b78698-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baeee21e-b450-11ef-818d-00155d060d12', '26b9e45b-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baf06dcb-b450-11ef-818d-00155d060d12', '26bc9fbf-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baf24d04-b450-11ef-818d-00155d060d12', '1fef3730-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baf42141-b450-11ef-818d-00155d060d12', '26c002f9-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baf6409e-b450-11ef-818d-00155d060d12', '26c36ee4-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('baf89da3-b450-11ef-818d-00155d060d12', '22e56791-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bafa03c8-b450-11ef-818d-00155d060d12', '26c82636-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bafc0a13-b450-11ef-818d-00155d060d12', '1ff26a92-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bafd8ecb-b450-11ef-818d-00155d060d12', '1f8d33c0-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bafed215-b450-11ef-818d-00155d060d12', '25c20e0a-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bb002425-b450-11ef-818d-00155d060d12', '26cb2d5f-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bb01e165-b450-11ef-818d-00155d060d12', '256dee30-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bb037f72-b450-11ef-818d-00155d060d12', '25710b1e-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bb051525-b450-11ef-818d-00155d060d12', '2933aeba-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bb06b1e3-b450-11ef-818d-00155d060d12', '2936c07c-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:09', '2024-12-07 04:07:09', NULL),
+('bb07f73a-b450-11ef-818d-00155d060d12', '289862f4-b38c-11ef-818d-00155d060d12', '301832f8-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb098130-b450-11ef-818d-00155d060d12', '25710b1e-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb0b17ec-b450-11ef-818d-00155d060d12', '2933aeba-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb0c7fa6-b450-11ef-818d-00155d060d12', '2936c07c-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb0dc39c-b450-11ef-818d-00155d060d12', '26011e60-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb0f2361-b450-11ef-818d-00155d060d12', '2603b07c-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb108199-b450-11ef-818d-00155d060d12', '294034ed-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb120b37-b450-11ef-818d-00155d060d12', '29452fd1-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb136331-b450-11ef-818d-00155d060d12', '1ff601b1-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb14bc4b-b450-11ef-818d-00155d060d12', '26064fe8-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb15f98e-b450-11ef-818d-00155d060d12', '294b16fe-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb176459-b450-11ef-818d-00155d060d12', '294e7f0c-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb18aee5-b450-11ef-818d-00155d060d12', '1ff8ad3a-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb1a8f27-b450-11ef-818d-00155d060d12', '1ffbfe2f-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb1cb4b5-b450-11ef-818d-00155d060d12', '1fff737d-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb1e4445-b450-11ef-818d-00155d060d12', '20027009-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb1ff3d7-b450-11ef-818d-00155d060d12', '2006a6a7-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb229f5a-b450-11ef-818d-00155d060d12', '212f599c-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb23d2a1-b450-11ef-818d-00155d060d12', '25744bbe-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb24d872-b450-11ef-818d-00155d060d12', '25772ff0-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb26a87e-b450-11ef-818d-00155d060d12', '2132f20b-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb282d34-b450-11ef-818d-00155d060d12', '21365850-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb2987bc-b450-11ef-818d-00155d060d12', '25c5cb2a-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb2b000d-b450-11ef-818d-00155d060d12', '260a59bb-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb2ccc6d-b450-11ef-818d-00155d060d12', '260ec7d2-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb2e7937-b450-11ef-818d-00155d060d12', '20e096b0-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb2fd565-b450-11ef-818d-00155d060d12', '26136937-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb312e8f-b450-11ef-818d-00155d060d12', '26176464-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb329c4c-b450-11ef-818d-00155d060d12', '29518680-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb345143-b450-11ef-818d-00155d060d12', '261a719c-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb35b02e-b450-11ef-818d-00155d060d12', '29569202-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb370b3b-b450-11ef-818d-00155d060d12', '295995b2-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb38fee7-b450-11ef-818d-00155d060d12', '289c1181-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb3a8a1d-b450-11ef-818d-00155d060d12', '261ed618-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb3d860b-b450-11ef-818d-00155d060d12', '289f9125-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb3f9010-b450-11ef-818d-00155d060d12', '2623078a-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb413156-b450-11ef-818d-00155d060d12', '295c39f8-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb4375c6-b450-11ef-818d-00155d060d12', '262689b4-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb4559bb-b450-11ef-818d-00155d060d12', '262a77e5-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb475378-b450-11ef-818d-00155d060d12', '2010f5ef-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb493960-b450-11ef-818d-00155d060d12', '20e3c54d-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb4b4376-b450-11ef-818d-00155d060d12', '262d244a-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb4db35a-b450-11ef-818d-00155d060d12', '20e6ea36-b38c-11ef-818d-00155d060d12', '303a45c4-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb500e6c-b450-11ef-818d-00155d060d12', '213a152a-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb51d59f-b450-11ef-818d-00155d060d12', '213cc806-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb5407c1-b450-11ef-818d-00155d060d12', '243104a3-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb573507-b450-11ef-818d-00155d060d12', '257b7c98-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb5a03b0-b450-11ef-818d-00155d060d12', '2434a2ee-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb5bd595-b450-11ef-818d-00155d060d12', '24382710-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb5e175a-b450-11ef-818d-00155d060d12', '21416f3c-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb6016fc-b450-11ef-818d-00155d060d12', '21469ff8-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb622dae-b450-11ef-818d-00155d060d12', '25805a59-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb643efa-b450-11ef-818d-00155d060d12', '2583f264-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb663470-b450-11ef-818d-00155d060d12', '214c349a-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb67e2fc-b450-11ef-818d-00155d060d12', '26890c4d-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb69e77b-b450-11ef-818d-00155d060d12', '21503393-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb6ca7b2-b450-11ef-818d-00155d060d12', '27a0ef62-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb6eee1e-b450-11ef-818d-00155d060d12', '243b6a9a-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb715b7d-b450-11ef-818d-00155d060d12', '27a4c272-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb735ac3-b450-11ef-818d-00155d060d12', '27ac50fd-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb75cfcd-b450-11ef-818d-00155d060d12', '2587bb05-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb77cb06-b450-11ef-818d-00155d060d12', '215a4bd4-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb79ef5c-b450-11ef-818d-00155d060d12', '29600b99-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb7c56b3-b450-11ef-818d-00155d060d12', '27b0460f-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb7e6e58-b450-11ef-818d-00155d060d12', '27b569f7-b38c-11ef-818d-00155d060d12', '30a1142a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb80889a-b450-11ef-818d-00155d060d12', '289862f4-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb82be3a-b450-11ef-818d-00155d060d12', '2010f5ef-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb85079c-b450-11ef-818d-00155d060d12', '26313a13-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb87ce1b-b450-11ef-818d-00155d060d12', '28360dbd-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb89dd89-b450-11ef-818d-00155d060d12', '287a8a7f-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb8c2451-b450-11ef-818d-00155d060d12', '287d86a6-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb8fc1db-b450-11ef-818d-00155d060d12', '1f48c5a6-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb920127-b450-11ef-818d-00155d060d12', '28a1ebcc-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb953d93-b450-11ef-818d-00155d060d12', '2964443b-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb97a9c0-b450-11ef-818d-00155d060d12', '263387cc-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb9a1b04-b450-11ef-818d-00155d060d12', '1f32197c-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb9be567-b450-11ef-818d-00155d060d12', '1f35844b-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bb9ed509-b450-11ef-818d-00155d060d12', '200a64bf-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:10', '2024-12-07 04:07:10', NULL),
+('bba12ac9-b450-11ef-818d-00155d060d12', '258b9986-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bba384f4-b450-11ef-818d-00155d060d12', '28a67df7-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bba7145a-b450-11ef-818d-00155d060d12', '258f35bf-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bba9f269-b450-11ef-818d-00155d060d12', '1f4d7535-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbac7dad-b450-11ef-818d-00155d060d12', '200d7b39-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbaf3a41-b450-11ef-818d-00155d060d12', '296a65d1-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbb1ab6a-b450-11ef-818d-00155d060d12', '2635f00b-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbb3fbae-b450-11ef-818d-00155d060d12', '28aa4412-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbb6a740-b450-11ef-818d-00155d060d12', '28adf15b-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbb970f6-b450-11ef-818d-00155d060d12', '1f4fb133-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbbc7254-b450-11ef-818d-00155d060d12', '1f52d316-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbbe9d6b-b450-11ef-818d-00155d060d12', '28b27e8e-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbc078ac-b450-11ef-818d-00155d060d12', '296f1d9d-b38c-11ef-818d-00155d060d12', '3071259e-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbc2b7a9-b450-11ef-818d-00155d060d12', '27b569f7-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbc53599-b450-11ef-818d-00155d060d12', '268cd16f-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbc83f0f-b450-11ef-818d-00155d060d12', '281460f7-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbca4d76-b450-11ef-818d-00155d060d12', '2817a7e8-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbcc7ea8-b450-11ef-818d-00155d060d12', '27bcb7bf-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbcec38a-b450-11ef-818d-00155d060d12', '2163ad5e-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbd1aad4-b450-11ef-818d-00155d060d12', '29738f08-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbd3efd0-b450-11ef-818d-00155d060d12', '297a1c27-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbd5ced5-b450-11ef-818d-00155d060d12', '297f7c1b-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbd7d301-b450-11ef-818d-00155d060d12', '2983ca05-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbda2022-b450-11ef-818d-00155d060d12', '2167f29a-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbdc92b9-b450-11ef-818d-00155d060d12', '27c18f56-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbdeed71-b450-11ef-818d-00155d060d12', '2880a1ee-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbe11596-b450-11ef-818d-00155d060d12', '29895d75-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbe35fd0-b450-11ef-818d-00155d060d12', '27c5944d-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbe5fb8b-b450-11ef-818d-00155d060d12', '216c7632-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbe8723d-b450-11ef-818d-00155d060d12', '27cb5c8b-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbeaa708-b450-11ef-818d-00155d060d12', '27ce4d96-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbeceb74-b450-11ef-818d-00155d060d12', '2592a932-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbef6080-b450-11ef-818d-00155d060d12', '298e3145-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbf1bd32-b450-11ef-818d-00155d060d12', '27d13538-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbf3e9a4-b450-11ef-818d-00155d060d12', '27d5934d-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbf772ea-b450-11ef-818d-00155d060d12', '27d84423-b38c-11ef-818d-00155d060d12', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbf9fab4-b450-11ef-818d-00155d060d12', '25e089f2-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbfc892a-b450-11ef-818d-00155d060d12', '25e54fd1-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bbfec94e-b450-11ef-818d-00155d060d12', '20fb10ef-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc00cd9e-b450-11ef-818d-00155d060d12', '28fc1b3e-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc032272-b450-11ef-818d-00155d060d12', '20fda67a-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc078b8b-b450-11ef-818d-00155d060d12', '28ff90c3-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc0a10fb-b450-11ef-818d-00155d060d12', '25b7eb02-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc0cd94f-b450-11ef-818d-00155d060d12', '20964b83-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc1048c1-b450-11ef-818d-00155d060d12', '2099baf0-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc12a735-b450-11ef-818d-00155d060d12', '20e3c54d-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc16a957-b450-11ef-818d-00155d060d12', '262d244a-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc199649-b450-11ef-818d-00155d060d12', '20e6ea36-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc1bccbf-b450-11ef-818d-00155d060d12', '2a4aa86b-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc1de478-b450-11ef-818d-00155d060d12', '2a4f9852-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc207933-b450-11ef-818d-00155d060d12', '217047ce-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc24e025-b450-11ef-818d-00155d060d12', '26398007-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc26eade-b450-11ef-818d-00155d060d12', '26409825-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc29088f-b450-11ef-818d-00155d060d12', '2991b0eb-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc2b9ca7-b450-11ef-818d-00155d060d12', '2595724c-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc2dd0ca-b450-11ef-818d-00155d060d12', '243eda1c-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc305a66-b450-11ef-818d-00155d060d12', '2362dea6-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc335728-b450-11ef-818d-00155d060d12', '20e9afab-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc36600d-b450-11ef-818d-00155d060d12', '20ee3657-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:11', '2024-12-07 04:07:11', NULL),
+('bc391c0f-b450-11ef-818d-00155d060d12', '20f19061-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc3bf647-b450-11ef-818d-00155d060d12', '2994eabb-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc3ebab2-b450-11ef-818d-00155d060d12', '236801d1-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc41470b-b450-11ef-818d-00155d060d12', '236c325d-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc451109-b450-11ef-818d-00155d060d12', '236f59df-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc4965e4-b450-11ef-818d-00155d060d12', '2373cddd-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc4c354a-b450-11ef-818d-00155d060d12', '217446cd-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc4fcecd-b450-11ef-818d-00155d060d12', '2378153f-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc5303c0-b450-11ef-818d-00155d060d12', '237e0f57-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc55b61b-b450-11ef-818d-00155d060d12', '22ee180b-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc590f2f-b450-11ef-818d-00155d060d12', '29b2f49d-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc5bfac5-b450-11ef-818d-00155d060d12', '29b58b1a-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc5ebcd4-b450-11ef-818d-00155d060d12', '2382a091-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc62cab9-b450-11ef-818d-00155d060d12', '23882e3e-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc65d2c7-b450-11ef-818d-00155d060d12', '238e350f-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc6858b7-b450-11ef-818d-00155d060d12', '2643e9b8-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc6bbf13-b450-11ef-818d-00155d060d12', '2647434e-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc6e6338-b450-11ef-818d-00155d060d12', '22f70850-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc7121dc-b450-11ef-818d-00155d060d12', '21f2c24a-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc73495d-b450-11ef-818d-00155d060d12', '21f8b1c8-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc7635f9-b450-11ef-818d-00155d060d12', '22000781-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc790bfc-b450-11ef-818d-00155d060d12', '2203f5f0-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc7b674f-b450-11ef-818d-00155d060d12', '23958c62-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc7db3e1-b450-11ef-818d-00155d060d12', '2399c3be-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc80d999-b450-11ef-818d-00155d060d12', '2442a076-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc84161a-b450-11ef-818d-00155d060d12', '2447219b-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc86f942-b450-11ef-818d-00155d060d12', '264ab762-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc89e9b1-b450-11ef-818d-00155d060d12', '21d7a828-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc8c5cb1-b450-11ef-818d-00155d060d12', '22fd0f5d-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc8eab56-b450-11ef-818d-00155d060d12', '25998b96-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc91c787-b450-11ef-818d-00155d060d12', '27dc9698-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc95a1ec-b450-11ef-818d-00155d060d12', '244b3e55-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc97e003-b450-11ef-818d-00155d060d12', '21dc3fa2-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc9a7c05-b450-11ef-818d-00155d060d12', '21e0c8c8-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bc9f1958-b450-11ef-818d-00155d060d12', '2207fe1f-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bca0fd0d-b450-11ef-818d-00155d060d12', '2304ab82-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bca2fe84-b450-11ef-818d-00155d060d12', '21e40a98-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bca58e8c-b450-11ef-818d-00155d060d12', '21e85347-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bca875a2-b450-11ef-818d-00155d060d12', '244f2091-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcab4661-b450-11ef-818d-00155d060d12', '2452c40b-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcae2277-b450-11ef-818d-00155d060d12', '21ed0609-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcb0ae0f-b450-11ef-818d-00155d060d12', '29b8ba9a-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcb398a1-b450-11ef-818d-00155d060d12', '22436528-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcb5c2ee-b450-11ef-818d-00155d060d12', '22436528-b38c-11ef-818d-00155d060d12', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcb7b2ca-b450-11ef-818d-00155d060d12', '27d13538-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcba2b90-b450-11ef-818d-00155d060d12', '27d5934d-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcbc94d8-b450-11ef-818d-00155d060d12', '27d84423-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcbf7690-b450-11ef-818d-00155d060d12', '2883a64b-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcc2109c-b450-11ef-818d-00155d060d12', '264e05ec-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcc4b90a-b450-11ef-818d-00155d060d12', '2886a0d2-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcc721b2-b450-11ef-818d-00155d060d12', '26517abc-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcc97ae1-b450-11ef-818d-00155d060d12', '2655073b-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bccc39b6-b450-11ef-818d-00155d060d12', '24570234-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcce58b6-b450-11ef-818d-00155d060d12', '22991066-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcd09982-b450-11ef-818d-00155d060d12', '29bd0a0c-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:12', '2024-12-07 04:07:12', NULL),
+('bcd3071f-b450-11ef-818d-00155d060d12', '29bfb782-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcd549fa-b450-11ef-818d-00155d060d12', '1f582cd8-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcd77522-b450-11ef-818d-00155d060d12', '259d36f9-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcda0565-b450-11ef-818d-00155d060d12', '224822cb-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcdc8f0e-b450-11ef-818d-00155d060d12', '268fa960-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcdf08a2-b450-11ef-818d-00155d060d12', '2657d30e-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bce27cc3-b450-11ef-818d-00155d060d12', '288a0d44-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bce57557-b450-11ef-818d-00155d060d12', '2177a892-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bce79cd2-b450-11ef-818d-00155d060d12', '1f5b8926-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcea8b7a-b450-11ef-818d-00155d060d12', '265b3133-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bced2ee4-b450-11ef-818d-00155d060d12', '25a02d2f-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcf05ac4-b450-11ef-818d-00155d060d12', '265f7aeb-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcf29e9f-b450-11ef-818d-00155d060d12', '29c32075-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcf4f73b-b450-11ef-818d-00155d060d12', '1f5f947e-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcf789bd-b450-11ef-818d-00155d060d12', '20f4ef11-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcfa0e13-b450-11ef-818d-00155d060d12', '224c1e7b-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bcfcca08-b450-11ef-818d-00155d060d12', '29c57949-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd007ff9-b450-11ef-818d-00155d060d12', '29c8d559-b38c-11ef-818d-00155d060d12', '3133a349-9c0d-11ef-81ed-d067e528c8df', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd03be60-b450-11ef-818d-00155d060d12', '22d4ec1b-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd0653de-b450-11ef-818d-00155d060d12', '2229fece-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd08d736-b450-11ef-818d-00155d060d12', '222d97df-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd0b605b-b450-11ef-818d-00155d060d12', '22d88574-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd0e9c93-b450-11ef-818d-00155d060d12', '20d1f634-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd10b0be-b450-11ef-818d-00155d060d12', '20d4fb71-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd131020-b450-11ef-818d-00155d060d12', '221244c6-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd15827b-b450-11ef-818d-00155d060d12', '22dc1d9a-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd18a188-b450-11ef-818d-00155d060d12', '29b8ba9a-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd1b31ed-b450-11ef-818d-00155d060d12', '22436528-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd1def40-b450-11ef-818d-00155d060d12', '29ccc413-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd20e261-b450-11ef-818d-00155d060d12', '29cff466-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd231a75-b450-11ef-818d-00155d060d12', '29d26c97-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd25dd85-b450-11ef-818d-00155d060d12', '29d5d21e-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd27c221-b450-11ef-818d-00155d060d12', '25a38da9-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd2a50b1-b450-11ef-818d-00155d060d12', '25a72daf-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd2d3db8-b450-11ef-818d-00155d060d12', '25ac54a8-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd301c58-b450-11ef-818d-00155d060d12', '25aebe17-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd32b1e1-b450-11ef-818d-00155d060d12', '25b177fe-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd35328e-b450-11ef-818d-00155d060d12', '1f8fa6e9-b38c-11ef-818d-00155d060d12', '241d12ee-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd38e692-b450-11ef-818d-00155d060d12', '25eea222-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd3b9cb1-b450-11ef-818d-00155d060d12', '241f62e6-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd3e9402-b450-11ef-818d-00155d060d12', '284af732-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd414882-b450-11ef-818d-00155d060d12', '2231bcd5-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL);
+INSERT INTO `car_compatible_battery` (`id`, `car_model_id`, `battery_sizes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('bd43b409-b450-11ef-818d-00155d060d12', '22352c10-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd45fad3-b450-11ef-818d-00155d060d12', '24252082-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd484a61-b450-11ef-818d-00155d060d12', '25f1e778-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd4a8fa3-b450-11ef-818d-00155d060d12', '284e5794-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd4d2bb1-b450-11ef-818d-00155d060d12', '25620eba-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd4fa3c4-b450-11ef-818d-00155d060d12', '22386ce0-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd51c0bf-b450-11ef-818d-00155d060d12', '2567b2cd-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd53e34c-b450-11ef-818d-00155d060d12', '1f271e51-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd56c61c-b450-11ef-818d-00155d060d12', '20d7cff8-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd59adcb-b450-11ef-818d-00155d060d12', '242a61a5-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd5bd242-b450-11ef-818d-00155d060d12', '25f52bcd-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd5e6cc7-b450-11ef-818d-00155d060d12', '20dd0719-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd603638-b450-11ef-818d-00155d060d12', '28513246-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd6286f1-b450-11ef-818d-00155d060d12', '28545a7f-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd642429-b450-11ef-818d-00155d060d12', '256a9415-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd664925-b450-11ef-818d-00155d060d12', '221714f3-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd688333-b450-11ef-818d-00155d060d12', '285a66e8-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:13', '2024-12-07 04:07:13', NULL),
+('bd6b2b7b-b450-11ef-818d-00155d060d12', '221b55d9-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd6e393c-b450-11ef-818d-00155d060d12', '285e29dd-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd707c1d-b450-11ef-818d-00155d060d12', '223c11ee-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd731cfc-b450-11ef-818d-00155d060d12', '28626677-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd751347-b450-11ef-818d-00155d060d12', '25f7e78f-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd7783f2-b450-11ef-818d-00155d060d12', '22e1b3c1-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd79d93e-b450-11ef-818d-00155d060d12', '21ca3f89-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd7c8e49-b450-11ef-818d-00155d060d12', '2866077d-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd7f28e5-b450-11ef-818d-00155d060d12', '28b68edf-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd81dbd4-b450-11ef-818d-00155d060d12', '25fae1e9-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd84c085-b450-11ef-818d-00155d060d12', '1f457b0e-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd87262f-b450-11ef-818d-00155d060d12', '22402b4f-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd898af7-b450-11ef-818d-00155d060d12', '25fdbea0-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd8c2b67-b450-11ef-818d-00155d060d12', '29c8d559-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL),
+('bd8e4dde-b450-11ef-818d-00155d060d12', '1f8fa6e9-b38c-11ef-818d-00155d060d12', '3bf8e048-b44f-11ef-818d-00155d060d12', '2024-12-07 04:07:14', '2024-12-07 04:07:14', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car_models`
+--
+
+CREATE TABLE `car_models` (
+  `id` char(36) NOT NULL DEFAULT uuid(),
+  `name` varchar(255) NOT NULL,
+  `car_brand_id` char(36) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `slug` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `car_models`
+--
+
+INSERT INTO `car_models` (`id`, `name`, `car_brand_id`, `image`, `created_at`, `updated_at`, `slug`) VALUES
+('1e04fe49-b38c-11ef-818d-00155d060d12', '146166', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', '146166'),
+('1e09a88c-b38c-11ef-818d-00155d060d12', '145 1.6', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '145-1-6'),
+('1e0c636d-b38c-11ef-818d-00155d060d12', '147-1.6 Twin Spark', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '147-1-6-twin-spark'),
+('1e10d223-b38c-11ef-818d-00155d060d12', '147-2.0 Twin Spark/GTA', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '147-2-0-twin-spark-gta'),
+('1e1374ca-b38c-11ef-818d-00155d060d12', '155 Twin Spark V6 1.8/2.0', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '155-twin-spark-v6-1-8-2-0'),
+('1e17480b-b38c-11ef-818d-00155d060d12', '166 3.0 V6 Sportomatic', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '166-3-0-v6-sportomatic'),
+('1e1b9e84-b38c-11ef-818d-00155d060d12', '2.5 V6/3.0 V6 Sportomatic', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '2-5-v6-3-0-v6-sportomatic'),
+('1e244b52-b38c-11ef-818d-00155d060d12', 'Alfa 1600GT Junior', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfa-1600gt-junior'),
+('1e2790ba-b38c-11ef-818d-00155d060d12', 'Alfa 33', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfa-33'),
+('1e2a5ad4-b38c-11ef-818d-00155d060d12', 'Alfa 6/1600 Giulia', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfa-6-1600-giulia'),
+('1e2edf37-b38c-11ef-818d-00155d060d12', 'Alfasud 1.3/1.4/1.5Ti', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', 'alfasud-1-3-1-4-1-5ti'),
+('1e323bba-b38c-11ef-818d-00155d060d12', 'Alfasud Green Clover', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfasud-green-clover'),
+('1e364da2-b38c-11ef-818d-00155d060d12', 'Alfasud Sprint Veloce', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfasud-sprint-veloce'),
+('1e44f882-b38c-11ef-818d-00155d060d12', 'Alfetta 2.0L Turbo Diesel', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', 'alfetta-2-0l-turbo-diesel'),
+('1e494af9-b38c-11ef-818d-00155d060d12', 'Alfetta GTV 2000', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfetta-gtv-2000'),
+('1e4cfc03-b38c-11ef-818d-00155d060d12', 'Alfetta GTV 2000', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'alfetta-gtv-2000'),
+('1e50217f-b38c-11ef-818d-00155d060d12', 'Alfetta Motronic 2.0/2.5', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', 'alfetta-motronic-2-0-2-5'),
+('1e529835-b38c-11ef-818d-00155d060d12', 'Berlina 1750/2000', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'berlina-1750-2000'),
+('1e552364-b38c-11ef-818d-00155d060d12', 'Guiletta 2.0L', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', 'guiletta-2-0l'),
+('1e586fe0-b38c-11ef-818d-00155d060d12', 'Spider 2000 Convertible', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'spider-2000-convertible'),
+('1e5d49ba-b38c-11ef-818d-00155d060d12', '156 Selespeed 2.0/2.5', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '156-selespeed-2-0-2-5'),
+('1e61e2d8-b38c-11ef-818d-00155d060d12', '2.0/2.5 V6 Sportomatic', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '2-0-2-5-v6-sportomatic'),
+('1e64bfe7-b38c-11ef-818d-00155d060d12', '159', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', '159'),
+('1e673f86-b38c-11ef-818d-00155d060d12', '164 Twin Spark 2.0', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '164-twin-spark-2-0'),
+('1e69e591-b38c-11ef-818d-00155d060d12', '164 Twin Spark V6 3.0i', '929e1351-eb98-4870-b277-dcf1e8dfc275', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', '164-twin-spark-v6-3-0i'),
+('1e6d0a2c-b38c-11ef-818d-00155d060d12', 'Q3', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'q3'),
+('1e716840-b38c-11ef-818d-00155d060d12', 'A3', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'a3'),
+('1e741131-b38c-11ef-818d-00155d060d12', 'TT 1.8 Turbo', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', 'tt-1-8-turbo'),
+('1e767564-b38c-11ef-818d-00155d060d12', 'TT Coupe 1.8', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:45', '2024-12-11 08:50:45', 'tt-coupe-1-8'),
+('1e7a0bb9-b38c-11ef-818d-00155d060d12', 'TT Quattro/Roadster', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:45', '2024-12-11 07:49:14', 'tt-quattro-roadster'),
+('1e7c9985-b38c-11ef-818d-00155d060d12', 'A4', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'a4'),
+('1e7fd269-b38c-11ef-818d-00155d060d12', 'A5', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'a5'),
+('1e836c51-b38c-11ef-818d-00155d060d12', 'A6', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'a6'),
+('1e8637ad-b38c-11ef-818d-00155d060d12', 'A7', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'a7'),
+('1e89c28d-b38c-11ef-818d-00155d060d12', 'A8', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'a8'),
+('1e8cb9a7-b38c-11ef-818d-00155d060d12', 'Q5', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'q5'),
+('1e903585-b38c-11ef-818d-00155d060d12', 'Q7', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'q7'),
+('1e931126-b38c-11ef-818d-00155d060d12', 'R8', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'r8'),
+('1e967b1f-b38c-11ef-818d-00155d060d12', '100CD/200 Turbo', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '100cd-200-turbo'),
+('1e99d1aa-b38c-11ef-818d-00155d060d12', '80CD/Quattro', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '80cd-quattro'),
+('1e9bec68-b38c-11ef-818d-00155d060d12', 'A1', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'a1'),
+('1e9eb1c6-b38c-11ef-818d-00155d060d12', '90/Quattro', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '90-quattro'),
+('1ea29af1-b38c-11ef-818d-00155d060d12', 'X1 F48 (2016-2022)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', 'x1-f48-2016-2022'),
+('1ea64528-b38c-11ef-818d-00155d060d12', '1 Series F20/F21/F40 (2011-present)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '1-series-f20-f21-f40-2011-present'),
+('1ea940c1-b38c-11ef-818d-00155d060d12', '2 Series F22/F23/F45 (2014-2020)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '2-series-f22-f23-f45-2014-2020'),
+('1eabdf84-b38c-11ef-818d-00155d060d12', 'X1 E84 (2009-2015)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', 'x1-e84-2009-2015'),
+('1eae5d88-b38c-11ef-818d-00155d060d12', 'Z4', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'z4'),
+('1eb0e659-b38c-11ef-818d-00155d060d12', '3 Series E90/E91/E92/E93 (2005-2011)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-e90-e91-e92-e93-2005-2011'),
+('1eb3e7d9-b38c-11ef-818d-00155d060d12', '3 Series F30/F31/F34 (2012-2018)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-f30-f31-f34-2012-2018'),
+('1eb64f7a-b38c-11ef-818d-00155d060d12', '3 Series G20/G21 (2019-present)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-g20-g21-2019-present'),
+('1eb8f1cc-b38c-11ef-818d-00155d060d12', '4 Series F32/F33/F36', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '4-series-f32-f33-f36'),
+('1ebbfae1-b38c-11ef-818d-00155d060d12', '5 Series F07/F10/F11', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '5-series-f07-f10-f11'),
+('1ebea28c-b38c-11ef-818d-00155d060d12', '6 Series F06/F12/F13', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '6-series-f06-f12-f13'),
+('1ec2553d-b38c-11ef-818d-00155d060d12', '7 Series E67/F01/F02', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', '7-series-e67-f01-f02'),
+('1ec51041-b38c-11ef-818d-00155d060d12', 'M3/M4/M5/M6', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'm3-m4-m5-m6'),
+('1ec81ee9-b38c-11ef-818d-00155d060d12', 'X3 E83/F25', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'x3-e83-f25'),
+('1ecada2d-b38c-11ef-818d-00155d060d12', 'X4 F26', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'x4-f26'),
+('1ece26f4-b38c-11ef-818d-00155d060d12', 'X5 E53/E70/F15 (1999-2018)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', 'x5-e53-e70-f15-1999-2018'),
+('1ed1e021-b38c-11ef-818d-00155d060d12', 'X6', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 07:49:14', 'x6'),
+('1ed5d3e6-b38c-11ef-818d-00155d060d12', '3 Series E21 (1975-81)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-e21-1975-81'),
+('1eda5984-b38c-11ef-818d-00155d060d12', '5 Series E12 (1972-81)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '5-series-e12-1972-81'),
+('1edd8aa0-b38c-11ef-818d-00155d060d12', '1 Series E81/E82 (2004-2010)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '1-series-e81-e82-2004-2010'),
+('1ee0971c-b38c-11ef-818d-00155d060d12', '1 Series E87/E88 (2004-2010)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '1-series-e87-e88-2004-2010'),
+('1ee43c3f-b38c-11ef-818d-00155d060d12', '3 Series E30 (1982-91)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-e30-1982-91'),
+('1ee7d2fa-b38c-11ef-818d-00155d060d12', '3 Series E36 (1992-98)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-e36-1992-98'),
+('1eeb7595-b38c-11ef-818d-00155d060d12', '3 Series E46 (1998-2006)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '3-series-e46-1998-2006'),
+('1eee858c-b38c-11ef-818d-00155d060d12', '5 Series E28 (1982-88)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '5-series-e28-1982-88'),
+('1ef21dfd-b38c-11ef-818d-00155d060d12', '5 Series E34 (1988-96)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '5-series-e34-1988-96'),
+('1ef4a45d-b38c-11ef-818d-00155d060d12', '6 Series E24 (1976-89)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '6-series-e24-1976-89'),
+('1ef937e5-b38c-11ef-818d-00155d060d12', '7 Series E23 (1977-86)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '7-series-e23-1977-86'),
+('1efc9954-b38c-11ef-818d-00155d060d12', 'Z1 E30 (1989-1992)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', 'z1-e30-1989-1992'),
+('1f00074c-b38c-11ef-818d-00155d060d12', 'Z3 E36 (1996-2002)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', 'z3-e36-1996-2002'),
+('1f03be6c-b38c-11ef-818d-00155d060d12', '5 Series E39 (1995-2003)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '5-series-e39-1995-2003'),
+('1f077952-b38c-11ef-818d-00155d060d12', '5 Series E60/E61 (2003-2010)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '5-series-e60-e61-2003-2010'),
+('1f0cd326-b38c-11ef-818d-00155d060d12', '6 Series E63/E64 (2003-2010)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '6-series-e63-e64-2003-2010'),
+('1f11e246-b38c-11ef-818d-00155d060d12', '7 Series E32/E38/E65/E66 (1986-2008)', 'b1058203-f07c-4e77-8787-8332c997d74e', NULL, '2024-12-06 04:39:46', '2024-12-11 08:27:36', '7-series-e32-e38-e65-e66-1986-2008'),
+('1f1653fa-b38c-11ef-818d-00155d060d12', 'Mark II', '828c809c-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'mark-ii'),
+('1f1d040b-b38c-11ef-818d-00155d060d12', 'Dolphin', '8e112e38-869c-4434-89c3-6c33dd1fd147', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'dolphin'),
+('1f202cf7-b38c-11ef-818d-00155d060d12', 'Seal', '8e112e38-869c-4434-89c3-6c33dd1fd147', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'seal'),
+('1f239a39-b38c-11ef-818d-00155d060d12', 'Atto 3', '8e112e38-869c-4434-89c3-6c33dd1fd147', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'atto-3'),
+('1f271e51-b38c-11ef-818d-00155d060d12', 'Era Jin Bei', '4a17d403-022c-4eb7-a8ba-fa34182d9415', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'era-jin-bei'),
+('1f2a54d9-b38c-11ef-818d-00155d060d12', 'Era Star', '4a17d403-022c-4eb7-a8ba-fa34182d9415', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'era-star'),
+('1f2eb0ce-b38c-11ef-818d-00155d060d12', 'Era Star 2', '4a17d403-022c-4eb7-a8ba-fa34182d9415', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'era-star-2'),
+('1f32197c-b38c-11ef-818d-00155d060d12', 'Era CM8', '4a17d403-022c-4eb7-a8ba-fa34182d9415', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'era-cm8'),
+('1f35844b-b38c-11ef-818d-00155d060d12', 'Era CV6', '4a17d403-022c-4eb7-a8ba-fa34182d9415', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'era-cv6'),
+('1f391621-b38c-11ef-818d-00155d060d12', 'Alado A160', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'alado-a160'),
+('1f3bfbc8-b38c-11ef-818d-00155d060d12', 'A160', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'a160'),
+('1f3e9a69-b38c-11ef-818d-00155d060d12', 'Omoda 5', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'omoda-5'),
+('1f41668b-b38c-11ef-818d-00155d060d12', 'A5', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'a5'),
+('1f457b0e-b38c-11ef-818d-00155d060d12', 'Transcom', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'transcom'),
+('1f48c5a6-b38c-11ef-818d-00155d060d12', 'Alado QQ', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'alado-qq'),
+('1f4d7535-b38c-11ef-818d-00155d060d12', 'QQ', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'qq'),
+('1f4fb133-b38c-11ef-818d-00155d060d12', 'Transcab', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'transcab'),
+('1f52d316-b38c-11ef-818d-00155d060d12', 'Transcar', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'transcar'),
+('1f582cd8-b38c-11ef-818d-00155d060d12', 'Easter', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'easter'),
+('1f5b8926-b38c-11ef-818d-00155d060d12', 'Maxime', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'maxime'),
+('1f5f947e-b38c-11ef-818d-00155d060d12', 'Tiggo', '343d10d9-f329-4196-8344-2f451750c13a', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'tiggo'),
+('1f636b90-b38c-11ef-818d-00155d060d12', 'Camaro', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'camaro'),
+('1f664aa9-b38c-11ef-818d-00155d060d12', 'Malibu', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'malibu'),
+('1f6a1d5f-b38c-11ef-818d-00155d060d12', 'Mark II', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'mark-ii'),
+('1f6df0c8-b38c-11ef-818d-00155d060d12', 'Sonic', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'sonic'),
+('1f715116-b38c-11ef-818d-00155d060d12', 'Volt', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'volt'),
+('1f74ff46-b38c-11ef-818d-00155d060d12', 'Aveo/Bufori', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-12 06:10:27', 'aveo-bufori'),
+('1f77cdab-b38c-11ef-818d-00155d060d12', 'Captiva Petrol', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'captiva-petrol'),
+('1f7abdae-b38c-11ef-818d-00155d060d12', 'Optra 1.6/1.8', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 08:50:45', 'optra-1-6-1-8'),
+('1f7d3b71-b38c-11ef-818d-00155d060d12', 'Colorado', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'colorado'),
+('1f811fcd-b38c-11ef-818d-00155d060d12', 'Cruze', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'cruze'),
+('1f83e4c3-b38c-11ef-818d-00155d060d12', 'Cruze Full Spec', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'cruze-full-spec'),
+('1f86a97a-b38c-11ef-818d-00155d060d12', 'Nabira 1.8', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 08:50:45', 'nabira-1-8'),
+('1f89aac3-b38c-11ef-818d-00155d060d12', 'Orlando', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'orlando'),
+('1f8d33c0-b38c-11ef-818d-00155d060d12', 'Spark', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'spark'),
+('1f8fa6e9-b38c-11ef-818d-00155d060d12', 'Captiva Diesel', '3ca78056-ec98-43f3-94d4-d9955a62c466', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'captiva-diesel'),
+('1f92b10f-b38c-11ef-818d-00155d060d12', 'Berlingo 1.4i', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 08:50:45', 'berlingo-1-4i'),
+('1f95c411-b38c-11ef-818d-00155d060d12', 'C2', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'c2'),
+('1f9a329b-b38c-11ef-818d-00155d060d12', 'C3 1.4L/1.6L', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 08:50:45', 'c3-1-4l-1-6l'),
+('1f9d8cc6-b38c-11ef-818d-00155d060d12', 'C4 1.6L/1.8L', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 08:50:45', 'c4-1-6l-1-8l'),
+('1fa2ff54-b38c-11ef-818d-00155d060d12', 'DS3', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'ds3'),
+('1fa60e38-b38c-11ef-818d-00155d060d12', 'DS4', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'ds4'),
+('1fab80f8-b38c-11ef-818d-00155d060d12', 'DS5', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:47', '2024-12-11 07:49:14', 'ds5'),
+('1fae8f3c-b38c-11ef-818d-00155d060d12', 'Xantia 1.9L/2.0L Petrol', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'xantia-1-9l-2-0l-petrol'),
+('1fb30e11-b38c-11ef-818d-00155d060d12', 'Xantia 2.0i', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'xantia-2-0i'),
+('1fb5f337-b38c-11ef-818d-00155d060d12', 'ZX 1.6/1.9i/2.0i/16V', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'zx-1-6-1-9i-2-0i-16v'),
+('1fba91a1-b38c-11ef-818d-00155d060d12', 'Xsara VTR 1.6/SX 1.6i', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'xsara-vtr-1-6-sx-1-6i'),
+('1fbf2723-b38c-11ef-818d-00155d060d12', 'BX 19GT', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'bx-19gt'),
+('1fc33d6b-b38c-11ef-818d-00155d060d12', 'C4 Grand Picasso', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'c4-grand-picasso'),
+('1fc69e67-b38c-11ef-818d-00155d060d12', 'C5 1.6 Turbo', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'c5-1-6-turbo'),
+('1fc963bd-b38c-11ef-818d-00155d060d12', 'C5 1.8i', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'c5-1-8i'),
+('1fcd870e-b38c-11ef-818d-00155d060d12', 'C5 2.0 16V (A)', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'c5-2-0-16v-a'),
+('1fcfd6a4-b38c-11ef-818d-00155d060d12', 'C5 2.0i', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'c5-2-0i'),
+('1fd2ba00-b38c-11ef-818d-00155d060d12', 'C6 2.0LL/2.5L', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'c6-2-0ll-2-5l'),
+('1fd52e7f-b38c-11ef-818d-00155d060d12', 'C8 2.0L/1.6 (A)', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'c8-2-0l-1-6-a'),
+('1fd986f9-b38c-11ef-818d-00155d060d12', 'Evasion 2.0i', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'evasion-2-0i'),
+('1fdd2341-b38c-11ef-818d-00155d060d12', 'GSA Pallas', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'gsa-pallas'),
+('1fe04e4f-b38c-11ef-818d-00155d060d12', 'Xantia 1.9 Diesel', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'xantia-1-9-diesel'),
+('1fe3bc7d-b38c-11ef-818d-00155d060d12', 'XM 2.0i/3.0i/V6', '9afa4fd0-743a-4053-a53e-da18ef9a43f7', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'xm-2-0i-3-0i-v6'),
+('1fe75ba1-b38c-11ef-818d-00155d060d12', 'Delta Lorry V58/V116', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'delta-lorry-v58-v116'),
+('1feb6113-b38c-11ef-818d-00155d060d12', 'Hijet', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'hijet'),
+('1fef3730-b38c-11ef-818d-00155d060d12', 'Mira', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'mira'),
+('1ff26a92-b38c-11ef-818d-00155d060d12', 'Sirion', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'sirion'),
+('1ff601b1-b38c-11ef-818d-00155d060d12', 'Ascend', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'ascend'),
+('1ff8ad3a-b38c-11ef-818d-00155d060d12', 'Charade Aura 1.3/1.6V', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'charade-aura-1-3-1-6v'),
+('1ffbfe2f-b38c-11ef-818d-00155d060d12', 'Charade Aura CX/CS', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'charade-aura-cx-cs'),
+('1fff737d-b38c-11ef-818d-00155d060d12', 'Charade Aura Espri', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'charade-aura-espri'),
+('20027009-b38c-11ef-818d-00155d060d12', 'Charade XGE/XTE/CX/CS', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'charade-xge-xte-cx-cs'),
+('2006a6a7-b38c-11ef-818d-00155d060d12', 'Charmant 1.6LE/GLX', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 08:50:45', 'charmant-1-6le-glx'),
+('200a64bf-b38c-11ef-818d-00155d060d12', 'Feroza/Voyager', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'feroza-voyager'),
+('200d7b39-b38c-11ef-818d-00155d060d12', 'Rocky', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'rocky'),
+('2010f5ef-b38c-11ef-818d-00155d060d12', 'Granmax', 'af7b95ea-f83c-4cc0-912c-10380d373dd8', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'granmax'),
+('2013e6e0-b38c-11ef-818d-00155d060d12', '458', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '458'),
+('20174280-b38c-11ef-818d-00155d060d12', '488', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '488'),
+('201aa2a4-b38c-11ef-818d-00155d060d12', '599', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '599'),
+('201ee5fb-b38c-11ef-818d-00155d060d12', '456M-GT/GTA', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '456m-gt-gta'),
+('20224fd4-b38c-11ef-818d-00155d060d12', '550 Maranello', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '550-maranello'),
+('2025e525-b38c-11ef-818d-00155d060d12', 'F12 Berlinetta', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'f12-berlinetta'),
+('2029db3e-b38c-11ef-818d-00155d060d12', 'F355', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'f355'),
+('202d890a-b38c-11ef-818d-00155d060d12', 'F430', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'f430'),
+('2030493d-b38c-11ef-818d-00155d060d12', 'FF', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'ff'),
+('20344ba9-b38c-11ef-818d-00155d060d12', 'Modena 360 FSP/Stradale', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'modena-360-fsp-stradale'),
+('2036c215-b38c-11ef-818d-00155d060d12', 'Modena 360 M/F1/SP', '2aec14d2-08da-4c89-ab76-601f7b5048a6', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', 'modena-360-m-f1-sp'),
+('203bc2ac-b38c-11ef-818d-00155d060d12', '500', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '500'),
+('203fda75-b38c-11ef-818d-00155d060d12', '124127128', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '124127128'),
+('20435efc-b38c-11ef-818d-00155d060d12', '125 Polski', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:48', '2024-12-11 07:49:14', '125-polski'),
+('204772c0-b38c-11ef-818d-00155d060d12', '131 CL/Supermirafiori', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', '131-cl-supermirafiori'),
+('204a1129-b38c-11ef-818d-00155d060d12', 'Bravo 1.6/1.8L/ELX/SX/GT', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'bravo-1-6-1-8l-elx-sx-gt'),
+('204d451d-b38c-11ef-818d-00155d060d12', 'Coupe 2.0L(20V) Turbo', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'coupe-2-0l20v-turbo'),
+('205047d2-b38c-11ef-818d-00155d060d12', 'Doblo 1.9 JTD ELX', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'doblo-1-9-jtd-elx'),
+('20538583-b38c-11ef-818d-00155d060d12', 'Marea 1.6/1.8 ELX/1.9TD', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'marea-1-6-1-8-elx-1-9td'),
+('205688df-b38c-11ef-818d-00155d060d12', 'Panda', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'panda'),
+('20598d9d-b38c-11ef-818d-00155d060d12', 'Punto 1.3/1.5 ELX', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'punto-1-3-1-5-elx'),
+('205c94f1-b38c-11ef-818d-00155d060d12', 'Punto 1.4GT Turbo/1.6 ELX', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'punto-1-4gt-turbo-1-6-elx'),
+('2060b4c9-b38c-11ef-818d-00155d060d12', 'Ritmo 75CL', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'ritmo-75cl'),
+('2064dd49-b38c-11ef-818d-00155d060d12', 'Stilo', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'stilo'),
+('2068c96b-b38c-11ef-818d-00155d060d12', 'Tempra 1.6/2.0ie SX', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'tempra-1-6-2-0ie-sx'),
+('206b4427-b38c-11ef-818d-00155d060d12', 'X1.9 1500-2300', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'x1-9-1500-2300'),
+('206ecbd7-b38c-11ef-818d-00155d060d12', '132 GLS 2000', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', '132-gls-2000'),
+('20723bd1-b38c-11ef-818d-00155d060d12', 'Marea 1.9 TD', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'marea-1-9-td'),
+('2074d479-b38c-11ef-818d-00155d060d12', 'Multipla 1.6(M) ELX/JTD', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-12 06:10:27', 'multipla-1-6m-elx-jtd'),
+('207783b0-b38c-11ef-818d-00155d060d12', 'Ulysee 1.9L TD', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'ulysee-1-9l-td'),
+('207a4c15-b38c-11ef-818d-00155d060d12', 'Ulysee 2.0 16V/1.9L TD', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'ulysee-2-0-16v-1-9l-td'),
+('207d08da-b38c-11ef-818d-00155d060d12', 'Ulysee IE/20TD EX-Diesel', '4e59ba8c-22a6-4f2e-89fc-4b6120b475ff', NULL, '2024-12-06 04:39:49', '2024-12-12 06:10:27', 'ulysee-ie-20td-ex-diesel'),
+('2080de93-b38c-11ef-818d-00155d060d12', 'Kuga', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'kuga'),
+('20846f14-b38c-11ef-818d-00155d060d12', 'Mondeo', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'mondeo'),
+('20895641-b38c-11ef-818d-00155d060d12', 'Laser BTH8/BTH9/BTJ1/BTJ2', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'laser-bth8-bth9-btj1-btj2'),
+('208e1055-b38c-11ef-818d-00155d060d12', 'Lynk SV (A)/RS 2.0L (A)', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'lynk-sv-a-rs-2-0l-a'),
+('2090f759-b38c-11ef-818d-00155d060d12', 'Lynx 1.6 XL/LS', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'lynx-1-6-xl-ls'),
+('2094168e-b38c-11ef-818d-00155d060d12', 'Lynx LS (A)/1.6 Ghia/SV', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'lynx-ls-a-1-6-ghia-sv'),
+('20964b83-b38c-11ef-818d-00155d060d12', 'Telstar 1.8GL', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'telstar-1-8gl'),
+('2099baf0-b38c-11ef-818d-00155d060d12', 'Telstar 2.0', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'telstar-2-0'),
+('209da554-b38c-11ef-818d-00155d060d12', 'Ecosport', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'ecosport'),
+('20a0f856-b38c-11ef-818d-00155d060d12', 'Escort XR3i Turbo', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'escort-xr3i-turbo'),
+('20a4388f-b38c-11ef-818d-00155d060d12', 'Fiesta', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'fiesta'),
+('20a79e71-b38c-11ef-818d-00155d060d12', 'Mustang', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'mustang'),
+('20ad5e67-b38c-11ef-818d-00155d060d12', 'Sierra Ghia/XR4i', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-12 06:10:27', 'sierra-ghia-xr4i'),
+('20b0774b-b38c-11ef-818d-00155d060d12', 'Focus 1.8L/2.0L', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'focus-1-8l-2-0l'),
+('20b404e8-b38c-11ef-818d-00155d060d12', 'Cartina 1.6/2.0 Ghia', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'cartina-1-6-2-0-ghia'),
+('20b7e63e-b38c-11ef-818d-00155d060d12', 'Fiesta Ecoboost', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'fiesta-ecoboost'),
+('20ba8c4a-b38c-11ef-818d-00155d060d12', 'Focus TDCI 2.0', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'focus-tdci-2-0'),
+('20bdb785-b38c-11ef-818d-00155d060d12', 'Granada 2.8', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'granada-2-8'),
+('20c243b2-b38c-11ef-818d-00155d060d12', 'Ranger New 2.2', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'ranger-new-2-2'),
+('20c5517d-b38c-11ef-818d-00155d060d12', 'S-Max', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 's-max'),
+('20c82c0d-b38c-11ef-818d-00155d060d12', 'Ranger New 3.2', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'ranger-new-3-2'),
+('20cc9aaa-b38c-11ef-818d-00155d060d12', 'Ranger New Wildtrak Raptor', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'ranger-new-wildtrak-raptor'),
+('20d1f634-b38c-11ef-818d-00155d060d12', 'Ranger 2.2 XLT 2012', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'ranger-2-2-xlt-2012'),
+('20d4fb71-b38c-11ef-818d-00155d060d12', 'Ranger 2.5 XL/XLT', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 08:50:45', 'ranger-2-5-xl-xlt'),
+('20d7cff8-b38c-11ef-818d-00155d060d12', 'Everest', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'everest'),
+('20dd0719-b38c-11ef-818d-00155d060d12', 'Hurricance', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:49', '2024-12-11 07:49:14', 'hurricance'),
+('20e096b0-b38c-11ef-818d-00155d060d12', 'Laser 1.3/1.5/1.5S', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 08:50:45', 'laser-1-3-1-5-1-5s'),
+('20e3c54d-b38c-11ef-818d-00155d060d12', 'Econovan 1.8/2.5D', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 08:50:45', 'econovan-1-8-2-5d'),
+('20e6ea36-b38c-11ef-818d-00155d060d12', 'Spectron XLT', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'spectron-xlt'),
+('20e9afab-b38c-11ef-818d-00155d060d12', 'Escape 2.0L/2.3L/3.0L', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 08:50:45', 'escape-2-0l-2-3l-3-0l'),
+('20ee3657-b38c-11ef-818d-00155d060d12', 'Escape 3.0L 4WD(A)', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 08:50:45', 'escape-3-0l-4wda'),
+('20f19061-b38c-11ef-818d-00155d060d12', 'Escort 1300 GT', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'escort-1300-gt'),
+('20f4ef11-b38c-11ef-818d-00155d060d12', 'Transit Window Van', '8792aad3-aac7-4b41-8765-521ddb0b6dca', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'transit-window-van'),
+('20f8911b-b38c-11ef-818d-00155d060d12', 'Odyssey', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'odyssey'),
+('20fb10ef-b38c-11ef-818d-00155d060d12', 'NSX', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'nsx'),
+('20fda67a-b38c-11ef-818d-00155d060d12', 'Prelude', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'prelude'),
+('21014e1c-b38c-11ef-818d-00155d060d12', 'Stepwgn', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'stepwgn'),
+('2104c19e-b38c-11ef-818d-00155d060d12', 'Civic FE (2022-present)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'civic-fe-2022-present'),
+('2108c764-b38c-11ef-818d-00155d060d12', 'Accord Gen 10 (2018-present)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'accord-gen-10-2018-present'),
+('210c5af3-b38c-11ef-818d-00155d060d12', 'BRV', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'brv'),
+('2110b66d-b38c-11ef-818d-00155d060d12', 'City 1.3/1.5 i-Dsi/Vtec (2003-present)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:50:45', 'city-1-3-1-5-i-dsi-vtec-2003-present'),
+('21169486-b38c-11ef-818d-00155d060d12', 'City Hybrid', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'city-hybrid'),
+('211ad1ab-b38c-11ef-818d-00155d060d12', 'Civic Hybrid', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'civic-hybrid'),
+('211f3723-b38c-11ef-818d-00155d060d12', 'CR-Z', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'cr-z'),
+('2122a3a5-b38c-11ef-818d-00155d060d12', 'Freed', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'freed'),
+('2125a54e-b38c-11ef-818d-00155d060d12', 'Insight 1.5', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:50:45', 'insight-1-5'),
+('2128d564-b38c-11ef-818d-00155d060d12', 'Jazz', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'jazz'),
+('212c46fe-b38c-11ef-818d-00155d060d12', 'Jazz Hybrid', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'jazz-hybrid'),
+('212f599c-b38c-11ef-818d-00155d060d12', 'City 1996-2003', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'city-1996-2003'),
+('2132f20b-b38c-11ef-818d-00155d060d12', 'CRX', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'crx'),
+('21365850-b38c-11ef-818d-00155d060d12', 'Elysion', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'elysion'),
+('213a152a-b38c-11ef-818d-00155d060d12', 'Civic FC (2016-2021)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'civic-fc-2016-2021'),
+('213cc806-b38c-11ef-818d-00155d060d12', 'CRV Turbo', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'crv-turbo'),
+('21416f3c-b38c-11ef-818d-00155d060d12', 'Accord Gen 6-9 (1997-2017)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'accord-gen-6-9-1997-2017'),
+('21469ff8-b38c-11ef-818d-00155d060d12', 'Civic', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'civic'),
+('214c349a-b38c-11ef-818d-00155d060d12', 'CRV Gen 2-4 (2002-2016)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'crv-gen-2-4-2002-2016'),
+('21503393-b38c-11ef-818d-00155d060d12', 'HRV', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'hrv'),
+('215a4bd4-b38c-11ef-818d-00155d060d12', 'Stream', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'stream'),
+('2163ad5e-b38c-11ef-818d-00155d060d12', 'Civic ED/EK (1987-2005)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'civic-ed-ek-1987-2005'),
+('2167f29a-b38c-11ef-818d-00155d060d12', 'CRV Gen 1 (1995-2001)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'crv-gen-1-1995-2001'),
+('216c7632-b38c-11ef-818d-00155d060d12', 'S2000', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 's2000'),
+('217047ce-b38c-11ef-818d-00155d060d12', 'Accord Gen 1-5 (before 1997)', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 08:27:36', 'accord-gen-1-5-before-1997'),
+('217446cd-b38c-11ef-818d-00155d060d12', 'Integra', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:50', '2024-12-11 07:49:14', 'integra'),
+('2177a892-b38c-11ef-818d-00155d060d12', 'Legend', '9e9e55a4-0348-4119-a831-e54ee747e35a', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'legend'),
+('217ca912-b38c-11ef-818d-00155d060d12', 'H3 Year 2010', 'f81dcf81-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'h3-year-2010'),
+('2180ea9d-b38c-11ef-818d-00155d060d12', 'Genesis', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'genesis'),
+('2185ab63-b38c-11ef-818d-00155d060d12', 'Coupe 2.0/2.7', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'coupe-2-0-2-7'),
+('218baf08-b38c-11ef-818d-00155d060d12', 'Elantra 2006-2010', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'elantra-2006-2010'),
+('2191a552-b38c-11ef-818d-00155d060d12', 'XG 250 V6 GLS (A)', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:27:36', 'xg-250-v6-gls-a'),
+('21963512-b38c-11ef-818d-00155d060d12', 'Ioniq', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'ioniq'),
+('219964b0-b38c-11ef-818d-00155d060d12', 'Accent 1.5', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'accent-1-5'),
+('219d0db6-b38c-11ef-818d-00155d060d12', 'Elantra 2000-2006', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'elantra-2000-2006'),
+('21a0adef-b38c-11ef-818d-00155d060d12', 'Elantra 2010 onwards', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'elantra-2010-onwards'),
+('21a50823-b38c-11ef-818d-00155d060d12', 'Getz 1.3 GL/1.6GL', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'getz-1-3-gl-1-6gl'),
+('21a9b467-b38c-11ef-818d-00155d060d12', 'i30', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'i30'),
+('21b0373c-b38c-11ef-818d-00155d060d12', 'Veloster', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'veloster'),
+('21b3fd4e-b38c-11ef-818d-00155d060d12', 'Trajet (MPV)2.0/2.7(V6)', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'trajet-mpv2-0-2-7v6'),
+('21b985c1-b38c-11ef-818d-00155d060d12', 'Trajet 2.0 GL (A)/GLS(A)', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'trajet-2-0-gl-a-glsa'),
+('21be409c-b38c-11ef-818d-00155d060d12', 'Tucson New', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'tucson-new'),
+('21c12dcf-b38c-11ef-818d-00155d060d12', 'Staria', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'staria'),
+('21c5379a-b38c-11ef-818d-00155d060d12', 'Starex diesel new gen', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'starex-diesel-new-gen'),
+('21ca3f89-b38c-11ef-818d-00155d060d12', 'Starex', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'starex'),
+('21cd9ed0-b38c-11ef-818d-00155d060d12', 'Atos', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'atos'),
+('21d1e84d-b38c-11ef-818d-00155d060d12', 'i10', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'i10'),
+('21d7a828-b38c-11ef-818d-00155d060d12', 'Sonata 2002', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'sonata-2002'),
+('21dc3fa2-b38c-11ef-818d-00155d060d12', 'Grandeur (Azera)', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:27:36', 'grandeur-azera'),
+('21e0c8c8-b38c-11ef-818d-00155d060d12', 'i40', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'i40'),
+('21e40a98-b38c-11ef-818d-00155d060d12', 'Santa FE 2.7 V6 GLS 4WD', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'santa-fe-2-7-v6-gls-4wd'),
+('21e85347-b38c-11ef-818d-00155d060d12', 'Sonata New', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'sonata-new'),
+('21ed0609-b38c-11ef-818d-00155d060d12', 'Tucson', '9fbbecb6-a15d-42a6-ba56-f43de4096aed', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'tucson'),
+('21f2c24a-b38c-11ef-818d-00155d060d12', 'Q60', '10fbe85b-09fd-411d-9b9d-ee8cb0e2620b', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'q60'),
+('21f8b1c8-b38c-11ef-818d-00155d060d12', 'Q70', '10fbe85b-09fd-411d-9b9d-ee8cb0e2620b', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'q70'),
+('22000781-b38c-11ef-818d-00155d060d12', 'QX50', '10fbe85b-09fd-411d-9b9d-ee8cb0e2620b', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'qx50'),
+('2203f5f0-b38c-11ef-818d-00155d060d12', 'QX70', '10fbe85b-09fd-411d-9b9d-ee8cb0e2620b', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'qx70'),
+('2207fe1f-b38c-11ef-818d-00155d060d12', 'Q50', '10fbe85b-09fd-411d-9b9d-ee8cb0e2620b', NULL, '2024-12-06 04:39:51', '2024-12-11 07:49:14', 'q50'),
+('220f0744-b38c-11ef-818d-00155d060d12', 'Matrix 1.6 GL/1.8GL', '76ef3c9d-b21b-4dc7-9713-b3357719548d', NULL, '2024-12-06 04:39:51', '2024-12-11 08:50:45', 'matrix-1-6-gl-1-8gl'),
+('221244c6-b38c-11ef-818d-00155d060d12', 'Santa FE Diesel', '76ef3c9d-b21b-4dc7-9713-b3357719548d', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'santa-fe-diesel'),
+('221714f3-b38c-11ef-818d-00155d060d12', 'Lorimas', '76ef3c9d-b21b-4dc7-9713-b3357719548d', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'lorimas'),
+('221b55d9-b38c-11ef-818d-00155d060d12', 'Permas Window Van', '76ef3c9d-b21b-4dc7-9713-b3357719548d', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'permas-window-van'),
+('222059d5-b38c-11ef-818d-00155d060d12', 'Atos', '76ef3c9d-b21b-4dc7-9713-b3357719548d', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'atos'),
+('2226938f-b38c-11ef-818d-00155d060d12', 'Piazza XE/XL', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'piazza-xe-xl'),
+('2229fece-b38c-11ef-818d-00155d060d12', 'DMAX 4X2', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'dmax-4x2'),
+('222d97df-b38c-11ef-818d-00155d060d12', 'DMAX 4X4', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'dmax-4x4'),
+('2231bcd5-b38c-11ef-818d-00155d060d12', 'Amigo', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'amigo'),
+('22352c10-b38c-11ef-818d-00155d060d12', 'Bighorn UBS 25/69', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'bighorn-ubs-25-69'),
+('22386ce0-b38c-11ef-818d-00155d060d12', 'Citation V6', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'citation-v6'),
+('223c11ee-b38c-11ef-818d-00155d060d12', 'Rodeo Basic/4X2', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-12 06:10:27', 'rodeo-basic-4x2'),
+('22402b4f-b38c-11ef-818d-00155d060d12', 'Trooper 4x4WD/Diesel', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'trooper-4x4wd-diesel'),
+('22436528-b38c-11ef-818d-00155d060d12', 'MU-X', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'mu-x'),
+('224822cb-b38c-11ef-818d-00155d060d12', 'Gemini (Petrol)', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 08:27:36', 'gemini-petrol'),
+('224c1e7b-b38c-11ef-818d-00155d060d12', 'Trooper Petrol', 'eb06a663-c8e7-4ccf-a5c2-6a8729c94c58', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'trooper-petrol'),
+('225227d6-b38c-11ef-818d-00155d060d12', 'XK8 4.2 Convertible', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'xk8-4-2-convertible'),
+('22554c1d-b38c-11ef-818d-00155d060d12', 'F-Pace', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'f-pace'),
+('225b2a19-b38c-11ef-818d-00155d060d12', 'F-Type', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'f-type'),
+('225f455f-b38c-11ef-818d-00155d060d12', 'S-Type 2.5/3.0 Luxury', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 's-type-2-5-3-0-luxury'),
+('226451b6-b38c-11ef-818d-00155d060d12', 'XE', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'xe'),
+('2266d82c-b38c-11ef-818d-00155d060d12', 'XF', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'xf'),
+('2269a44f-b38c-11ef-818d-00155d060d12', 'XJL', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'xjl'),
+('226ecaa9-b38c-11ef-818d-00155d060d12', 'XKR 4.2 Coupe', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'xkr-4-2-coupe'),
+('2273979e-b38c-11ef-818d-00155d060d12', 'Daimler 4.0/XJ40', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'daimler-4-0-xj40'),
+('2277548e-b38c-11ef-818d-00155d060d12', 'Sovereign 4.2', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'sovereign-4-2');
+INSERT INTO `car_models` (`id`, `name`, `car_brand_id`, `image`, `created_at`, `updated_at`, `slug`) VALUES
+('227b8a14-b38c-11ef-818d-00155d060d12', 'XJ6 2.8/3.2/3.4/4.2', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'xj6-2-8-3-2-3-4-4-2'),
+('22803439-b38c-11ef-818d-00155d060d12', 'XJ6 3.0 Luxury', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'xj6-3-0-luxury'),
+('2283a690-b38c-11ef-818d-00155d060d12', 'XJR 4.0/XJS 4.0', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'xjr-4-0-xjs-4-0'),
+('22862bdc-b38c-11ef-818d-00155d060d12', 'XJS HE 5.3', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'xjs-he-5-3'),
+('2288cc92-b38c-11ef-818d-00155d060d12', 'X-Type 2.5/3.0 Hight', 'a950ec74-c5f5-463f-9e2d-83242ae488db', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'x-type-2-5-3-0-hight'),
+('228ceb97-b38c-11ef-818d-00155d060d12', 'Cherokee XJ2.5/XJ4.0', '612d260b-6bb9-46fd-8047-d2b4d256ff31', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'cherokee-xj2-5-xj4-0'),
+('2290f00d-b38c-11ef-818d-00155d060d12', 'Wrangler 2.5L', '612d260b-6bb9-46fd-8047-d2b4d256ff31', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'wrangler-2-5l'),
+('22954921-b38c-11ef-818d-00155d060d12', 'Cherokee 2013 onwards', '612d260b-6bb9-46fd-8047-d2b4d256ff31', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'cherokee-2013-onwards'),
+('22991066-b38c-11ef-818d-00155d060d12', 'CJ5/CJ6/CJ7', '612d260b-6bb9-46fd-8047-d2b4d256ff31', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'cj5-cj6-cj7'),
+('229db8fc-b38c-11ef-818d-00155d060d12', 'Carnival 2006-2014', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'carnival-2006-2014'),
+('22a2dc05-b38c-11ef-818d-00155d060d12', 'Sportage 2004-2015', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:52', '2024-12-11 07:49:14', 'sportage-2004-2015'),
+('22a6cf04-b38c-11ef-818d-00155d060d12', 'Carens 1.8/Citra/Clarus', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:52', '2024-12-11 08:50:45', 'carens-1-8-citra-clarus'),
+('22aafe18-b38c-11ef-818d-00155d060d12', 'Carnival 1998-2006', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'carnival-1998-2006'),
+('22af84ff-b38c-11ef-818d-00155d060d12', 'Cerato', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'cerato'),
+('22b1f42f-b38c-11ef-818d-00155d060d12', 'Rio', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'rio'),
+('22b64ffa-b38c-11ef-818d-00155d060d12', 'Rondo', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'rondo'),
+('22b9fb3a-b38c-11ef-818d-00155d060d12', 'Sephia', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sephia'),
+('22bc767c-b38c-11ef-818d-00155d060d12', 'Sportage 2015 onwards Petrol', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sportage-2015-onwards-petrol'),
+('22c18123-b38c-11ef-818d-00155d060d12', 'Spectra', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'spectra'),
+('22c5a41a-b38c-11ef-818d-00155d060d12', 'Forte', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'forte'),
+('22c9d235-b38c-11ef-818d-00155d060d12', 'Carnival 2021 onwards', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'carnival-2021-onwards'),
+('22cd4355-b38c-11ef-818d-00155d060d12', 'Sorento 2021 onwards', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sorento-2021-onwards'),
+('22d087d4-b38c-11ef-818d-00155d060d12', 'Sorento 2014-2020', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sorento-2014-2020'),
+('22d4ec1b-b38c-11ef-818d-00155d060d12', 'Carnival 2014-2020', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'carnival-2014-2020'),
+('22d88574-b38c-11ef-818d-00155d060d12', 'Pregio Van 2.7L Diesel', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 08:50:45', 'pregio-van-2-7l-diesel'),
+('22dc1d9a-b38c-11ef-818d-00155d060d12', 'Sportage 2015 onwards Diesel', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sportage-2015-onwards-diesel'),
+('22e1b3c1-b38c-11ef-818d-00155d060d12', 'Sorento 2002-2009', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sorento-2002-2009'),
+('22e56791-b38c-11ef-818d-00155d060d12', 'Picanto', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'picanto'),
+('22ee180b-b38c-11ef-818d-00155d060d12', 'K5', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'k5'),
+('22f70850-b38c-11ef-818d-00155d060d12', 'Optima 2.0', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 08:50:45', 'optima-2-0'),
+('22fd0f5d-b38c-11ef-818d-00155d060d12', 'Sorento 2009-2014', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'sorento-2009-2014'),
+('2304ab82-b38c-11ef-818d-00155d060d12', 'Rio 2000-2005', '36e037e6-08cf-437c-b61f-368a855f953a', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'rio-2000-2005'),
+('2307faa0-b38c-11ef-818d-00155d060d12', 'Range Rover Evoque', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'range-rover-evoque'),
+('230b4245-b38c-11ef-818d-00155d060d12', 'All New Range Rover', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'all-new-range-rover'),
+('230f0f7e-b38c-11ef-818d-00155d060d12', 'All New Range Rover Sport', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'all-new-range-rover-sport'),
+('231372ac-b38c-11ef-818d-00155d060d12', 'Discovery 4', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'discovery-4'),
+('23166913-b38c-11ef-818d-00155d060d12', 'Range Rover L405', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'range-rover-l405'),
+('231adb77-b38c-11ef-818d-00155d060d12', 'Range Rover Sport', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'range-rover-sport'),
+('231e5361-b38c-11ef-818d-00155d060d12', 'Ranger Rover V0gue Diesel', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'ranger-rover-v0gue-diesel'),
+('232252d6-b38c-11ef-818d-00155d060d12', 'Freelander 1.8 Petrol', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 08:50:45', 'freelander-1-8-petrol'),
+('23269acf-b38c-11ef-818d-00155d060d12', 'Freelander 1.8 Td4', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 08:50:45', 'freelander-1-8-td4'),
+('232a7769-b38c-11ef-818d-00155d060d12', 'Freelander Kv6 Petrol', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'freelander-kv6-petrol'),
+('232e5e4f-b38c-11ef-818d-00155d060d12', 'Freelander Sport Edition', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'freelander-sport-edition'),
+('23375f5f-b38c-11ef-818d-00155d060d12', 'Discovery Series II Td5', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'discovery-series-ii-td5'),
+('233df318-b38c-11ef-818d-00155d060d12', 'Freelander 2', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:53', '2024-12-11 07:49:14', 'freelander-2'),
+('2343f674-b38c-11ef-818d-00155d060d12', 'Range Rover L322', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'range-rover-l322'),
+('23472c6e-b38c-11ef-818d-00155d060d12', 'Ranger Rover 3.0 Td6', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:54', '2024-12-11 08:50:45', 'ranger-rover-3-0-td6'),
+('234a287c-b38c-11ef-818d-00155d060d12', 'Ranger Rover 4.4 V8', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:54', '2024-12-11 08:50:45', 'ranger-rover-4-4-v8'),
+('234ed0ae-b38c-11ef-818d-00155d060d12', 'Defender', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'defender'),
+('23534edf-b38c-11ef-818d-00155d060d12', 'Discovery Turbo 2.5TDi', 'aedffade-1569-478e-8916-aed8d97b489b', NULL, '2024-12-06 04:39:54', '2024-12-11 08:50:45', 'discovery-turbo-2-5tdi'),
+('23575461-b38c-11ef-818d-00155d060d12', 'NX200t', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'nx200t'),
+('235ab6e5-b38c-11ef-818d-00155d060d12', 'RX200t', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'rx200t'),
+('235fa257-b38c-11ef-818d-00155d060d12', 'CT200h', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'ct200h'),
+('2362dea6-b38c-11ef-818d-00155d060d12', 'ES250', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'es250'),
+('236801d1-b38c-11ef-818d-00155d060d12', 'GS200t', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'gs200t'),
+('236c325d-b38c-11ef-818d-00155d060d12', 'GS250', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'gs250'),
+('236f59df-b38c-11ef-818d-00155d060d12', 'GS350', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'gs350'),
+('2373cddd-b38c-11ef-818d-00155d060d12', 'GSF', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'gsf'),
+('2378153f-b38c-11ef-818d-00155d060d12', 'IS200t', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'is200t'),
+('237e0f57-b38c-11ef-818d-00155d060d12', 'IS250/350', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'is250-350'),
+('2382a091-b38c-11ef-818d-00155d060d12', 'LC500', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'lc500'),
+('23882e3e-b38c-11ef-818d-00155d060d12', 'LS460', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'ls460'),
+('238e350f-b38c-11ef-818d-00155d060d12', 'LX570', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'lx570'),
+('23958c62-b38c-11ef-818d-00155d060d12', 'RC350/RCF', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'rc350-rcf'),
+('2399c3be-b38c-11ef-818d-00155d060d12', 'RX270/350', 'c819b099-69f1-4dcf-b1a5-8fc89867ee75', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'rx270-350'),
+('239e0df0-b38c-11ef-818d-00155d060d12', 'Elise Mk1/Mk2 V8', 'f81f4314-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'elise-mk1-mk2-v8'),
+('23a44bcd-b38c-11ef-818d-00155d060d12', 'Espirit', 'f81f4314-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'espirit'),
+('23a93f99-b38c-11ef-818d-00155d060d12', 'Spyder Coupe/Convertible', 'f820c569-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:54', '2024-12-12 06:10:27', 'spyder-coupe-convertible'),
+('23ad14c6-b38c-11ef-818d-00155d060d12', 'Quatrroporte', 'f820c569-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'quatrroporte'),
+('23b34bfd-b38c-11ef-818d-00155d060d12', '929', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', '929'),
+('23b81cd6-b38c-11ef-818d-00155d060d12', 'Astina 323', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'astina-323'),
+('23bc5327-b38c-11ef-818d-00155d060d12', 'Cronos V6 24V Efi', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'cronos-v6-24v-efi'),
+('23bf9c33-b38c-11ef-818d-00155d060d12', 'CX5 no i stop', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'cx5-no-i-stop'),
+('23c6b11f-b38c-11ef-818d-00155d060d12', 'CX7', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'cx7'),
+('23cb1b50-b38c-11ef-818d-00155d060d12', 'Lantis 1.6L/1.8L', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 08:50:45', 'lantis-1-6l-1-8l'),
+('23d13cbe-b38c-11ef-818d-00155d060d12', 'Mazda 3', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'mazda-3'),
+('23d5fa40-b38c-11ef-818d-00155d060d12', 'Mazda 5', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'mazda-5'),
+('23d8dae3-b38c-11ef-818d-00155d060d12', 'Mazda 6', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:54', '2024-12-11 07:49:14', 'mazda-6'),
+('23dcf1f5-b38c-11ef-818d-00155d060d12', 'Mazda 8', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mazda-8'),
+('23e201b3-b38c-11ef-818d-00155d060d12', 'MX-5', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mx-5'),
+('23e61032-b38c-11ef-818d-00155d060d12', 'Premacy 2.0L AT', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 08:50:45', 'premacy-2-0l-at'),
+('23ec6ea1-b38c-11ef-818d-00155d060d12', 'Biante i stop', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'biante-i-stop'),
+('23f1696a-b38c-11ef-818d-00155d060d12', 'CX3 Skyactiv', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'cx3-skyactiv'),
+('23f6aa64-b38c-11ef-818d-00155d060d12', 'CX5 Skyactiv', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'cx5-skyactiv'),
+('23fc085f-b38c-11ef-818d-00155d060d12', 'CX8', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'cx8'),
+('240392bb-b38c-11ef-818d-00155d060d12', 'Mazda 2 Skyactiv', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mazda-2-skyactiv'),
+('2407a221-b38c-11ef-818d-00155d060d12', 'Mazda 3 Skyactiv', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mazda-3-skyactiv'),
+('240cd297-b38c-11ef-818d-00155d060d12', 'Mazda 6 Skyactiv', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mazda-6-skyactiv'),
+('2410ab4c-b38c-11ef-818d-00155d060d12', 'MX-5 Skyactiv', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mx-5-skyactiv'),
+('24142181-b38c-11ef-818d-00155d060d12', 'CX5 Skyactiv Diesel', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'cx5-skyactiv-diesel'),
+('24177389-b38c-11ef-818d-00155d060d12', 'Mazda 6 Skyactiv Diesel', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mazda-6-skyactiv-diesel'),
+('241bf4c3-b38c-11ef-818d-00155d060d12', 'BT-50 New', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'bt-50-new'),
+('241f62e6-b38c-11ef-818d-00155d060d12', '4X4 Arista', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', '4x4-arista'),
+('24252082-b38c-11ef-818d-00155d060d12', 'Bongo E2200', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'bongo-e2200'),
+('242a61a5-b38c-11ef-818d-00155d060d12', 'Fighter', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'fighter'),
+('242dbce3-b38c-11ef-818d-00155d060d12', 'Familia 323', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'familia-323'),
+('243104a3-b38c-11ef-818d-00155d060d12', '626 1.6/1.8/GLX', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 08:50:45', '626-1-6-1-8-glx'),
+('2434a2ee-b38c-11ef-818d-00155d060d12', '323 1.3/1.5/MX-5', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 08:50:45', '323-1-3-1-5-mx-5'),
+('24382710-b38c-11ef-818d-00155d060d12', '808 Capella', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', '808-capella'),
+('243b6a9a-b38c-11ef-818d-00155d060d12', 'Mazda 2', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'mazda-2'),
+('243eda1c-b38c-11ef-818d-00155d060d12', 'E2500', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'e2500'),
+('2442a076-b38c-11ef-818d-00155d060d12', 'RX7 III TT', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'rx7-iii-tt'),
+('2447219b-b38c-11ef-818d-00155d060d12', 'RX8 TT', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'rx8-tt'),
+('244b3e55-b38c-11ef-818d-00155d060d12', 'CX9', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'cx9'),
+('244f2091-b38c-11ef-818d-00155d060d12', 'Tribute 2.3LSDK', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 08:50:45', 'tribute-2-3lsdk'),
+('2452c40b-b38c-11ef-818d-00155d060d12', 'Tribute 3.0L 4X4', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 08:50:45', 'tribute-3-0l-4x4'),
+('24570234-b38c-11ef-818d-00155d060d12', 'Bongo E1400', '86a3ef3a-11f5-4a3e-861a-748832cb66f0', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'bongo-e1400'),
+('245c885d-b38c-11ef-818d-00155d060d12', 'A class W177', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'a-class-w177'),
+('2460a650-b38c-11ef-818d-00155d060d12', 'C class W205', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'c-class-w205'),
+('24656de4-b38c-11ef-818d-00155d060d12', 'SL R230 (2003-2008)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 08:27:36', 'sl-r230-2003-2008'),
+('2467b238-b38c-11ef-818d-00155d060d12', 'SLK R172', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'slk-r172'),
+('246b2672-b38c-11ef-818d-00155d060d12', 'SLS C197', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'sls-c197'),
+('246dbf0e-b38c-11ef-818d-00155d060d12', 'A class W176', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'a-class-w176'),
+('247190e7-b38c-11ef-818d-00155d060d12', 'B class W246', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:55', '2024-12-11 07:49:14', 'b-class-w246'),
+('24743d32-b38c-11ef-818d-00155d060d12', 'C class W204 (2007-2014)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'c-class-w204-2007-2014'),
+('2477986a-b38c-11ef-818d-00155d060d12', 'CLA C117', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'cla-c117'),
+('247c894e-b38c-11ef-818d-00155d060d12', 'CLS C218', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'cls-c218'),
+('248006ab-b38c-11ef-818d-00155d060d12', 'E Class Coupe C207', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'e-class-coupe-c207'),
+('248456c7-b38c-11ef-818d-00155d060d12', 'E Class W212', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'e-class-w212'),
+('2487ae2e-b38c-11ef-818d-00155d060d12', 'E Class W213', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'e-class-w213'),
+('248af509-b38c-11ef-818d-00155d060d12', 'GLA X156', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'gla-x156'),
+('248e4cad-b38c-11ef-818d-00155d060d12', 'GLB X247', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'glb-x247'),
+('2492d5eb-b38c-11ef-818d-00155d060d12', 'GLC Coupe X253', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'glc-coupe-x253'),
+('249571e5-b38c-11ef-818d-00155d060d12', 'GLC X253', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'glc-x253'),
+('2498769c-b38c-11ef-818d-00155d060d12', 'CLS W219 (2004-2010)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'cls-w219-2004-2010'),
+('249d2be5-b38c-11ef-818d-00155d060d12', 'GL class X164/X166', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'gl-class-x164-x166'),
+('24a003a3-b38c-11ef-818d-00155d060d12', 'M class W164 (2005-2011)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'm-class-w164-2005-2011'),
+('24a3304e-b38c-11ef-818d-00155d060d12', 'ML W166', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'ml-w166'),
+('24a624d6-b38c-11ef-818d-00155d060d12', 'R class V251', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'r-class-v251'),
+('24ab9cba-b38c-11ef-818d-00155d060d12', 'S Class W221 (2005-2013)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 's-class-w221-2005-2013'),
+('24af89de-b38c-11ef-818d-00155d060d12', 'S Class W222', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 's-class-w222'),
+('24b42cac-b38c-11ef-818d-00155d060d12', 'SL R231', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'sl-r231'),
+('24b8101a-b38c-11ef-818d-00155d060d12', 'Vito W639', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'vito-w639'),
+('24bd7287-b38c-11ef-818d-00155d060d12', 'A class W168 (1997-2004)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'a-class-w168-1997-2004'),
+('24c164c6-b38c-11ef-818d-00155d060d12', 'SMART', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'smart'),
+('24c57ee3-b38c-11ef-818d-00155d060d12', '190E/W123/W124', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', '190e-w123-w124'),
+('24c9edd1-b38c-11ef-818d-00155d060d12', '200/220/230', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', '200-220-230'),
+('24cd22d2-b38c-11ef-818d-00155d060d12', '230E/250/280SE', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', '230e-250-280se'),
+('24d3b9ae-b38c-11ef-818d-00155d060d12', 'A class W169 (2004-2012)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'a-class-w169-2004-2012'),
+('24d7b506-b38c-11ef-818d-00155d060d12', 'B class W245 (2005-2011)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'b-class-w245-2005-2011'),
+('24db3631-b38c-11ef-818d-00155d060d12', 'C class W202/W203 (1993-2007)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'c-class-w202-w203-1993-2007'),
+('24de7d9c-b38c-11ef-818d-00155d060d12', 'C220 CDI', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'c220-cdi'),
+('24e2cba1-b38c-11ef-818d-00155d060d12', 'CLK 240 V6', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'clk-240-v6'),
+('24e79575-b38c-11ef-818d-00155d060d12', 'E Class W123/W124 (1976-1995)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'e-class-w123-w124-1976-1995'),
+('24eab5a8-b38c-11ef-818d-00155d060d12', 'SLK R170/R171 (1996-2010)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'slk-r170-r171-1996-2010'),
+('24efe6d0-b38c-11ef-818d-00155d060d12', 'S Class W116 (1972-1980)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 's-class-w116-1972-1980'),
+('24f4399f-b38c-11ef-818d-00155d060d12', 'S Class W126 (1979-1991)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 's-class-w126-1979-1991'),
+('24f7e8b5-b38c-11ef-818d-00155d060d12', '320 CDI', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', '320-cdi'),
+('24fc500f-b38c-11ef-818d-00155d060d12', 'E Class W210 Petrol (1995-2002)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'e-class-w210-petrol-1995-2002'),
+('24ff7eaf-b38c-11ef-818d-00155d060d12', 'E Class W211 (2002-2009)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'e-class-w211-2002-2009'),
+('250394c3-b38c-11ef-818d-00155d060d12', 'M class W163 (1997-2005)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 08:27:36', 'm-class-w163-1997-2005'),
+('2507ed1b-b38c-11ef-818d-00155d060d12', 'ML240 CDI', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:56', '2024-12-11 07:49:14', 'ml240-cdi'),
+('250cf9ec-b38c-11ef-818d-00155d060d12', 'S Class W140 (1991-1998)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:57', '2024-12-11 08:27:36', 's-class-w140-1991-1998'),
+('25106450-b38c-11ef-818d-00155d060d12', 'S Class W220 (1999-2005)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:57', '2024-12-11 08:27:36', 's-class-w220-1999-2005'),
+('251336f8-b38c-11ef-818d-00155d060d12', 'SL R129 (1989-2002)', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:57', '2024-12-11 08:27:36', 'sl-r129-1989-2002'),
+('2516c59f-b38c-11ef-818d-00155d060d12', '200D/240D/300D', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', '200d-240d-300d'),
+('2519f57e-b38c-11ef-818d-00155d060d12', '308SE/500SEL', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', '308se-500sel'),
+('251f0584-b38c-11ef-818d-00155d060d12', 'C270 CDI', '02326548-0741-486f-8e57-e1a9ee278158', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'c270-cdi'),
+('25245c54-b38c-11ef-818d-00155d060d12', 'Clubman R55', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'clubman-r55'),
+('2528466c-b38c-11ef-818d-00155d060d12', 'Cooper F55/F56/F57', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'cooper-f55-f56-f57'),
+('252bf160-b38c-11ef-818d-00155d060d12', 'Cooper R56/R57/R58', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'cooper-r56-r57-r58'),
+('252f1680-b38c-11ef-818d-00155d060d12', 'Countryman F60', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'countryman-f60'),
+('253256ec-b38c-11ef-818d-00155d060d12', 'Countryman R60/R61', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'countryman-r60-r61'),
+('2536c29d-b38c-11ef-818d-00155d060d12', 'Clubman F54', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'clubman-f54'),
+('2539a67c-b38c-11ef-818d-00155d060d12', 'John Cooper Works', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'john-cooper-works'),
+('253d89bb-b38c-11ef-818d-00155d060d12', 'Seven', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'seven'),
+('2541a05e-b38c-11ef-818d-00155d060d12', 'Cooper R50/R53', '8b0c327e-c25e-4e92-b842-1aa0b3f9da8f', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'cooper-r50-r53'),
+('254586ae-b38c-11ef-818d-00155d060d12', 'ASX', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'asx'),
+('254a4b1f-b38c-11ef-818d-00155d060d12', 'Attrage', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'attrage'),
+('254e5cc3-b38c-11ef-818d-00155d060d12', 'Eclipse 2.0L T', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 08:50:45', 'eclipse-2-0l-t'),
+('25520d55-b38c-11ef-818d-00155d060d12', 'Grandis', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'grandis'),
+('25554692-b38c-11ef-818d-00155d060d12', 'Lancer 1.6/Lancer Evo', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 08:50:45', 'lancer-1-6-lancer-evo'),
+('25589871-b38c-11ef-818d-00155d060d12', 'Mirage', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'mirage'),
+('255c9b8b-b38c-11ef-818d-00155d060d12', 'Outlander', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'outlander'),
+('255f1231-b38c-11ef-818d-00155d060d12', 'Spacewagon 2.4L/2.8L TD', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 08:50:45', 'spacewagon-2-4l-2-8l-td'),
+('25620eba-b38c-11ef-818d-00155d060d12', 'Challenger', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'challenger'),
+('2567b2cd-b38c-11ef-818d-00155d060d12', 'Delica L300 Diesel', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'delica-l300-diesel'),
+('256a9415-b38c-11ef-818d-00155d060d12', 'L200 Storm', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'l200-storm'),
+('256dee30-b38c-11ef-818d-00155d060d12', 'Xpander', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'xpander'),
+('25710b1e-b38c-11ef-818d-00155d060d12', 'Airtrek AWD', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'airtrek-awd'),
+('25744bbe-b38c-11ef-818d-00155d060d12', 'Colt 1400/Lancer', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'colt-1400-lancer'),
+('25772ff0-b38c-11ef-818d-00155d060d12', 'Colt MK V 1.6L', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 08:50:45', 'colt-mk-v-1-6l'),
+('257b7c98-b38c-11ef-818d-00155d060d12', '2.0i Space Wagon', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 08:50:45', '2-0i-space-wagon'),
+('25805a59-b38c-11ef-818d-00155d060d12', 'Cordia 1600 GLS', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'cordia-1600-gls'),
+('2583f264-b38c-11ef-818d-00155d060d12', 'Cordia Celeste', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'cordia-celeste'),
+('2587bb05-b38c-11ef-818d-00155d060d12', 'Sigma 1600/2000GLS', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'sigma-1600-2000gls'),
+('258b9986-b38c-11ef-818d-00155d060d12', 'FTO', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'fto'),
+('258f35bf-b38c-11ef-818d-00155d060d12', 'L400 2.4 Petrol', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 08:50:45', 'l400-2-4-petrol'),
+('2592a932-b38c-11ef-818d-00155d060d12', 'Tredia', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'tredia'),
+('2595724c-b38c-11ef-818d-00155d060d12', 'Delica L300 Petrol', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'delica-l300-petrol'),
+('25998b96-b38c-11ef-818d-00155d060d12', 'Triton Lite', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'triton-lite'),
+('259d36f9-b38c-11ef-818d-00155d060d12', 'Galant', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'galant'),
+('25a02d2f-b38c-11ef-818d-00155d060d12', 'Starian Turbo EX', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:57', '2024-12-11 07:49:14', 'starian-turbo-ex'),
+('25a38da9-b38c-11ef-818d-00155d060d12', 'Pajero Super Exceed', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'pajero-super-exceed'),
+('25a72daf-b38c-11ef-818d-00155d060d12', 'Pajero Up 2.5L Diesel', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'pajero-up-2-5l-diesel'),
+('25ac54a8-b38c-11ef-818d-00155d060d12', 'Pajero V31V/V31W', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'pajero-v31v-v31w'),
+('25aebe17-b38c-11ef-818d-00155d060d12', 'Pajero V34V/V34W/V46W', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'pajero-v34v-v34w-v46w'),
+('25b177fe-b38c-11ef-818d-00155d060d12', 'Triton', 'ff771745-cc23-4cfe-bfc4-332412699715', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'triton'),
+('25b53b4f-b38c-11ef-818d-00155d060d12', 'Rondo', '68773e16-0623-4d4d-b159-b6f36c357a79', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'rondo'),
+('25b7eb02-b38c-11ef-818d-00155d060d12', 'Ria', '68773e16-0623-4d4d-b159-b6f36c357a79', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'ria'),
+('25bb23de-b38c-11ef-818d-00155d060d12', 'Bestari', '68773e16-0623-4d4d-b159-b6f36c357a79', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'bestari'),
+('25be6f43-b38c-11ef-818d-00155d060d12', 'Citra', '68773e16-0623-4d4d-b159-b6f36c357a79', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'citra'),
+('25c20e0a-b38c-11ef-818d-00155d060d12', 'Sutera', '68773e16-0623-4d4d-b159-b6f36c357a79', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'sutera'),
+('25c5cb2a-b38c-11ef-818d-00155d060d12', 'Forza', '68773e16-0623-4d4d-b159-b6f36c357a79', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'forza'),
+('25c90b14-b38c-11ef-818d-00155d060d12', 'Cube', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'cube'),
+('25cc44e8-b38c-11ef-818d-00155d060d12', 'Elgrand', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'elgrand'),
+('25cf96c5-b38c-11ef-818d-00155d060d12', 'Murano', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'murano'),
+('25d2f14d-b38c-11ef-818d-00155d060d12', 'Stanza 1.6', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'stanza-1-6'),
+('25d6cca9-b38c-11ef-818d-00155d060d12', 'Sylphy 2012 onwards', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'sylphy-2012-onwards'),
+('25d998df-b38c-11ef-818d-00155d060d12', 'Teana 2.0/2.5', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'teana-2-0-2-5'),
+('25dc5bd5-b38c-11ef-818d-00155d060d12', 'X-Trail', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'x-trail'),
+('25e089f2-b38c-11ef-818d-00155d060d12', 'Cefiro Brougham 3.0G', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'cefiro-brougham-3-0g'),
+('25e54fd1-b38c-11ef-818d-00155d060d12', 'Cefiro Excimo 2.0G', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'cefiro-excimo-2-0g'),
+('25e7cac9-b38c-11ef-818d-00155d060d12', 'Serena Comfort', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'serena-comfort'),
+('25ebefe3-b38c-11ef-818d-00155d060d12', 'Serena Higway Star', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'serena-higway-star'),
+('25eea222-b38c-11ef-818d-00155d060d12', '200C/280C', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', '200c-280c'),
+('25f1e778-b38c-11ef-818d-00155d060d12', 'Cedric 280C/220C', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'cedric-280c-220c'),
+('25f52bcd-b38c-11ef-818d-00155d060d12', 'Frontier', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'frontier'),
+('25f7e78f-b38c-11ef-818d-00155d060d12', 'Safari 4WD Diesel', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-12 06:57:09', 'safari-4wd-diesel'),
+('25fae1e9-b38c-11ef-818d-00155d060d12', 'Teranno 2.7 TD', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'teranno-2-7-td'),
+('25fdbea0-b38c-11ef-818d-00155d060d12', 'Urvan NV350', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'urvan-nv350'),
+('26011e60-b38c-11ef-818d-00155d060d12', '120Y/140Y', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', '120y-140y'),
+('2603b07c-b38c-11ef-818d-00155d060d12', 'Almera', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'almera'),
+('26064fe8-b38c-11ef-818d-00155d060d12', 'C20 Vanette', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'c20-vanette'),
+('260a59bb-b38c-11ef-818d-00155d060d12', 'Grand Livina', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'grand-livina'),
+('260ec7d2-b38c-11ef-818d-00155d060d12', 'GTR', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'gtr'),
+('26136937-b38c-11ef-818d-00155d060d12', 'Latio', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'latio'),
+('26176464-b38c-11ef-818d-00155d060d12', 'March/Langley', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'march-langley'),
+('261a719c-b38c-11ef-818d-00155d060d12', 'NV200', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'nv200'),
+('261ed618-b38c-11ef-818d-00155d060d12', 'Sunny 130Y', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'sunny-130y'),
+('2623078a-b38c-11ef-818d-00155d060d12', 'Sylphy 2005-2012', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'sylphy-2005-2012'),
+('262689b4-b38c-11ef-818d-00155d060d12', 'X-Gear', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'x-gear'),
+('262a77e5-b38c-11ef-818d-00155d060d12', 'Fairlady 350Z/370Z', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'fairlady-350z-370z'),
+('262d244a-b38c-11ef-818d-00155d060d12', 'Sentra', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'sentra'),
+('26313a13-b38c-11ef-818d-00155d060d12', '100A', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', '100a'),
+('263387cc-b38c-11ef-818d-00155d060d12', 'C22 Vanette', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 07:49:14', 'c22-vanette'),
+('2635f00b-b38c-11ef-818d-00155d060d12', 'Skyline (R32/R33/R34)', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:27:36', 'skyline-r32-r33-r34'),
+('26398007-b38c-11ef-818d-00155d060d12', 'AD Resort 1.6 SLX', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:58', '2024-12-11 08:50:45', 'ad-resort-1-6-slx'),
+('26409825-b38c-11ef-818d-00155d060d12', 'Bluebird Altima', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'bluebird-altima'),
+('2643e9b8-b38c-11ef-818d-00155d060d12', 'Maxima', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'maxima'),
+('2647434e-b38c-11ef-818d-00155d060d12', 'Navara 4WD', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'navara-4wd'),
+('264ab762-b38c-11ef-818d-00155d060d12', 'Serena Non Hybrid', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'serena-non-hybrid'),
+('264e05ec-b38c-11ef-818d-00155d060d12', '160J/160SSS/180SSS', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', '160j-160sss-180sss'),
+('26517abc-b38c-11ef-818d-00155d060d12', '180K/200L', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', '180k-200l'),
+('2655073b-b38c-11ef-818d-00155d060d12', '280ZX/300ZX/300ZX TT', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', '280zx-300zx-300zx-tt'),
+('2657d30e-b38c-11ef-818d-00155d060d12', 'Laurel 2.0', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'laurel-2-0'),
+('265b3133-b38c-11ef-818d-00155d060d12', 'Safari 4WD Petrol', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-12 06:57:09', 'safari-4wd-petrol'),
+('265f7aeb-b38c-11ef-818d-00155d060d12', 'Sunny Diesel GL', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'sunny-diesel-gl'),
+('2662b3ab-b38c-11ef-818d-00155d060d12', 'Almera (>2020)', '8459225a-e733-41de-9ac7-7568a1f60157', NULL, '2024-12-06 04:39:59', '2024-12-11 08:27:36', 'almera->2020'),
+('26658878-b38c-11ef-818d-00155d060d12', 'Astra 1.6/1.6N', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'astra-1-6-1-6n'),
+('266876dc-b38c-11ef-818d-00155d060d12', 'Astra Black/Caravan', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'astra-black-caravan'),
+('266cce52-b38c-11ef-818d-00155d060d12', 'Kadett City/Berlina', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-12 06:10:27', 'kadett-city-berlina'),
+('266f363d-b38c-11ef-818d-00155d060d12', 'Kadett Commodore', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'kadett-commodore'),
+('2672c197-b38c-11ef-818d-00155d060d12', 'Manta', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'manta'),
+('2675b22c-b38c-11ef-818d-00155d060d12', 'Calais 2.6', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'calais-2-6'),
+('267930cd-b38c-11ef-818d-00155d060d12', 'Calibra 2.0i', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'calibra-2-0i'),
+('267c3686-b38c-11ef-818d-00155d060d12', 'Omega 2.0i/2.6i/3.0i', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'omega-2-0i-2-6i-3-0i'),
+('267f6f71-b38c-11ef-818d-00155d060d12', 'Zafira 1.8', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'zafira-1-8'),
+('268258c8-b38c-11ef-818d-00155d060d12', 'Fronte 2.2i', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'fronte-2-2i'),
+('26854fa8-b38c-11ef-818d-00155d060d12', 'Vectra 1.8i/2.0i/2.5i', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'vectra-1-8i-2-0i-2-5i'),
+('26890c4d-b38c-11ef-818d-00155d060d12', 'Gemini Petrol', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'gemini-petrol'),
+('268cd16f-b38c-11ef-818d-00155d060d12', '1000/1100/1200', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', '1000-1100-1200'),
+('268fa960-b38c-11ef-818d-00155d060d12', 'Gemini Diesel', 'f8224a53-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'gemini-diesel'),
+('2692a024-b38c-11ef-818d-00155d060d12', 'Alza New (2022)', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 08:27:36', 'alza-new-2022'),
+('2695cd4e-b38c-11ef-818d-00155d060d12', 'Ativa', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'ativa'),
+('2698883d-b38c-11ef-818d-00155d060d12', 'Axia AV/SE 2023', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-12 06:10:27', 'axia-av-se-2023'),
+('269bb92a-b38c-11ef-818d-00155d060d12', 'Bezza Advance', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'bezza-advance'),
+('269f0c4e-b38c-11ef-818d-00155d060d12', 'Myvi New Gen 1.5/1.3X', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 08:50:45', 'myvi-new-gen-1-5-1-3x'),
+('26a2a38f-b38c-11ef-818d-00155d060d12', 'Aruz', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'aruz'),
+('26a5b1a5-b38c-11ef-818d-00155d060d12', 'Myvi New Gen 2021/22 onwards', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'myvi-new-gen-2021-22-onwards'),
+('26a8f001-b38c-11ef-818d-00155d060d12', 'Alza', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'alza'),
+('26ab9181-b38c-11ef-818d-00155d060d12', 'Axia', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'axia'),
+('26af3d66-b38c-11ef-818d-00155d060d12', 'Bezza Premium X/X', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'bezza-premium-x-x'),
+('26b2b4c8-b38c-11ef-818d-00155d060d12', 'Kancil', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'kancil'),
+('26b78698-b38c-11ef-818d-00155d060d12', 'Kelisa', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'kelisa'),
+('26b9e45b-b38c-11ef-818d-00155d060d12', 'Kembara', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'kembara'),
+('26bc9fbf-b38c-11ef-818d-00155d060d12', 'Kenari', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'kenari'),
+('26c002f9-b38c-11ef-818d-00155d060d12', 'Myvi', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'myvi'),
+('26c36ee4-b38c-11ef-818d-00155d060d12', 'Nautica', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'nautica'),
+('26c82636-b38c-11ef-818d-00155d060d12', 'Rusa', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'rusa'),
+('26cb2d5f-b38c-11ef-818d-00155d060d12', 'Viva', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', 'viva'),
+('26ce7b21-b38c-11ef-818d-00155d060d12', '3008 2019 onwards', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', '3008-2019-onwards'),
+('26d1cbf4-b38c-11ef-818d-00155d060d12', '5008 2019 onwards', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:39:59', '2024-12-11 07:49:14', '5008-2019-onwards'),
+('26d88d2f-b38c-11ef-818d-00155d060d12', '208 Puretec', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '208-puretec'),
+('26de14b5-b38c-11ef-818d-00155d060d12', '206', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '206'),
+('26e448b0-b38c-11ef-818d-00155d060d12', '207', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '207'),
+('26e8e4cc-b38c-11ef-818d-00155d060d12', '208', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '208'),
+('26ebae39-b38c-11ef-818d-00155d060d12', '305', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '305'),
+('26ee6756-b38c-11ef-818d-00155d060d12', '306', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '306'),
+('27092676-b38c-11ef-818d-00155d060d12', '307', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '307'),
+('270cd4d3-b38c-11ef-818d-00155d060d12', '308', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '308'),
+('2712c93e-b38c-11ef-818d-00155d060d12', '405', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '405'),
+('27169939-b38c-11ef-818d-00155d060d12', '408', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '408'),
+('271b455d-b38c-11ef-818d-00155d060d12', '505', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '505'),
+('271dfa6e-b38c-11ef-818d-00155d060d12', '605', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '605'),
+('272155d4-b38c-11ef-818d-00155d060d12', '607', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '607'),
+('2724f328-b38c-11ef-818d-00155d060d12', '807', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '807'),
+('2727e086-b38c-11ef-818d-00155d060d12', '2008', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '2008'),
+('272add23-b38c-11ef-818d-00155d060d12', '3008 2016-2018', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '3008-2016-2018'),
+('272e78c8-b38c-11ef-818d-00155d060d12', '5008 2016-2018', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '5008-2016-2018'),
+('2731c901-b38c-11ef-818d-00155d060d12', '406', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '406'),
+('273724ad-b38c-11ef-818d-00155d060d12', '407', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '407'),
+('273bcb18-b38c-11ef-818d-00155d060d12', '508', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '508');
+INSERT INTO `car_models` (`id`, `name`, `car_brand_id`, `image`, `created_at`, `updated_at`, `slug`) VALUES
+('273fdfc4-b38c-11ef-818d-00155d060d12', '3008 2008-2016', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '3008-2008-2016'),
+('2742acd8-b38c-11ef-818d-00155d060d12', '5008 2009-2016', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '5008-2009-2016'),
+('27463a2e-b38c-11ef-818d-00155d060d12', 'RCZ', '3ee8e282-6c2f-4bac-b8d6-f8eee8ee398b', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', 'rcz'),
+('274ad5f3-b38c-11ef-818d-00155d060d12', 'Panamera', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', 'panamera'),
+('274e74ca-b38c-11ef-818d-00155d060d12', 'Cayenna', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', 'cayenna'),
+('2751c30d-b38c-11ef-818d-00155d060d12', '911 Carerra', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '911-carerra'),
+('27557dc2-b38c-11ef-818d-00155d060d12', '911 Targo Cabrio', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '911-targo-cabrio'),
+('27592fb5-b38c-11ef-818d-00155d060d12', '924/944/944T', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '924-944-944t'),
+('275e013c-b38c-11ef-818d-00155d060d12', '993/996', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '993-996'),
+('276358bd-b38c-11ef-818d-00155d060d12', '928S', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', '928s'),
+('2767237a-b38c-11ef-818d-00155d060d12', 'Boxster S 3.2L', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 08:50:45', 'boxster-s-3-2l'),
+('2769bf3b-b38c-11ef-818d-00155d060d12', 'Cayman', 'f8245d82-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:00', '2024-12-11 07:49:14', 'cayman'),
+('276ced87-b38c-11ef-818d-00155d060d12', 'Exora', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'exora'),
+('2772091e-b38c-11ef-818d-00155d060d12', 'Inspira', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'inspira'),
+('2775c7a2-b38c-11ef-818d-00155d060d12', 'Preve', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'preve'),
+('277afec3-b38c-11ef-818d-00155d060d12', 'Suprima', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'suprima'),
+('277f255c-b38c-11ef-818d-00155d060d12', 'Tiara', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'tiara'),
+('278428fe-b38c-11ef-818d-00155d060d12', 'S70', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 's70'),
+('27884da6-b38c-11ef-818d-00155d060d12', 'X50', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'x50'),
+('278c291d-b38c-11ef-818d-00155d060d12', 'Gen 2', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'gen-2'),
+('27907722-b38c-11ef-818d-00155d060d12', 'Neo', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'neo'),
+('27934487-b38c-11ef-818d-00155d060d12', 'Persona', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'persona'),
+('2797650c-b38c-11ef-818d-00155d060d12', 'X70 CBU', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'x70-cbu'),
+('279bf712-b38c-11ef-818d-00155d060d12', 'Ertiga', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'ertiga'),
+('27a0ef62-b38c-11ef-818d-00155d060d12', 'Juara', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'juara'),
+('27a4c272-b38c-11ef-818d-00155d060d12', 'Perdana 2016 onwards', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'perdana-2016-onwards'),
+('27ac50fd-b38c-11ef-818d-00155d060d12', 'Savvy', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'savvy'),
+('27b0460f-b38c-11ef-818d-00155d060d12', 'Waja', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'waja'),
+('27b569f7-b38c-11ef-818d-00155d060d12', 'Iswara', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'iswara'),
+('27bcb7bf-b38c-11ef-818d-00155d060d12', 'Arena', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'arena'),
+('27c18f56-b38c-11ef-818d-00155d060d12', 'Iriz', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'iriz'),
+('27c5944d-b38c-11ef-818d-00155d060d12', 'Persona New Gen', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'persona-new-gen'),
+('27cb5c8b-b38c-11ef-818d-00155d060d12', 'Saga', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'saga'),
+('27ce4d96-b38c-11ef-818d-00155d060d12', 'Satria', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'satria'),
+('27d13538-b38c-11ef-818d-00155d060d12', 'Perdana', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'perdana'),
+('27d5934d-b38c-11ef-818d-00155d060d12', 'Putra', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'putra'),
+('27d84423-b38c-11ef-818d-00155d060d12', 'Wira', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'wira'),
+('27dc9698-b38c-11ef-818d-00155d060d12', 'X70 CKD', 'cb3aef6a-a716-4e24-9945-d74207e63875', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'x70-ckd'),
+('27ded7b7-b38c-11ef-818d-00155d060d12', '216 Cabriolet/220', 'e45ace14-549f-4430-b4d3-4f5777c448b2', NULL, '2024-12-06 04:40:01', '2024-12-12 06:10:27', '216-cabriolet-220'),
+('27e2c4a2-b38c-11ef-818d-00155d060d12', '2600S', 'e45ace14-549f-4430-b4d3-4f5777c448b2', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', '2600s'),
+('27e8f674-b38c-11ef-818d-00155d060d12', '620 Sli/623 Gsi', 'e45ace14-549f-4430-b4d3-4f5777c448b2', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', '620-sli-623-gsi'),
+('27ed2daa-b38c-11ef-818d-00155d060d12', '820 Si/827 GSLi', 'e45ace14-549f-4430-b4d3-4f5777c448b2', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', '820-si-827-gsli'),
+('27ef970d-b38c-11ef-818d-00155d060d12', 'Sterling V6', 'e45ace14-549f-4430-b4d3-4f5777c448b2', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'sterling-v6'),
+('27f2fa0e-b38c-11ef-818d-00155d060d12', 'Captur', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'captur'),
+('27f5b4fe-b38c-11ef-818d-00155d060d12', 'Clio', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'clio'),
+('27f9cbf8-b38c-11ef-818d-00155d060d12', 'Kangoo', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'kangoo'),
+('27fd3791-b38c-11ef-818d-00155d060d12', 'Koleos', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'koleos'),
+('28017c4a-b38c-11ef-818d-00155d060d12', 'Scenic', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'scenic'),
+('28048367-b38c-11ef-818d-00155d060d12', 'Espace MPV', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:01', '2024-12-11 07:49:14', 'espace-mpv'),
+('2807f598-b38c-11ef-818d-00155d060d12', 'Fluence', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'fluence'),
+('280c3173-b38c-11ef-818d-00155d060d12', 'Laguna', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'laguna'),
+('28112bce-b38c-11ef-818d-00155d060d12', 'Megane', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'megane'),
+('281460f7-b38c-11ef-818d-00155d060d12', '19 RT/TXE', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '19-rt-txe'),
+('2817a7e8-b38c-11ef-818d-00155d060d12', '5TL/12TL/TS', 'b67d4ea3-aeda-4b96-85d8-26804b1f6a41', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '5tl-12tl-ts'),
+('281b16fd-b38c-11ef-818d-00155d060d12', '900GLS/GLI/GLE Turbo', '047a4ec6-1cd9-482d-8380-4114d3201770', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '900gls-gli-gle-turbo'),
+('281dc035-b38c-11ef-818d-00155d060d12', '9-3 Aero/Convertible', '047a4ec6-1cd9-482d-8380-4114d3201770', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '9-3-aero-convertible'),
+('2821da29-b38c-11ef-818d-00155d060d12', '9-5 Aero', '047a4ec6-1cd9-482d-8380-4114d3201770', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '9-5-aero'),
+('2825b52e-b38c-11ef-818d-00155d060d12', 'Fabia', 'f825f5df-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'fabia'),
+('28290b78-b38c-11ef-818d-00155d060d12', 'Favorit', 'f825f5df-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'favorit'),
+('282cff98-b38c-11ef-818d-00155d060d12', 'Octavia', 'f825f5df-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'octavia'),
+('283018b1-b38c-11ef-818d-00155d060d12', 'Superb', 'f825f5df-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'superb'),
+('28360dbd-b38c-11ef-818d-00155d060d12', '120LS/GLS', 'f825f5df-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '120ls-gls'),
+('28393087-b38c-11ef-818d-00155d060d12', 'Coupe', 'e2173bc6-38be-4ad6-974f-d0ae27e4dcf6', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'coupe'),
+('283d1f09-b38c-11ef-818d-00155d060d12', 'ForFour', 'e2173bc6-38be-4ad6-974f-d0ae27e4dcf6', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'forfour'),
+('28414be7-b38c-11ef-818d-00155d060d12', 'ForTwo', 'e2173bc6-38be-4ad6-974f-d0ae27e4dcf6', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'fortwo'),
+('28477d20-b38c-11ef-818d-00155d060d12', 'Roadster', 'e2173bc6-38be-4ad6-974f-d0ae27e4dcf6', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'roadster'),
+('284af732-b38c-11ef-818d-00155d060d12', 'Actyon', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'actyon'),
+('284e5794-b38c-11ef-818d-00155d060d12', 'Chairman', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'chairman'),
+('28513246-b38c-11ef-818d-00155d060d12', 'Korando', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'korando'),
+('28545a7f-b38c-11ef-818d-00155d060d12', 'Kyron', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'kyron'),
+('285a66e8-b38c-11ef-818d-00155d060d12', 'Musso', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'musso'),
+('285e29dd-b38c-11ef-818d-00155d060d12', 'Rexton', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'rexton'),
+('28626677-b38c-11ef-818d-00155d060d12', 'Rodius', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'rodius'),
+('2866077d-b38c-11ef-818d-00155d060d12', 'Stavic', '0d258dcd-2392-4fbc-8659-20d23f08fe51', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'stavic'),
+('2869b141-b38c-11ef-818d-00155d060d12', 'BRZ', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'brz'),
+('286d784c-b38c-11ef-818d-00155d060d12', 'Forester', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'forester'),
+('286feb0f-b38c-11ef-818d-00155d060d12', 'Impreza', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'impreza'),
+('28737d7f-b38c-11ef-818d-00155d060d12', 'WRX', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'wrx'),
+('2877ed42-b38c-11ef-818d-00155d060d12', 'XV', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'xv'),
+('287a8a7f-b38c-11ef-818d-00155d060d12', '1600GLT/S/W/AWD', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '1600glt-s-w-awd'),
+('287d86a6-b38c-11ef-818d-00155d060d12', '700 DX', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '700-dx'),
+('2880a1ee-b38c-11ef-818d-00155d060d12', 'Leone 2WD/4WD', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'leone-2wd-4wd'),
+('2883a64b-b38c-11ef-818d-00155d060d12', '1.8 GL Touring', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 08:50:45', '1-8-gl-touring'),
+('2886a0d2-b38c-11ef-818d-00155d060d12', '1800 GLT/GTS/4WD', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', '1800-glt-gts-4wd'),
+('288a0d44-b38c-11ef-818d-00155d060d12', 'Legacy 4WD 2.0L', 'f8abdeb3-9424-4b22-976f-e8462ab4c053', NULL, '2024-12-06 04:40:02', '2024-12-11 08:50:45', 'legacy-4wd-2-0l'),
+('288e1ee1-b38c-11ef-818d-00155d060d12', 'Grand Vitara', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'grand-vitara'),
+('289141ac-b38c-11ef-818d-00155d060d12', 'Kizashi', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'kizashi'),
+('289510d0-b38c-11ef-818d-00155d060d12', 'S-Cross', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 's-cross'),
+('289862f4-b38c-11ef-818d-00155d060d12', 'Alto', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'alto'),
+('289c1181-b38c-11ef-818d-00155d060d12', 'Solio', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:02', '2024-12-11 07:49:14', 'solio'),
+('289f9125-b38c-11ef-818d-00155d060d12', 'Swift New', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'swift-new'),
+('28a1ebcc-b38c-11ef-818d-00155d060d12', 'APV', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'apv'),
+('28a67df7-b38c-11ef-818d-00155d060d12', 'Jimny', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'jimny'),
+('28aa4412-b38c-11ef-818d-00155d060d12', 'Swift 2004-2009', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'swift-2004-2009'),
+('28adf15b-b38c-11ef-818d-00155d060d12', 'SX4', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'sx4'),
+('28b27e8e-b38c-11ef-818d-00155d060d12', 'Vitara', '0a797bea-4226-4625-856b-487e7328f2d4', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'vitara'),
+('28b68edf-b38c-11ef-818d-00155d060d12', 'Telcoline 4X2/4X4', 'f827b38e-b067-11ef-b176-00155d060d12', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'telcoline-4x2-4x4'),
+('28be73a9-b38c-11ef-818d-00155d060d12', 'AE86 New', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'ae86-new'),
+('28c0ff48-b38c-11ef-818d-00155d060d12', 'Alphard 2008-2014 AH20', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'alphard-2008-2014-ah20'),
+('28c416af-b38c-11ef-818d-00155d060d12', 'Camry 2.0E/2.2GX', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 08:50:45', 'camry-2-0e-2-2gx'),
+('28c8b442-b38c-11ef-818d-00155d060d12', 'Camry 2.4V/V6', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 08:50:45', 'camry-2-4v-v6'),
+('28cd83d0-b38c-11ef-818d-00155d060d12', 'Corona 2.0 Gli', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 08:50:45', 'corona-2-0-gli'),
+('28d0e973-b38c-11ef-818d-00155d060d12', 'Innova', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'innova'),
+('28d5aac7-b38c-11ef-818d-00155d060d12', 'Ipsum', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'ipsum'),
+('28dadba1-b38c-11ef-818d-00155d060d12', 'Isis', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'isis'),
+('28dfe986-b38c-11ef-818d-00155d060d12', 'Mark X', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'mark-x'),
+('28e723fe-b38c-11ef-818d-00155d060d12', 'Wish New', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'wish-new'),
+('28ec3b6e-b38c-11ef-818d-00155d060d12', 'Alphard 2015 onwards AH30', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'alphard-2015-onwards-ah30'),
+('28ef55d9-b38c-11ef-818d-00155d060d12', 'Estima', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'estima'),
+('28f38a5a-b38c-11ef-818d-00155d060d12', 'Harrier 2.0/2.2/2.4/3.0', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 08:50:45', 'harrier-2-0-2-2-2-4-3-0'),
+('28f8060f-b38c-11ef-818d-00155d060d12', 'Vellfire', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'vellfire'),
+('28fc1b3e-b38c-11ef-818d-00155d060d12', 'Prado Petrol', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'prado-petrol'),
+('28ff90c3-b38c-11ef-818d-00155d060d12', 'Previa 2.4L', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 08:50:45', 'previa-2-4l'),
+('2903a96b-b38c-11ef-818d-00155d060d12', 'Avanza/Veloz', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-12 06:10:27', 'avanza-new-veloz'),
+('29073ed2-b38c-11ef-818d-00155d060d12', 'Rush New Gen 2017 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'rush-new-gen-2017-onwards'),
+('290bb840-b38c-11ef-818d-00155d060d12', 'Voxy', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'voxy'),
+('290ee118-b38c-11ef-818d-00155d060d12', 'Altis New Gen 2018 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'altis-new-gen-2018-onwards'),
+('29124c13-b38c-11ef-818d-00155d060d12', 'Corolla Cross', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'corolla-cross'),
+('29165ae3-b38c-11ef-818d-00155d060d12', 'Camry New Gen 2017 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'camry-new-gen-2017-onwards'),
+('2919f0a4-b38c-11ef-818d-00155d060d12', 'CH-R', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'ch-r'),
+('291df5f0-b38c-11ef-818d-00155d060d12', 'Innova New Gen 2015 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'innova-new-gen-2015-onwards'),
+('2920c53d-b38c-11ef-818d-00155d060d12', 'Fortuner Petrol 2015 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'fortuner-petrol-2015-onwards'),
+('2923e833-b38c-11ef-818d-00155d060d12', 'Fortuner Diesel 2015 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'fortuner-diesel-2015-onwards'),
+('29266bc5-b38c-11ef-818d-00155d060d12', 'Hilux Revo/Rocco', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'hilux-revo-rocco'),
+('292bb3cd-b38c-11ef-818d-00155d060d12', 'Altis 2000-2006', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'altis-2000-2006'),
+('292f2601-b38c-11ef-818d-00155d060d12', 'Corolla 1.3/1.6 EFI', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 08:50:45', 'corolla-1-3-1-6-efi'),
+('2933aeba-b38c-11ef-818d-00155d060d12', 'Avanza 2011 onwards', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:03', '2024-12-11 07:49:14', 'avanza-2011-onwards'),
+('2936c07c-b38c-11ef-818d-00155d060d12', 'Yaris', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'yaris'),
+('293bde50-b38c-11ef-818d-00155d060d12', 'Prius', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'prius'),
+('294034ed-b38c-11ef-818d-00155d060d12', 'Alphard 2002-2007 AH10', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'alphard-2002-2007-ah10'),
+('29452fd1-b38c-11ef-818d-00155d060d12', 'Altis 2006-2018', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'altis-2006-2018'),
+('294b16fe-b38c-11ef-818d-00155d060d12', 'Caldina', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'caldina'),
+('294e7f0c-b38c-11ef-818d-00155d060d12', 'Celica', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'celica'),
+('29518680-b38c-11ef-818d-00155d060d12', 'MR2', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'mr2'),
+('29569202-b38c-11ef-818d-00155d060d12', 'RAV 4', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'rav-4'),
+('295995b2-b38c-11ef-818d-00155d060d12', 'Sienta', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'sienta'),
+('295c39f8-b38c-11ef-818d-00155d060d12', 'Wish 2009-2011', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'wish-2009-2011'),
+('29600b99-b38c-11ef-818d-00155d060d12', 'Vios', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'vios'),
+('2964443b-b38c-11ef-818d-00155d060d12', 'Avanza 2003-2011', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'avanza-2003-2011'),
+('296a65d1-b38c-11ef-818d-00155d060d12', 'Rush', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'rush'),
+('296f1d9d-b38c-11ef-818d-00155d060d12', 'Wish 2003-2009', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'wish-2003-2009'),
+('29738f08-b38c-11ef-818d-00155d060d12', 'Corolla 1.3DX/E/S/W', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'corolla-1-3dx-e-s-w'),
+('297a1c27-b38c-11ef-818d-00155d060d12', 'Corolla 1.6GL/Levin GT', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'corolla-1-6gl-levin-gt'),
+('297f7c1b-b38c-11ef-818d-00155d060d12', 'Corolla Levin/XE 1.6', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'corolla-levin-xe-1-6'),
+('2983ca05-b38c-11ef-818d-00155d060d12', 'Corona 1.6XL/1.8GL', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'corona-1-6xl-1-8gl'),
+('29895d75-b38c-11ef-818d-00155d060d12', 'LiteAce (1989)', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:27:36', 'liteace-1989'),
+('298e3145-b38c-11ef-818d-00155d060d12', 'Vios (2002-2007)', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:27:36', 'vios-2002-2007'),
+('2991b0eb-b38c-11ef-818d-00155d060d12', 'Crown', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'crown'),
+('2994eabb-b38c-11ef-818d-00155d060d12', 'FJ Cruiser', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'fj-cruiser'),
+('29b2f49d-b38c-11ef-818d-00155d060d12', 'Landcruiser 200', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'landcruiser-200'),
+('29b58b1a-b38c-11ef-818d-00155d060d12', 'Landcruiser Cygnus/Prado', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'landcruiser-cygnus-prado'),
+('29b8ba9a-b38c-11ef-818d-00155d060d12', 'Fortuner Petrol', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'fortuner-petrol'),
+('29bd0a0c-b38c-11ef-818d-00155d060d12', 'Corona 2.0 Diesel', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'corona-2-0-diesel'),
+('29bfb782-b38c-11ef-818d-00155d060d12', 'Cressida GL-i6', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'cressida-gl-i6'),
+('29c32075-b38c-11ef-818d-00155d060d12', 'Supra 3.0L TT', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'supra-3-0l-tt'),
+('29c57949-b38c-11ef-818d-00155d060d12', 'Unser 1.8 Gli/LGX', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'unser-1-8-gli-lgx'),
+('29c8d559-b38c-11ef-818d-00155d060d12', 'Hiace 3.5L-3.0L TD Diesel', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 08:50:45', 'hiace-3-5l-3-0l-td-diesel'),
+('29ccc413-b38c-11ef-818d-00155d060d12', 'Fortuner Diesel', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:04', '2024-12-11 07:49:14', 'fortuner-diesel'),
+('29cff466-b38c-11ef-818d-00155d060d12', 'Hilux Single Cab', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'hilux-single-cab'),
+('29d26c97-b38c-11ef-818d-00155d060d12', 'Hilux SR/SR Turbo', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'hilux-sr-sr-turbo'),
+('29d5d21e-b38c-11ef-818d-00155d060d12', 'Landcruiser VXD 4.0L TD', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-06 04:40:05', '2024-12-11 08:50:45', 'landcruiser-vxd-4-0l-td'),
+('29d840bc-b38c-11ef-818d-00155d060d12', 'Golf MK7', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'golf-mk7'),
+('29daf0e1-b38c-11ef-818d-00155d060d12', 'Passat B8', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'passat-b8'),
+('29dd9f45-b38c-11ef-818d-00155d060d12', '1200/1300/1300S', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '1200-1300-1300s'),
+('29e17922-b38c-11ef-818d-00155d060d12', 'Beetle', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'beetle'),
+('29e46165-b38c-11ef-818d-00155d060d12', 'Cross Touran', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'cross-touran'),
+('29e7353b-b38c-11ef-818d-00155d060d12', 'Golf', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'golf'),
+('29eac12a-b38c-11ef-818d-00155d060d12', 'Polo', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'polo'),
+('29ee2c19-b38c-11ef-818d-00155d060d12', 'Tiguan', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'tiguan'),
+('29f0953c-b38c-11ef-818d-00155d060d12', 'Vento', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'vento'),
+('29f2eaac-b38c-11ef-818d-00155d060d12', 'Jetta', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'jetta'),
+('29f71087-b38c-11ef-818d-00155d060d12', 'Bora', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'bora'),
+('29f98415-b38c-11ef-818d-00155d060d12', 'Caravelle C', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'caravelle-c'),
+('29fdb70b-b38c-11ef-818d-00155d060d12', 'CC', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'cc'),
+('2a013c09-b38c-11ef-818d-00155d060d12', 'EOS', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'eos'),
+('2a059c98-b38c-11ef-818d-00155d060d12', 'Golf MK5/MK6/GTI', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'golf-mk5-mk6-gti'),
+('2a084aab-b38c-11ef-818d-00155d060d12', 'Passat B7', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'passat-b7'),
+('2a0b8a18-b38c-11ef-818d-00155d060d12', 'Santana', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'santana'),
+('2a0f7d18-b38c-11ef-818d-00155d060d12', 'Scirocco', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'scirocco'),
+('2a1334eb-b38c-11ef-818d-00155d060d12', 'Sharan', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'sharan'),
+('2a160372-b38c-11ef-818d-00155d060d12', 'Touareg', 'a32b4fef-a97c-4aa6-8f26-c17c3f68f739', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'touareg'),
+('2a197c64-b38c-11ef-818d-00155d060d12', 'V40 2.0T', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 08:50:45', 'v40-2-0t'),
+('2a1c8799-b38c-11ef-818d-00155d060d12', 'V50', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'v50'),
+('2a1f138a-b38c-11ef-818d-00155d060d12', 'V60', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'v60'),
+('2a227269-b38c-11ef-818d-00155d060d12', '360 GLE', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '360-gle'),
+('2a25495b-b38c-11ef-818d-00155d060d12', '850 GLT', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '850-glt'),
+('2a2850d5-b38c-11ef-818d-00155d060d12', '940 GLA/GLM/GLE', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '940-gla-glm-gle'),
+('2a2bf56c-b38c-11ef-818d-00155d060d12', '945 GLM', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '945-glm'),
+('2a2ec4df-b38c-11ef-818d-00155d060d12', 'C70', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'c70'),
+('2a31347d-b38c-11ef-818d-00155d060d12', 'S40 2.0T', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 08:50:45', 's40-2-0t'),
+('2a350571-b38c-11ef-818d-00155d060d12', 'S60 2.0T/T5', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 08:50:45', 's60-2-0t-t5'),
+('2a38a8d6-b38c-11ef-818d-00155d060d12', 'S70 2.0T/2.5L', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 08:50:45', 's70-2-0t-2-5l'),
+('2a3c7900-b38c-11ef-818d-00155d060d12', 'S80 2.0T/T6', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 08:50:45', 's80-2-0t-t6'),
+('2a4082a7-b38c-11ef-818d-00155d060d12', 'XC60', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'xc60'),
+('2a43f828-b38c-11ef-818d-00155d060d12', 'XC90 4X4', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', 'xc90-4x4'),
+('2a47b049-b38c-11ef-818d-00155d060d12', '740 GLM/GLE', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '740-glm-gle'),
+('2a4aa86b-b38c-11ef-818d-00155d060d12', '144/164/244/264', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '144-164-244-264'),
+('2a4f9852-b38c-11ef-818d-00155d060d12', '240DL/GL/SE', '5dda2287-a152-4d75-8794-9e844d913a5e', NULL, '2024-12-06 04:40:05', '2024-12-11 07:49:14', '240dl-gl-se'),
+('6dcf598d-b611-11ef-818d-00155d060d12', 'Vios (2022 Onwards)', '22bc005d-9a6c-42a3-afe3-10c216bbefbb', NULL, '2024-12-09 09:39:04', '2024-12-11 08:27:36', 'vios-2022-onwards');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car_recommended_battery`
+--
+
+CREATE TABLE `car_recommended_battery` (
+  `id` char(36) NOT NULL DEFAULT uuid(),
+  `car_model_id` char(36) NOT NULL,
+  `battery_sizes` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `districts`
+--
+
+CREATE TABLE `districts` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `districts`
+--
+
+INSERT INTO `districts` (`id`, `name`, `created_at`, `updated_at`) VALUES
+('0ee346c1-e633-4508-9193-3c71d1fd476e', 'Kulai', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('327e6392-14dc-4f37-aa6a-b532eee716cb', 'Simpang Renggam', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('4770eb02-aa3b-4ca2-b9f7-0550aa96b2f1', 'Muar', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('7639b4bd-f882-4c5c-a763-a3cb4d50c2e0', 'Segamat', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('832adf6f-be04-499e-a1e9-87f9e7af66cb', 'Skudai', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('8f108c42-0283-4dc8-844c-bb5feb33387e', 'Yong Peng', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('92e516da-ebdb-4965-874c-b15cb77bbff6', 'Batu Pahat', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('9b57fb0b-1b23-4b01-9e6b-da5cdae9929d', 'Mersing', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('9bec31ff-3ac3-4485-b7e2-034dbbb1b819', 'Kluang', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('9c4cac25-2a34-4538-b764-46909f6d31f2', 'Kota Tinggi', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('b6c9ab59-53f0-4e83-8936-d99ec2020451', 'Tangkak', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('c9e891b7-da12-4ebb-b4a7-4f33ca1240f6', 'Bandar Penawar', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('f3ca160b-f02d-423c-aa64-e33ea325abbf', 'Labis', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('f3ce649e-a327-4877-8124-383064de3b40', 'Pasir Gudang', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('f9d7f89f-a171-4f2d-8950-9cfd0cd5a69e', 'Pontian', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('fe2bc068-c6f3-4e74-984e-5d09a06f92fb', 'Johor Bahru', '2024-09-02 18:13:30', '2024-09-02 18:13:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exclusive_brands`
+--
+
+CREATE TABLE `exclusive_brands` (
+  `id` char(36) NOT NULL,
+  `battery_brand_id` char(36) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `seq` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exclusive_brands`
+--
+
+INSERT INTO `exclusive_brands` (`id`, `battery_brand_id`, `image`, `seq`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('70f9ef9d-ed76-4c6d-a3cb-00c04635121b', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'exclusive-varta.webp', 5, '2024-11-04 07:44:50', '2024-11-04 07:44:50', NULL),
+('8032c7b5-7ec5-4cd3-93db-f9bdcdedd41b', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'exclusive-amaron.webp', 1, '2024-11-04 07:40:16', '2024-11-04 07:40:16', NULL),
+('9fe2b2bc-25f3-4640-b5c5-ad2f35798e30', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'exclusive-tuflong.webp', 3, '2024-11-04 07:42:34', '2024-11-04 07:43:43', NULL),
+('ade645d7-2e7e-4cef-a348-b01cd698a5a7', '2d12d219-3091-4a24-900c-728824632f6b', 'exclusive-fbm.webp', 4, '2024-11-04 07:44:21', '2024-11-04 07:44:21', NULL),
+('bd110db2-b211-4a42-9dd3-b3d5b9a4bf0f', '761520d1-7da1-42b0-9da1-ecc238084fad', 'exclusive-bosch.webp', 6, '2024-11-04 07:45:20', '2024-11-04 07:45:20', NULL),
+('fa07adc1-dfa0-429b-b2a0-c77ff2d011b4', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'exclusive-century.webp', 2, '2024-11-04 07:41:36', '2024-11-04 07:41:36', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2025_05_08_074820_create_password_resets_table', 1),
+(6, '2025_05_13_090446_create_user_profiles_table', 1),
+(7, '2025_05_17_035112_update_tokenable_id_to_uuid', 2),
+(8, '2025_05_24_012844_create_user_points_table', 3),
+(9, '2025_05_26_015225_create_user_points_table', 4),
+(10, '2025_05_26_023046_create_reward_items_table', 5),
+(11, '2025_05_26_023115_create_point_redemptions_table', 5),
+(12, '2025_05_27_015831_create_user_cars_table', 6),
+(13, '2025_06_03_084412_create_bookings_table', 7),
+(14, '2025_06_03_084441_create_bookings_table', 8),
+(15, '2024_03_19_000002_add_user_car_id_to_bookings_table', 9),
+(16, '2024_03_19_000003_add_coordinates_to_bookings_table', 10),
+(17, '2024_03_21_000000_add_account_stats_to_users_table', 11),
+(18, '2024_03_21_000000_add_terms_of_use_to_users_table', 12),
+(19, '2024_03_22_000000_add_technician_id_to_bookings_table', 13),
+(20, '2014_10_12_100000_create_password_resets_table', 14),
+(21, '2024_03_19_000000_add_technician_columns_to_users_system', 14);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `outlets`
+--
+
+CREATE TABLE `outlets` (
+  `id` char(36) NOT NULL DEFAULT uuid(),
+  `name` varchar(255) NOT NULL,
+  `address1` varchar(255) NOT NULL,
+  `address2` varchar(255) NOT NULL,
+  `address3` varchar(255) NOT NULL,
+  `postcode` varchar(5) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `contact` varchar(255) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `map_embed_code` text DEFAULT NULL,
+  `district_id` char(36) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `outlets`
+--
+
+INSERT INTO `outlets` (`id`, `name`, `address1`, `address2`, `address3`, `postcode`, `city`, `state`, `contact`, `image_url`, `map_embed_code`, `district_id`, `created_at`, `updated_at`) VALUES
+('00000000-69b7-11ef-8e56-401a58b01058', 'Taman Rinting (HQ)', 'G01', 'KSL Avery Park', 'Jln Rinting', '81750', 'Masai', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipONUfUP9HHM4VDvn-DSWeGCkGpmYd8kLxWhDn3k=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3988.465197993716!2d103.8645169!3d1.492251!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6becc0e9437d%3A0x90b2155ff9a5e464!2sbaterikereta.com%20-%20Taman%20Rinting!5e0!3m2!1sen!2smy!4v1730448869702!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('07f08ad6-fe58-11ef-a2c3-00155d060d12', 'Masai', '1', 'Jalan Berkek', 'Taman Bunga Raya', '81750', 'Masai', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNsz8hnRVi6IIQ8cmmnSZgVSYx9cAzgITDMRUMK=w408-h306-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.27963266744445!2d103.88637591016969!3d1.4873214185286066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6b516ce5c5f5%3A0x893631f784df4204!2sBaterikereta.com%20-%20Masai!5e0!3m2!1sen!2smy!4v1741687518157!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2025-03-11 09:05:51', '2025-03-11 10:06:03'),
+('12914568-69ce-11ef-8e56-401a58b01058', 'Senggarang', 'No. 52', 'Jalan Ismail', 'Senggarang', '83200', 'Batu Pahat', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipNX82yTHcGvmgADXrDwdbYbazuwwTGtbI886v06=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.959792468436!2d103.05150689999999!3d1.7488899000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d059e74422bbcb%3A0xb94cf9a68bcda8c1!2sBaterikereta.com%20-%20Senggarang!5e0!3m2!1sen!2smy!4v1730448975466!5m2!1sen!2smy', '92e516da-ebdb-4965-874c-b15cb77bbff6', '2024-09-03 08:25:26', '2024-09-03 08:25:26'),
+('1bed24da-7753-4238-9323-b2899a3165c9', 'Bandar Penawar', '25', 'Jln Jelutong 1', 'Taman Desaru Utama', '81930', 'Bandar Penawar', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOB6Ya4TyugEQ90s24Vu9YF02B5_Y_REKxhC20T=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.3144186660593!2d104.2125472!3d1.5732018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da4d2593004a39%3A0x25452443a162c626!2sBaterikereta.com%20-%20Bandar%20Penawar!5e0!3m2!1sen!2smy!4v1730449037908!5m2!1sen!2smy', 'c9e891b7-da12-4ebb-b4a7-4f33ca1240f6', '2024-09-02 18:13:30', '2024-09-02 18:13:30'),
+('22c4b6e1-69cb-11ef-8e56-401a58b01058', 'Ayer Hitam', 'No.102', 'Jalan Batu Pahat', 'Taman Air Hitam', '86100', 'Ayer Hitam', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipNPH4C64C70EFJS-REM3V-H36h-o9ZKo_YXx-le=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.592979005826!2d103.17730929999999!3d1.9137252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d067d5c9ca37a1%3A0xd80cc1f8f5355684!2sBaterikereta.com%20-%20Ayer%20Hitam!5e0!3m2!1sen!2smy!4v1730449078081!5m2!1sen!2smy', '9bec31ff-3ac3-4485-b7e2-034dbbb1b819', '2024-09-03 08:04:25', '2024-09-03 08:04:25'),
+('30ecaf0e-69bb-11ef-8e56-401a58b01058', 'Bandar Seri Alam', '28-A', 'Jalan Suria 67', 'Bandar Seri Alam', '81750', 'Masai', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNYwMrb-jaagf1i5JbUpo3DigIeK6U2EgBdQSqc=w408-h725-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4590671151386!2d103.879948!3d1.495628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6b13b5ca3631%3A0x23c5bcd31cb04be6!2sBaterikereta.com%20-%20Bandar%20Seri%20Alam!5e0!3m2!1sen!2smy!4v1730449115138!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2024-09-03 06:10:17', '2024-09-03 06:10:17'),
+('3679cbfd-69cd-11ef-8e56-401a58b01058', 'Batu Pahat HQ', 'No.21', 'Jalan Murni 11', 'Taman Murni', '83000', 'Batu Pahat', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOfIehQbn-KXxxx0R67MW-sziYP-d-U2DM5jG1W=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.701875379384!2d102.943972!3d1.8663099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d051e78df57cc3%3A0x96aad8b40e33ea1e!2sbaterikereta.com%20-%20Batu%20Pahat%20HQ!5e0!3m2!1sen!2smy!4v1730449217701!5m2!1sen!2smy', '92e516da-ebdb-4965-874c-b15cb77bbff6', '2024-09-03 08:19:17', '2024-09-03 08:19:17'),
+('3e69ae5f-69ba-11ef-8e56-401a58b01058', 'Taman Adda Heights', 'No. 32', 'Adda 8/1', 'Taman Adda', '81100', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipMRBCsi9mpk3MR_3OZRnykZNlY18uhhk61BQyiy=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.3329863268477!2d103.752828!3d1.5634594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6fe82590ce5d%3A0xcf471cb6c2958966!2sBaterikereta.com%20-%20Taman%20Adda%20Heights!5e0!3m2!1sen!2smy!4v1730449275155!5m2!1sen!2smy', 'fe2bc068-c6f3-4e74-984e-5d09a06f92fb', '2024-09-03 06:03:30', '2024-09-03 06:03:30'),
+('4acf1672-69c1-11ef-8e56-401a58b01058', 'Benut', 'No. 3', 'Jalan Mutiara 3', 'Pusat Perniagaan Benut', '82000', 'Pontian', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipPB0l3VF3NVH3ztYBCjFb_w8kxyyfEqGPuaeSBz=w408-h541-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.166191366759!2d103.2587622!3d1.6489140999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d08d242521fea7%3A0x73e352d089ba58ef!2sBaterikereta.com%20-%20Pontian%20(Benut)!5e0!3m2!1sen!2smy!4v1730449329349!5m2!1sen!2smy', 'f9d7f89f-a171-4f2d-8950-9cfd0cd5a69e', '2024-09-03 06:53:57', '2024-09-03 06:53:57'),
+('4b5d18ef-69b5-11ef-8e56-401a58b01058', 'Kota Masai', 'No 35', 'Jalan Mangga 1', 'Taman Kota Masai', '81700', 'Pasir Gudang', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNt5gBsx9Il5tLVJxV23k9CWs1uQVkgtPeqB60r=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31907.920040308756!2d103.8745701!3d1.4785081!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da41200841194f%3A0xa9949dfbaf8de34!2sBaterikereta.com%20-%20Kota%20Masai%20(Mangga)!5e0!3m2!1sen!2smy!4v1730449390330!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2024-09-03 05:28:04', '2024-09-03 05:28:04'),
+('4fdf04ee-69bc-11ef-8e56-401a58b01058', 'Simpang Renggam', '76B', 'Jalan Besar', 'Simpang Renggam', '86200', 'Simpang Renggam', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipMm7upiSiLIqTwEpLCcVXUrR16B9PJEwwbQtWH0=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.789138242511!2d103.30915569999999!3d1.8274268000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d063ca80c78a47%3A0xc8f8fc528399c1f4!2sbaterikereta.com%20-%20SImpang%20Renggam!5e0!3m2!1sen!2smy!4v1730449442105!5m2!1sen!2smy', '327e6392-14dc-4f37-aa6a-b532eee716cb', '2024-09-03 06:18:18', '2024-09-03 06:18:18'),
+('6454b76c-69cc-11ef-8e56-401a58b01058', 'Bukit Gambir', 'No.115', 'Jalan Gambir 8', 'Bandar Baru Bukit Gambir', '84800', 'Tangkak', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOiDq-1KFtgXbPZpTEsI-BgD7LRbm7wMEvOkSUn=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.8431703163487!2d102.653222!3d2.2128017000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d1cf636a9a7acd%3A0x51c8cb8533d744fd!2sBaterikereta.com%20-%20Tangkak%20(Bukit%20Gambir)!5e0!3m2!1sen!2smy!4v1730449493360!5m2!1sen!2smy', 'b6c9ab59-53f0-4e83-8936-d99ec2020451', '2024-09-03 08:13:24', '2024-09-03 08:13:24'),
+('6948d6c3-69cb-11ef-8e56-401a58b01058', 'Kluang', 'No.513', 'Jalan Jalan Mersing', 'Kluang Baru', '86000', 'Kluang', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOYxhdjv4PbkjTSSTU3HoGx2k-bL8yqySdUmVJa=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.2963786731057!2d103.33226099999999!3d2.0372835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d06d83d00c2b69%3A0x34e2cbcfe9d9c71d!2sBaterikereta.com%20-%20Kluang!5e0!3m2!1sen!2smy!4v1730449535340!5m2!1sen!2smy', '9bec31ff-3ac3-4485-b7e2-034dbbb1b819', '2024-09-03 08:06:23', '2024-09-03 08:06:23'),
+('6c8d0baf-69c3-11ef-8e56-401a58b01058', 'Endau', 'No. 4096', 'Jalan Perisai 3', 'Bandar Baru', '86900', 'Endau', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipMYcePrnXRlOCX24MXRonDIcTx3hNcP-XNFyVjP=w408-h724-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.5381362934854!2d103.6219206!3d2.6541846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31c55f86a2700ffb%3A0x6204882400fb7c27!2sBaterikereta.com%20-%20Mersing%20(Endau)!5e0!3m2!1sen!2smy!4v1730449604719!5m2!1sen!2smy', '9b57fb0b-1b23-4b01-9e6b-da5cdae9929d', '2024-09-03 07:09:13', '2024-09-03 07:09:13'),
+('81317d64-69cd-11ef-8e56-401a58b01058', 'Tongkang Pecah', 'No.4', 'Jalan Bistari Utama', 'Tongkang Pechah', '83010', 'Batu Pahat', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipPpGwUK5GSshRVXqz0ZwmdmKQYtkDHkg_4TLkEg=s680-w680-h510', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31900.859844200077!2d102.9187027!3d1.907479!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d0515e257a09f5%3A0x75b14c2b44710e98!2sbaterikereta.com%20-%20Tongkang%20Pechah!5e0!3m2!1sen!2smy!4v1730449646751!5m2!1sen!2smy', '92e516da-ebdb-4965-874c-b15cb77bbff6', '2024-09-03 08:21:22', '2025-02-28 07:34:17'),
+('82541197-69b7-11ef-8e56-401a58b01058', 'Mount Austin', 'G-71', 'Jalan Mutiara Emas 10/2', 'Taman Mount Austin', '81100', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipPIw-FBHzV5WTyxCnc06BWFj7I2PrsYnnA4o7Vq=w408-h306-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.3572569489284!2d103.78488329999999!3d1.5506323999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6dcbd219cb95%3A0xbd575443df1220d4!2sbaterikereta.com%20-%20Taman%20Mount%20Austin!5e0!3m2!1sen!2smy!4v1730449845431!5m2!1sen!2smy', 'fe2bc068-c6f3-4e74-984e-5d09a06f92fb', '2024-09-03 05:43:55', '2024-09-03 05:43:55'),
+('825cdaba-0894-11f0-a2c3-00155d060d12', 'Kota Puteri', 'G-02 Blok H', 'Jalan Jelatang 27', 'Taman Cahaya Kota Puteri', '81750', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipN2LKjxmh7MnA8SrRutQ_-T6KQtYm28FvhlAAXS=w408-h306-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.474246338659!2d103.848846!3d1.487253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6b2aaa860873%3A0x6a6320399f0373be!2sBaterikereta.com%20-%20Kota%20Puteri!5e0!3m2!1sen!2smy!4v1742800371821!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2025-03-24 09:43:58', '2025-03-24 09:43:58'),
+('93a6f6e0-69b9-11ef-8e56-401a58b01058', 'Taman Impian Emas', 'No. 19', 'Jalan Anggerik Emas 1', 'Taman Impian Emas', '81200', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipOMsKX3oQ2AxzjM91bpHdbLbxp7ntnuyrWxvN9a=w408-h408-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.3798219846944!2d103.6910437!3d1.5386109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da734526a660f3%3A0xb198ab9a3011f5e!2sBaterikereta.com%20-%20Taman%20Impian%20Emas!5e0!3m2!1sen!2smy!4v1730450078949!5m2!1sen!2smy', 'fe2bc068-c6f3-4e74-984e-5d09a06f92fb', '2024-09-03 05:58:43', '2024-09-03 05:58:43'),
+('a63e4948-bc2a-11ef-aaef-00155d060d12', 'Gelang Patah', '09-01', 'Jln Nusaria 11/5', 'Taman Nusantara', '81550', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOG-WQFOPpcJvrsEvi43Wev6ekgkKQCUyb8onvi=s680-w680-h510', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.524388303887!2d103.58388889999999!3d1.4592460999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da0b99eb930681%3A0x80544ea77c8d6795!2sBaterikereta.com%20-%20Gelang%20Patah!5e0!3m2!1sen!2smy!4v1734407257405!5m2!1sen!2smy', '832adf6f-be04-499e-a1e9-87f9e7af66cb', '2024-12-17 03:54:43', '2024-12-17 04:03:22'),
+('a63e6d42-bc2a-11ef-aaef-00155d060d12', 'Taman Perling', '260', 'Jln Persisiran Perling 1', 'Taman Perling', '81200', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipNHl7-bbMuzNjF3RLFabCJ2uA1RYtwy_tJOP1xF=s680-w680-h510', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4875453225404!2d103.68038437581613!3d1.479876461142354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da73e808d8d46b%3A0x400f1fbfcce678a3!2sBaterikereta.com%20-%20Taman%20Perling!5e0!3m2!1sen!2smy!4v1734407657803!5m2!1sen!2smy', 'fe2bc068-c6f3-4e74-984e-5d09a06f92fb', '2024-12-17 03:54:43', '2024-12-17 03:54:43'),
+('a7bbf7d2-69bb-11ef-8e56-401a58b01058', 'Kulai', '6', 'Jalan Gangsa 1', 'Taman Gunung Pulai', '81000', 'Kulai', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipPlGmQDwbFdNX2lqaVpPMwtTallxERkXHPVAueP=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.155792972454!2d103.5888595!3d1.6540954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da79229b091f8f%3A0x2b414bb7a996f0b7!2sbaterikereta.com%20-%20Kulai!5e0!3m2!1sen!2smy!4v1730450580099!5m2!1sen!2smy', '0ee346c1-e633-4508-9193-3c71d1fd476e', '2024-09-03 06:13:36', '2024-09-03 06:13:36'),
+('ac70dad6-69b5-11ef-8e56-401a58b01058', 'Cahaya Masai', 'No 21', 'Jalan Intan 13', 'Taman Cahaya Masai', '81700', 'Pasir Gudang', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipOco6CMU1kKAjCeoy2exliojQWVQA6WaocZxKIC=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31907.68751404297!2d103.896129!3d1.4945976!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da414c3d82048d%3A0x78b1c4f87e76ea95!2sBaterikereta.com%20-%20Cahaya%20Masai!5e0!3m2!1sen!2smy!4v1730450742929!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2024-09-03 05:30:47', '2024-09-03 05:30:47'),
+('b367aa2f-69c1-11ef-8e56-401a58b01058', 'Yong Peng', '57-G', 'Jalan Kota', 'Taman Kota', '83700', 'Yong Peng', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNarGKDOswfkpYyvmXwi8pD7pnSRi4mpEH13fc6=w408-h287-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.3553507719366!2d103.0703757!3d2.0133206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d047eb0178c369%3A0x50696b15b724124!2sBaterikereta.com%20-%20Yong%20Peng!5e0!3m2!1sen!2smy!4v1730450803575!5m2!1sen!2smy', '8f108c42-0283-4dc8-844c-bb5feb33387e', '2024-09-03 06:56:53', '2024-09-03 06:56:53'),
+('b36e7864-2a32-11f0-90fd-00155d060d12', 'Pagoh', 'No. 7A', 'Pekan Pagoh', 'Pagoh', '84600', 'Muar', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipNQp131wPwEfND_mC0C5rewSZBfIX859oqnsni8=s680-w680-h510-rw', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4905.906367937127!2d102.7666984!3d2.1451378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d1cb1a3e1e601b%3A0x9bc278d6d97a3a9c!2sBaterikereta.com%20-%20Pagoh!5e1!3m2!1sen!2smy!4v1746505729152!5m2!1sen!2smy', '4770eb02-aa3b-4ca2-b9f7-0550aa96b2f1', '2025-05-06 04:29:29', '2025-05-06 11:17:58'),
+('b9a788e3-69cb-11ef-8e56-401a58b01058', 'Segamat', 'No.301D', 'Jalan Sia Her Yam', 'Kampung Abdullah', '85000', 'Segamat', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipMfqukzrdihZEIfe_DfF_dwWfdv2YwlDnnuXZjV=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.004574204929!2d102.8238904!3d2.5053682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cfd30001a158bd%3A0x3dfb1c362aa4de3!2sBaterikereta.com%20-%20Segamat!5e0!3m2!1sen!2smy!4v1730450837372!5m2!1sen!2smy', '7639b4bd-f882-4c5c-a763-a3cb4d50c2e0', '2024-09-03 08:08:38', '2024-09-03 08:08:38'),
+('c76191ca-69b8-11ef-8e56-401a58b01058', 'Taman Teratai', 'No. 10', 'Jalan Enau 15', 'Taman Teratai', '81300', 'Skudai', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipPVDWePknaisTR_d04jApLZ7e0o0u8FX01MdgLL=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.328108024996!2d103.6122942!3d1.5660249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da77e2c4720521%3A0xa82dd081ae2cb938!2sBaterikereta.com%20-%20Taman%20Teratai!5e0!3m2!1sen!2smy!4v1730450878015!5m2!1sen!2smy', '832adf6f-be04-499e-a1e9-87f9e7af66cb', '2024-09-03 05:53:01', '2024-09-03 05:53:01'),
+('ccc2a2ca-69b4-11ef-8e56-401a58b01058', 'Taman Bukit Dahlia', 'No 24', 'Jalan Sejambak 14', 'Taman Bukit Dahlia', '81700', 'Pasir Gudang', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNSrkKeww4i1eNXD3d237_03n2Ebgb7eWIOVb8m=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.490101162031!2d103.89516970000001!3d1.4784545999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6b76abb764ab%3A0xb7478f0cf77d6574!2sbaterikereta.com%20-%20Taman%20Bukit%20Dahlia!5e0!3m2!1sen!2smy!4v1730450972279!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2024-09-03 05:24:32', '2024-09-03 05:24:32'),
+('d3e0b827-69cd-11ef-8e56-401a58b01058', 'Parit Raja', 'LC-62', 'Parit Raja', 'Batu Pahat', '86400', 'Batu Pahat', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOLolXtbdL2s_H8pu3qxaKzgfmBPuMEuMnHKKxt=s680-w680-h510', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15950.861822625458!2d103.0994663!3d1.8603121!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d05d7a14b90941%3A0x92774e2a710a476b!2sBaterikereta.com%20-%20Parit%20Raja!5e0!3m2!1sen!2smy!4v1730451064511!5m2!1sen!2smy', '92e516da-ebdb-4965-874c-b15cb77bbff6', '2024-09-03 08:23:41', '2025-02-28 07:34:50'),
+('db70fe29-69c0-11ef-8e56-401a58b01058', 'Pusat Perdagangan Kota Tinggi', 'L11A', 'Jalan Tun Sri Lanang', 'Pusat Perdagangan Kota Tinggi', '81900', 'Kota Tinggi', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipOZqfkxabAqs3Et5MLmTjFTW0loBHaiZ0z7ObkE=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3987.9988949653125!2d103.8971301!3d1.7303928!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da61604c718ffd%3A0x82284078055ba988!2sBaterikereta.com%20-%20Kota%20Tinggi%20(Jalan%20Tun%20Sri%20Lanang)!5e0!3m2!1sen!2smy!4v1730451103602!5m2!1sen!2smy', '9c4cac25-2a34-4538-b764-46909f6d31f2', '2024-09-03 06:50:50', '2024-09-03 06:50:50'),
+('dde9ea97-69c3-11ef-8e56-401a58b01058', 'Mersing', '91-3', 'Jalan Jemaluang', 'Mersing', '86800', 'Mersing', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipNPH4C64C70EFJS-REM3V-H36h-o9ZKo_YXx-le=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d255098.25799406035!2d103.5653068!3d2.5361561!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31daf5ab5c565d3b%3A0x18c1552a0aecf58a!2sBaterikereta.com%20-%20Mersing%20(Jalan%20Jemaluang)!5e0!3m2!1sen!2smy!4v1730451144175!5m2!1sen!2smy', '9b57fb0b-1b23-4b01-9e6b-da5cdae9929d', '2024-09-03 07:12:23', '2024-09-03 07:12:23'),
+('e095e567-69b7-11ef-8e56-401a58b01058', 'Kampung Melayu Majidee', '2D-LP', 'Off Jalan Utama', 'Kampung Melayu Majidee', '81100', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipOyh33Uff8j-h0tKNbR3B-dMynOtV-uBWaTNequ=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4295549752437!2d103.75932759999999!3d1.5117783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6dbb59787623%3A0xecb385fe23d76e6d!2sBaterikereta.com%20-%20Kampung%20Melayu%20Majidee!5e0!3m2!1sen!2smy!4v1730451178187!5m2!1sen!2smy', 'fe2bc068-c6f3-4e74-984e-5d09a06f92fb', '2024-09-03 05:46:33', '2024-09-03 05:46:33'),
+('e1651f6c-69b6-11ef-8e56-401a58b01058', 'Taman Scientex', '34A', 'Jalan Belatuk 3', 'Taman Scientex', '81700', 'Pasir Gudang', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNg4q8gCnBKcu5SFSV-6Q1lp9Dk5yBaE51eprX9=w408-h544-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4510740715878!2d103.9154885!3d1.5000193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da41b1327d087b%3A0x64752d438e070503!2sBaterikereta.com%20Scientex!5e0!3m2!1sen!2smy!4v1730451210053!5m2!1sen!2smy', 'f3ce649e-a327-4877-8124-383064de3b40', '2024-09-03 05:39:25', '2024-09-03 05:39:25'),
+('e3eb2cf3-f5a5-11ef-a2c3-00155d060d12', 'Taman Universiti', 'No. 24', 'Jalan Kebudayaan 5', 'Taman Universiti', '81300', 'Skudai', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOLolXtbdL2s_H8pu3qxaKzgfmBPuMEuMnHKKxt=s680-w680-h510', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4907.572858088949!2d103.6283759!3d1.5402946999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da75b1c3832f13%3A0x387b63e9b4154e6c!2sBaterikereta.com%20-%20Taman%20University!5e1!3m2!1sen!2smy!4v1740727761555!5m2!1sen!2smy', '832adf6f-be04-499e-a1e9-87f9e7af66cb', '2025-02-28 07:30:31', '2025-02-28 07:35:02'),
+('e4e957eb-69cc-11ef-8e56-401a58b01058', 'Parit Jawa', 'No.135', 'Jalan Omar', 'Parit Jawa', '84150', 'Muar', 'Johor', '016-700 3200', 'https://lh3.googleusercontent.com/p/AF1QipOEVtZ1xKedTn3WeSxzF0O1oBezkZhkcWn15DOY=s1360-w1360-h1020', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.488108507594!2d102.6438012!3d1.9583030999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d1b1007a02ebad%3A0x9ce1bb2db1289930!2sBateriKereta.com%20-%20Parit%20Jawa!5e0!3m2!1sen!2smy!4v1730451344705!5m2!1sen!2smy', '4770eb02-aa3b-4ca2-b9f7-0550aa96b2f1', '2024-09-03 08:17:00', '2024-09-03 08:17:00'),
+('e8920eca-69bf-11ef-8e56-401a58b01058', 'Kota Tinggi', 'Lot A & Lot B. 8M & 8L', 'Jalan Tun Habab', 'Bandar Kota Tinggi', '81900', 'Kota Tinggi', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipMO-WgRPmqwo5sBxSctJSEiWGe-MbmKZ6fuq90O=w408-h306-k-no', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3987.9988949653125!2d103.8971301!3d1.7303928!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da61bfbd835c41%3A0x56e3e4e99d569f!2sBateriKereta.com%20-%20Bandar%20Kota%20Tinggi%20(Jalan%20Tun%20Habab)!5e0!3m2!1sen!2smy!4v1730451376201!5m2!1sen!2smy', '9c4cac25-2a34-4538-b764-46909f6d31f2', '2024-09-03 06:44:03', '2024-09-03 06:44:03'),
+('fe64197d-69b9-11ef-8e56-401a58b01058', 'Taman Cempaka', 'No. 5', 'Cengkerik 6', 'Pusat Perdagangan Kempas', '81100', 'Johor Bahru', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipM_KghMV5TdYcnxqUXIQydlpqbOs8FMIFbpoZo=w408-h725-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4293119091335!2d103.701847!3d1.5119106000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da73072310ddb3%3A0x165f07394abd64e!2sBaterikereta.com%20-%20Taman%20Cempaka!5e0!3m2!1sen!2smy!4v1730451415125!5m2!1sen!2smy', 'fe2bc068-c6f3-4e74-984e-5d09a06f92fb', '2024-09-03 06:01:42', '2024-09-03 06:01:42'),
+('ffd5c841-69b8-11ef-8e56-401a58b01058', 'Pulai Mutiara', 'No. 24', 'Jalan Pulai Mutiara 4/7', 'Persiaran Taman Pulai Mutiara', '81300', 'Skudai', 'Johor', '016-700 3200', 'https://lh5.googleusercontent.com/p/AF1QipNpJh-2Cg4b9jOJoDuTz8e-Uv7Jy4EzS23N-rWL=w408-h725-k-no', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4043353479933!2d103.5814518!3d1.5254440999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da75bde429b011%3A0xa035aeacd793528b!2sbaterikereta.com%20-%20Pulai%20Mutiara!5e0!3m2!1sen!2smy!4v1730451441610!5m2!1sen!2smy', '832adf6f-be04-499e-a1e9-87f9e7af66cb', '2024-09-03 05:54:35', '2024-09-03 05:54:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `outlet_map_links`
+--
+
+CREATE TABLE `outlet_map_links` (
+  `id` char(36) NOT NULL DEFAULT uuid(),
+  `outlet_id` char(36) NOT NULL,
+  `map_link` varchar(500) NOT NULL,
+  `service` enum('google_maps','waze') NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `outlet_map_links`
+--
+
+INSERT INTO `outlet_map_links` (`id`, `outlet_id`, `map_link`, `service`, `created_at`, `updated_at`) VALUES
+('1cdcc4c5-fd63-11ef-a2c3-00155d060d12', 'e3eb2cf3-f5a5-11ef-a2c3-00155d060d12', 'https://maps.app.goo.gl/rqpAV7GkGYMCPmHq7', 'google_maps', '2025-03-10 03:52:39', '2025-03-10 03:52:39'),
+('1cdd071c-fd63-11ef-a2c3-00155d060d12', 'e3eb2cf3-f5a5-11ef-a2c3-00155d060d12', 'https://ul.waze.com/ul?place=ChIJEy-Dw7F12jERbE4VtOljezg&ll=1.54029470%2C103.62837590&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2025-03-10 03:52:39', '2025-03-10 03:52:39'),
+('21e04e4c-2a33-11f0-90fd-00155d060d12', 'b36e7864-2a32-11f0-90fd-00155d060d12', 'https://maps.app.goo.gl/7GJp2rYtEU5JwAGU7', 'google_maps', '2025-05-06 04:32:34', '2025-05-06 04:32:34'),
+('21e06b3b-2a33-11f0-90fd-00155d060d12', 'b36e7864-2a32-11f0-90fd-00155d060d12', 'https://ul.waze.com/ul?place=ChIJG2AePhrL0TERnDp62dZ4wps&ll=2.14513780%2C102.76669840&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2025-05-06 04:32:34', '2025-05-06 04:32:34'),
+('2beadbe8-983c-11ef-91bf-d067e528c8df', '00000000-69b7-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJfUPpwOxr2jERZOSl-V8VspA&ll=1.49224560%2C103.86709180&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2beca63d-983c-11ef-91bf-d067e528c8df', '12914568-69ce-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJy7siROdZ0DERwajNi6b5TLk&ll=1.74888990%2C103.05150690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bede059-983c-11ef-91bf-d067e528c8df', '1bed24da-7753-4238-9323-b2899a3165c9', 'https://ul.waze.com/ul?place=ChIJOUoAkyVN2jERJsZioUMkRSU&ll=1.57320180%2C104.21254720&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2beee4ee-983c-11ef-91bf-d067e528c8df', '22c4b6e1-69cb-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJoTfKydVn0DERhFY19fjBDNg&ll=1.91372520%2C103.17730930&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2befe892-983c-11ef-91bf-d067e528c8df', '30ecaf0e-69bb-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJMTbKtRNr2jER5kuwHNO8xSM&ll=1.49562800%2C103.87994800&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf14db5-983c-11ef-91bf-d067e528c8df', '3679cbfd-69cd-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJs90QIwdz2jERTtarlHPwZQE&ll=1.51191060%2C103.70184700&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf26bab-983c-11ef-91bf-d067e528c8df', '3e69ae5f-69ba-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJXc6QJehv2jERZomVwrYcR88&ll=1.56345940%2C103.75282800&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf3c7d3-983c-11ef-91bf-d067e528c8df', '4acf1672-69c1-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJp_4hJSSN0DER71i6idBS43M&ll=1.64891410%2C103.25876220&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf4e69f-983c-11ef-91bf-d067e528c8df', '4b5d18ef-69b5-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJTxlBCCBB2jERNN74ut9JmQo&ll=1.48400550%2C103.94389070&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf5cddf-983c-11ef-91bf-d067e528c8df', '4fdf04ee-69bc-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJR4rHgMpj0DER9MGZg1L8-Mg&ll=1.82742680%2C103.30915570&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf6bf95-983c-11ef-91bf-d067e528c8df', '6454b76c-69cc-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJzXqaamPP0TER_UTXM4XLyFE&ll=2.21280170%2C102.65322200&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf793b9-983c-11ef-91bf-d067e528c8df', '6948d6c3-69cb-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJaSsM0INt0DERHcfZ6c_L4jQ&ll=2.03728350%2C103.33226100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf8ad3b-983c-11ef-91bf-d067e528c8df', '6c8d0baf-69c3-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJ-w9wooZfxTERJ3z7ACSIBGI&ll=2.65418460%2C103.62192060&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bf97edb-983c-11ef-91bf-d067e528c8df', '81317d64-69cd-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJ9Ql6JV5R0DERmA5xRCtMsXU&ll=1.90747900%2C102.95166170&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bfa5a6b-983c-11ef-91bf-d067e528c8df', '82541197-69b7-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJlcsZ0stt2jER1CAS30NUV70&ll=1.55063240%2C103.78488330&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bfb6dfb-983c-11ef-91bf-d067e528c8df', '93a6f6e0-69b9-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJ82CmJkVz2jERXh8Bo7mKGQs&ll=1.53861090%2C103.69104370&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bfc6b09-983c-11ef-91bf-d067e528c8df', 'a7bbf7d2-69bb-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJjx8JmyJ52jERt_CWqbdLQSs&ll=1.65409540%2C103.58885950&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bfd9513-983c-11ef-91bf-d067e528c8df', 'ac70dad6-69b5-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJjQSCPUxB2jERlep2fvjEsXg&ll=1.50679050%2C103.92247170&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bfe9835-983c-11ef-91bf-d067e528c8df', 'b367aa2f-69c1-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJacN4AetH0DERJEFyW7GWBgU&ll=2.01332060%2C103.07037570&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2bffacb0-983c-11ef-91bf-d067e528c8df', 'b9a788e3-69cb-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJvVihAQDTzzER402qYsOx3wM&ll=2.50536820%2C102.82389040&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c00e5c0-983c-11ef-91bf-d067e528c8df', 'c76191ca-69b8-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJIQVyxOJ32jEROLksroHQLag&ll=1.56602490%2C103.61229420&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c022ba6-983c-11ef-91bf-d067e528c8df', 'ccc2a2ca-69b4-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJq2S3q3Zr2jERdGV99wyPR7c&ll=1.47845460%2C103.89516970&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c034019-983c-11ef-91bf-d067e528c8df', 'd3e0b827-69cd-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJQQm5FHpd0DERa0cKcSpOd5I&ll=1.86642980%2C103.11475430&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c045189-983c-11ef-91bf-d067e528c8df', 'db70fe29-69c0-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJ_Y9xTGBh2jERiKlbBXhAKII&ll=1.72917990%2C103.89981530&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c0533a3-983c-11ef-91bf-d067e528c8df', 'dde9ea97-69c3-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJO11WXKv12jERivXsCipVwRg&ll=2.42710550%2C103.83437770&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c06444d-983c-11ef-91bf-d067e528c8df', 'e095e567-69b7-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJI3Z4Wbtt2jERbW7XI_6Fs-w&ll=1.51177830%2C103.75932760&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c071a45-983c-11ef-91bf-d067e528c8df', 'e1651f6c-69b6-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJewh9MrFB2jERAwUHjkMtdWQ&ll=1.50001930%2C103.91548850&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c07fbf8-983c-11ef-91bf-d067e528c8df', 'e4e957eb-69cc-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJresCegCx0TERMJkosS274Zw&ll=1.95830310%2C102.64380120&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c090118-983c-11ef-91bf-d067e528c8df', 'e8920eca-69bf-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJQVyDvb9h2jERn1ad6eTjVgA&ll=1.73160580%2C103.89959470&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c09f1bc-983c-11ef-91bf-d067e528c8df', 'fe64197d-69b9-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJs90QIwdz2jERTtarlHPwZQE&ll=1.51191060%2C103.70184700&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('2c0ac432-983c-11ef-91bf-d067e528c8df', 'ffd5c841-69b8-11ef-8e56-401a58b01058', 'https://ul.waze.com/ul?place=ChIJEbAp5L112jERi1KT16yuNaA&ll=1.52544410%2C103.58145180&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-11-01 10:29:27', '2024-11-01 10:29:27'),
+('5d2262d2-bc2b-11ef-aaef-00155d060d12', 'a63e4948-bc2a-11ef-aaef-00155d060d12', 'https://maps.app.goo.gl/bRvzwjn43j6A3JJFA', 'google_maps', '2024-12-17 03:59:50', '2024-12-17 03:59:50'),
+('5d2277e6-bc2b-11ef-aaef-00155d060d12', 'a63e4948-bc2a-11ef-aaef-00155d060d12', 'https://ul.waze.com/ul?place=ChIJgQaT65kL2jERlWeNfKdOVIA&ll=1.45924610%2C103.58388890&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-12-17 03:59:50', '2024-12-17 03:59:50'),
+('5d2289c7-bc2b-11ef-aaef-00155d060d12', 'a63e6d42-bc2a-11ef-aaef-00155d060d12', 'https://maps.app.goo.gl/DBTkHqRhFMtTZNXQA', 'google_maps', '2024-12-17 03:59:50', '2024-12-17 03:59:50'),
+('5d229b8d-bc2b-11ef-aaef-00155d060d12', 'a63e6d42-bc2a-11ef-aaef-00155d060d12', 'https://ul.waze.com/ul?place=ChIJa9TYCOhz2jERo3jmzL8fD0A&ll=1.47987110%2C103.68295930&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2024-12-17 03:59:50', '2024-12-17 03:59:50'),
+('8f8299b2-983b-11ef-91bf-d067e528c8df', '00000000-69b7-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/xvqkMJWgBNsSBryY9', 'google_maps', '2024-11-01 10:25:04', '2024-11-01 10:25:04'),
+('cc66d158-983b-11ef-91bf-d067e528c8df', '12914568-69ce-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/DcnbiiTAubVwzuDS7', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc68c637-983b-11ef-91bf-d067e528c8df', '1bed24da-7753-4238-9323-b2899a3165c9', 'https://maps.app.goo.gl/yQ9xBk1NEQhcUXdh9', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc69c7eb-983b-11ef-91bf-d067e528c8df', '22c4b6e1-69cb-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/wcYfrXN2kXeYfsg58', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc6afcac-983b-11ef-91bf-d067e528c8df', '30ecaf0e-69bb-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/4u4rmo9Qd9kwjTF67', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc6c2554-983b-11ef-91bf-d067e528c8df', '3679cbfd-69cd-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/PotE8D5gBWyw7znq8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc6d1f75-983b-11ef-91bf-d067e528c8df', '3e69ae5f-69ba-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/DD5B7ofW8RRD3jvR7', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc6e0ac7-983b-11ef-91bf-d067e528c8df', '4acf1672-69c1-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/N5yzc4n9vG92A5wG6', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc6f3785-983b-11ef-91bf-d067e528c8df', '4b5d18ef-69b5-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/gnRjAAeFMfztwbz97', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc706aea-983b-11ef-91bf-d067e528c8df', '4fdf04ee-69bc-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/rbJMirbMRzo3ZJ6AA', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc71b3e9-983b-11ef-91bf-d067e528c8df', '6454b76c-69cc-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/bjQNhju9eyoSiW4PA', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc72d6c2-983b-11ef-91bf-d067e528c8df', '6948d6c3-69cb-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/y7WJyMTAYu2Yk6ur8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc73e20a-983b-11ef-91bf-d067e528c8df', '6c8d0baf-69c3-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/5z4EAzEAhNtcGDoW8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7505f2-983b-11ef-91bf-d067e528c8df', '81317d64-69cd-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/Hx3ky4QKniZkAzg56', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7609ff-983b-11ef-91bf-d067e528c8df', '82541197-69b7-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/gkbTFV37vv833zTw6', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc771cf3-983b-11ef-91bf-d067e528c8df', '93a6f6e0-69b9-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/rMYtfSDtq8ATfrFr5', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7838ff-983b-11ef-91bf-d067e528c8df', 'a7bbf7d2-69bb-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/X6JyN6qWPSq68cRT7', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc79798c-983b-11ef-91bf-d067e528c8df', 'ac70dad6-69b5-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/iSnWYjnX7iiJbGdG9', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7a5e8d-983b-11ef-91bf-d067e528c8df', 'b367aa2f-69c1-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/RCtrpcf6Nmeh5b6b8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7b683e-983b-11ef-91bf-d067e528c8df', 'b9a788e3-69cb-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/dXKnrAX6kvJ5dWZH8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7c3df8-983b-11ef-91bf-d067e528c8df', 'c76191ca-69b8-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/2QCjMVoFiStbMBFz5', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7d0b26-983b-11ef-91bf-d067e528c8df', 'ccc2a2ca-69b4-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/w8jR8my3RuKwMEt3A', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7e17b5-983b-11ef-91bf-d067e528c8df', 'd3e0b827-69cd-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/uJe9eWsMt6Dc14Mq5', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7ef6bb-983b-11ef-91bf-d067e528c8df', 'db70fe29-69c0-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/uMJziknDGLmjKSjt8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc7fdd06-983b-11ef-91bf-d067e528c8df', 'dde9ea97-69c3-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/NmJBYM6q5tmoHmr48', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc80e875-983b-11ef-91bf-d067e528c8df', 'e095e567-69b7-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/ihp7evX2f3n9ZUKo6', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc81f2e5-983b-11ef-91bf-d067e528c8df', 'e1651f6c-69b6-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/6KXHakbRNc6ZznYJ6', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc830400-983b-11ef-91bf-d067e528c8df', 'e4e957eb-69cc-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/fPMkBU6UDetNxkQn8', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc8407e0-983b-11ef-91bf-d067e528c8df', 'e8920eca-69bf-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/1uhChLcCPA3iZkkq9', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc852222-983b-11ef-91bf-d067e528c8df', 'fe64197d-69b9-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/9p2u8Kx19fA87dFt9', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('cc862c5b-983b-11ef-91bf-d067e528c8df', 'ffd5c841-69b8-11ef-8e56-401a58b01058', 'https://maps.app.goo.gl/KGX3Lpi7AzR1VyzG7', 'google_maps', '2024-11-01 10:26:47', '2024-11-01 10:26:47'),
+('ed1ca054-0894-11f0-a2c3-00155d060d12', '825cdaba-0894-11f0-a2c3-00155d060d12', 'https://maps.app.goo.gl/LG4p3YdKDda4mY9Y7', 'google_maps', '2025-03-24 09:46:57', '2025-03-24 10:01:38'),
+('ed1cd68f-0894-11f0-a2c3-00155d060d12', '825cdaba-0894-11f0-a2c3-00155d060d12', 'https://ul.waze.com/ul?place=ChIJcwiGqipr2jERvnMDnzkgY2o&ll=1.48725300%2C103.84884600&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2025-03-24 09:46:57', '2025-03-24 10:01:38'),
+('fbe88e30-fe60-11ef-a2c3-00155d060d12', '07f08ad6-fe58-11ef-a2c3-00155d060d12', 'https://maps.app.goo.gl/8FwophHmnNkbgzwQ8', 'google_maps', '2025-03-11 10:09:56', '2025-03-11 10:09:56'),
+('fbe8b3fb-fe60-11ef-a2c3-00155d060d12', '07f08ad6-fe58-11ef-a2c3-00155d060d12', 'https://ul.waze.com/ul?place=ChIJ9cXlbFFr2jERBELfhPcxNok&ll=1.48717000%2C103.88643600&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location', 'waze', '2025-03-11 10:09:56', '2025-03-12 04:17:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `id` char(36) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `personal_access_tokens`
+--
+
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(1, 'App\\Models\\User', '6365dcfc-1056-4f70-9a45-def47c140c01', 'API Token', '296d976e370039bc686bd5eed529ee1ff91a1d4ade722f6f7cdb3f40ac9d4b86', '[\"*\"]', NULL, NULL, '2025-05-16 20:09:16', '2025-05-16 20:09:16'),
+(2, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'a6ef96afe6288414bd8b9caf5f26f679d9dc3547feef77222d548986caf7c6f5', '[\"*\"]', '2025-05-16 20:37:06', NULL, '2025-05-16 20:33:54', '2025-05-16 20:37:06'),
+(3, 'App\\Models\\User', 'b95af51e-7afb-463b-b1de-04b61ef27a01', 'API Token', 'fd1d5aee644213f21424a2976bb8572521e02f8d6a7a03bc380b6b2cf8e73a19', '[\"*\"]', NULL, NULL, '2025-05-18 21:03:38', '2025-05-18 21:03:38'),
+(4, 'App\\Models\\User', '371e6238-25e6-4ab1-8437-455b9e7c00a2', 'API Token', '28ec1066a0d1a68f67c2a2bfdb7ee5beaa1c7d3c5720455fd4223885f3cf2ac0', '[\"*\"]', NULL, NULL, '2025-05-18 21:04:47', '2025-05-18 21:04:47'),
+(5, 'App\\Models\\User', '559ccc3f-bb36-44b2-b88c-d9e9da8853ae', 'API Token', 'debdd30b6b1832ad2225e4f31ae424ab7bf3424aa112b42ff8880e129402b2ec', '[\"*\"]', NULL, NULL, '2025-05-18 22:07:50', '2025-05-18 22:07:50'),
+(6, 'App\\Models\\User', 'a13114ba-86cb-435f-88ca-a1253fda9208', 'API Token', '4838695b14893ccc2215994059f67faad0665056626eeabf0249dbbbe0565629', '[\"*\"]', NULL, NULL, '2025-05-19 00:40:21', '2025-05-19 00:40:21'),
+(7, 'App\\Models\\User', '6b96b5ad-00f4-4506-98ee-46dedf147331', 'API Token', '8a7f11e8c316171ecf30c50b9c57e8044cfba7a2d7a319e39bb9710cb4c22eb8', '[\"*\"]', NULL, NULL, '2025-05-19 00:41:27', '2025-05-19 00:41:27'),
+(8, 'App\\Models\\User', 'ae3b9e6b-2edb-401f-b5c4-0eca54b42737', 'API Token', 'acb6c63e618832333eb695cdfafc3e94bbe9d4844665f7017df7c285a0eb0935', '[\"*\"]', NULL, NULL, '2025-05-19 01:16:54', '2025-05-19 01:16:54'),
+(9, 'App\\Models\\User', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'API Token', 'ca5736ec86df3b788513557a3f727e38661a4bd0f92f74327cd3c2382a42254e', '[\"*\"]', NULL, NULL, '2025-05-19 01:18:49', '2025-05-19 01:18:49'),
+(10, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token', '5f9f3e87f2630ba6bf3fc25a72ffa616e83f3eafb22ea797de17965f168fa427', '[\"*\"]', '2025-05-19 19:17:12', NULL, '2025-05-19 19:16:29', '2025-05-19 19:17:12'),
+(11, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'fdd074b8bebafa8a500384589fd8fda8b74e087f355ff6bf2151c9033f656a5a', '[\"*\"]', '2025-05-19 20:58:36', NULL, '2025-05-19 19:17:29', '2025-05-19 20:58:36'),
+(12, 'App\\Models\\User', '371e6238-25e6-4ab1-8437-455b9e7c00a2', 'API Token of: hana', 'c55fb6df516ae4301007621070106e4cbfd82c42ccfa063ba5b107f6cc327f2e', '[\"*\"]', '2025-05-19 21:02:01', NULL, '2025-05-19 20:59:11', '2025-05-19 21:02:01'),
+(13, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '5fabf61323bae445feda48583ebf81755e9548614c835a79a229eb9a2992778c', '[\"*\"]', '2025-05-19 22:47:28', NULL, '2025-05-19 22:47:10', '2025-05-19 22:47:28'),
+(14, 'App\\Models\\User', '371e6238-25e6-4ab1-8437-455b9e7c00a2', 'API Token of: hana', '7f4cf49fe25f8f3d95d7f2fc032ba91c4c25c91c213ae3d9250e01632f782be1', '[\"*\"]', '2025-05-19 22:48:48', NULL, '2025-05-19 22:48:32', '2025-05-19 22:48:48'),
+(15, 'App\\Models\\User', 'ac0f1c12-6021-44e9-984f-c6de830762c7', 'API Token of: ali', 'e956e55c2df48a10799729f064ab15daf637cfb1773a744f256f40c441fa12e8', '[\"*\"]', '2025-05-19 22:50:19', NULL, '2025-05-19 22:49:16', '2025-05-19 22:50:19'),
+(16, 'App\\Models\\User', 'ac0f1c12-6021-44e9-984f-c6de830762c7', 'API Token of: ali', 'e2b1ec168442cd821f6b011903cb75d199a6200c20f0406132ad1d39f80f00ea', '[\"*\"]', '2025-05-20 00:47:43', NULL, '2025-05-20 00:47:30', '2025-05-20 00:47:43'),
+(17, 'App\\Models\\User', 'ac0f1c12-6021-44e9-984f-c6de830762c7', 'API Token of: ali', '9fbfa9f0a352df97f3dcd3d483eb6200d2d8668fe582c33451b7e9a071ac809e', '[\"*\"]', '2025-05-20 01:07:22', NULL, '2025-05-20 01:07:11', '2025-05-20 01:07:22'),
+(18, 'App\\Models\\User', 'ac0f1c12-6021-44e9-984f-c6de830762c7', 'API Token of: ali', '68f01909542fa103a426c4cbe1f258ff096c7380c77b2dc34d0af32c0f14e45b', '[\"*\"]', '2025-05-20 19:41:09', NULL, '2025-05-20 01:07:24', '2025-05-20 19:41:09'),
+(19, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '7447b6b10ee0f05df17d8a66bf39b4e5c42410b0956141afa07c9623b8171227', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:16', '2025-05-20 18:17:16'),
+(20, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '8be1006cc7d16295119657a689f0da4683ac42554ea933b6617e49e085f0fd31', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:20', '2025-05-20 18:17:20'),
+(21, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '2a4a7f25e4a952d1ea6d5fed1164f3f7ba86382214ef7668f18303839ee4f788', '[\"*\"]', '2025-05-20 18:17:44', NULL, '2025-05-20 18:17:21', '2025-05-20 18:17:44'),
+(22, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'b4858d22bcb9ac9c536c7150a919effecf2379745ee36cc7d793560316073247', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:29', '2025-05-20 18:17:29'),
+(23, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'e43037c564c17102b063f79487625d43f6eb12e904757c1ae1471af85a0acaf0', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:31', '2025-05-20 18:17:31'),
+(24, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'ea3afc537b5e9c1d0b6f534b4ab3326428eb082646b938404c35ce7f22b9e584', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:32', '2025-05-20 18:17:32'),
+(25, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'ac8a709b1544b11cea6d1de74c03c016f473e1a4ef2d4f503bc1492f05ac3f28', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:33', '2025-05-20 18:17:33'),
+(26, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '510bcf77f60fefdf5ba39aa7ad238dce4f5cb103540d530215b00a34ad2f7047', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:35', '2025-05-20 18:17:35'),
+(27, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'c09e4401412588fc749c36be0f7d102b19a8428b9668c08889a13138dc3c1b66', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:36', '2025-05-20 18:17:36'),
+(28, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'a92a126b345ac2e6e584ae00afe040bf1eb85eb9fd32f42b83d81403dfebab8e', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:37', '2025-05-20 18:17:37'),
+(29, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '50a9106e860950a434fc9f0b2fb5487722bb988ec999b5e30baf5dc845815a75', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:38', '2025-05-20 18:17:38'),
+(30, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'cd76380b25b6a53b35da347d0c13646921b227c8ca79bd82eeb4f36c8d12f93e', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:39', '2025-05-20 18:17:39'),
+(31, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '5f71735c831c16d63dd1f56f3a99d31d163ccbb48e4ec3eb4bf7796edb235ad4', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:41', '2025-05-20 18:17:41'),
+(32, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '0a3c7a0f95520344be10e1e0dd44dc81f6eb09a48346e14c101bffea6d39be82', '[\"*\"]', NULL, NULL, '2025-05-20 18:17:42', '2025-05-20 18:17:42'),
+(33, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '0f9e6509819571a4ab5be4f883efc35d82f080f05a84c99b2b59d72c5054b5f0', '[\"*\"]', '2025-05-20 18:48:14', NULL, '2025-05-20 18:43:38', '2025-05-20 18:48:14'),
+(34, 'App\\Models\\User', 'ac0f1c12-6021-44e9-984f-c6de830762c7', 'API Token of: ali', 'b7326428155c98f6dc67f6e3801b4721151e86f969e4461ea80c7d6bc20dfdc5', '[\"*\"]', '2025-05-20 18:48:39', NULL, '2025-05-20 18:48:30', '2025-05-20 18:48:39'),
+(35, 'App\\Models\\User', 'ac0f1c12-6021-44e9-984f-c6de830762c7', 'API Token of: ali', 'f17eaee63e89b57dba9de2e4e901c892e28fc9289d665a7457800298f51f8899', '[\"*\"]', '2025-05-20 19:38:56', NULL, '2025-05-20 19:38:48', '2025-05-20 19:38:56'),
+(36, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'd8566a773208ca0c87743cbc3d489afd14a778cf5a60de6357a0028f54cfd961', '[\"*\"]', '2025-05-20 20:43:59', NULL, '2025-05-20 20:29:09', '2025-05-20 20:43:59'),
+(37, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'bc5896c32455c9434aa9b8d0a2c38452da7f3ce31281e9fc9b6bf2d14207528e', '[\"*\"]', '2025-05-20 20:44:33', NULL, '2025-05-20 20:44:29', '2025-05-20 20:44:33'),
+(38, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '054c39f1b726fc0085c9fae077839e5af01fea2609793fc30331ac640fe31c0d', '[\"*\"]', NULL, NULL, '2025-05-20 20:44:31', '2025-05-20 20:44:31'),
+(39, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '34255a3875fabbca8e314997c868226e9e12ded2d2eabfb285d9e96344517c06', '[\"*\"]', '2025-05-20 22:50:37', NULL, '2025-05-20 22:44:06', '2025-05-20 22:50:37'),
+(40, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '3b40f292fe7fb084852b0a614d82a4c0d30b4af14a5ebe68574ac3baef4ffb15', '[\"*\"]', '2025-05-20 22:50:42', NULL, '2025-05-20 22:50:39', '2025-05-20 22:50:42'),
+(41, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'd96f49ca5f1441145ab240598676d9e3c62a825b8afdc30a8847e8c2a5a0fd81', '[\"*\"]', '2025-05-23 01:23:25', NULL, '2025-05-23 01:23:21', '2025-05-23 01:23:25'),
+(42, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '932e10a4df1024c79892f2c49a66e7152cd83bba02448c73bf383e42c16d82db', '[\"*\"]', '2025-05-23 20:08:35', NULL, '2025-05-23 20:07:47', '2025-05-23 20:08:35'),
+(43, 'App\\Models\\User', 'a13114ba-86cb-435f-88ca-a1253fda9208', 'API Token of: zara', '15aeda082a5fc8d6334e93df575df3833c84aea7f89ea94009d0a4add548a925', '[\"*\"]', '2025-05-23 20:15:51', NULL, '2025-05-23 20:10:23', '2025-05-23 20:15:51'),
+(44, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '5873f7c4a8be1b76ea2c00c7e4e797408e3184a7cc131e44a1984ddc945c580d', '[\"*\"]', '2025-05-23 20:16:22', NULL, '2025-05-23 20:16:06', '2025-05-23 20:16:22'),
+(45, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '8f9c653035a6c6f8efdf487383cc697ff7f1f4ec3bb298fae937394bf7490945', '[\"*\"]', NULL, NULL, '2025-05-25 16:59:06', '2025-05-25 16:59:06'),
+(46, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '9166df8f1c248778d630772c30f6e87fe6e4b29ed7ad8b96466d95c2a36658bf', '[\"*\"]', '2025-05-25 17:35:54', NULL, '2025-05-25 17:17:27', '2025-05-25 17:35:54'),
+(47, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '85c012a811e1c0442f28fe26d800a40c604d2bbc6685eaf0763382c934398636', '[\"*\"]', '2025-05-25 18:00:04', NULL, '2025-05-25 17:59:51', '2025-05-25 18:00:04'),
+(48, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'a5e37846136a31c85f0a3b816b602406c66bf0c8c8470edb51c8cedfa8237e01', '[\"*\"]', '2025-05-25 18:12:53', NULL, '2025-05-25 18:08:33', '2025-05-25 18:12:53'),
+(49, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '1c67ef0a5c60980ba3d77d2f0ece5fe0832aa80d9f8cdc367af9a15aa64cd087', '[\"*\"]', '2025-05-25 18:38:30', NULL, '2025-05-25 18:13:10', '2025-05-25 18:38:30'),
+(50, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '358d1e6d2a5547815e6243cf93014dc1cc5fc132bf1b37c833572e2d0ca80f4d', '[\"*\"]', '2025-05-25 18:39:00', NULL, '2025-05-25 18:38:45', '2025-05-25 18:39:00'),
+(51, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '85cba64b947075a6279c9fe710ef261a03e39a00a946f3095b5ab9537561967b', '[\"*\"]', '2025-05-25 18:58:22', NULL, '2025-05-25 18:40:54', '2025-05-25 18:58:22'),
+(52, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '42c87ab260ccab0c7897e74fa46f9093efc4e72ebf08b8099f7864f1ec231e0e', '[\"*\"]', '2025-05-25 19:13:48', NULL, '2025-05-25 18:58:34', '2025-05-25 19:13:48'),
+(53, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'd4ef5250bd884480ff20405d68a26a14de90fdcea4ce2be9af94081a2da3a96d', '[\"*\"]', '2025-05-26 17:29:12', NULL, '2025-05-26 17:28:41', '2025-05-26 17:29:12'),
+(54, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '441470b2d9aa326267ccce1a56548a1e56c966088938a3f96172b183129fd4fc', '[\"*\"]', '2025-05-26 18:44:55', NULL, '2025-05-26 18:36:47', '2025-05-26 18:44:55'),
+(55, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'ac779c7219ac8e88ba7dcc9f08c95dd55357a27e4617bb791ff64541d04a4ec8', '[\"*\"]', '2025-05-26 18:50:32', NULL, '2025-05-26 18:45:15', '2025-05-26 18:50:32'),
+(56, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '1dd4292dbb93e25044bfa998e542ec1f69ecfda89d3a4c703ba5e609c878da85', '[\"*\"]', '2025-05-26 19:50:01', NULL, '2025-05-26 19:41:39', '2025-05-26 19:50:01'),
+(57, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'da10554bad4c11c1cfc214e04d0a2830120f18c3b771c4676526a406f9fe47b7', '[\"*\"]', '2025-05-26 22:39:37', NULL, '2025-05-26 20:35:10', '2025-05-26 22:39:37'),
+(58, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '4a0342194aa186b9aad5974d953a975dd011bdc6f64941ca441947f455272b43', '[\"*\"]', '2025-05-26 22:27:47', NULL, '2025-05-26 20:56:21', '2025-05-26 22:27:47'),
+(59, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '660999a486da6d5687624aa91d21a6381bddc504d10970a4872205de0c075638', '[\"*\"]', '2025-05-26 23:19:05', NULL, '2025-05-26 23:18:39', '2025-05-26 23:19:05'),
+(60, 'App\\Models\\User', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'API Token of: raju', 'e4d989c001aadf1cf0248805b4b9cf5d22e78e6e155d89676b4add215801e4ee', '[\"*\"]', '2025-05-27 00:22:34', NULL, '2025-05-26 23:19:36', '2025-05-27 00:22:34'),
+(61, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '9e481241ca2918e3e0d97cb7e3fa3003fb251c32008188a02bfc7f37a4a503a5', '[\"*\"]', '2025-05-27 01:24:45', NULL, '2025-05-26 23:38:49', '2025-05-27 01:24:45'),
+(62, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '5bc28d60c078b8e8b9cb5198bf4aba39dc548e5319b341603c1eba637f77358b', '[\"*\"]', '2025-05-27 01:24:41', NULL, '2025-05-27 00:22:51', '2025-05-27 01:24:41'),
+(63, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '98b6f3f9d6689e85f435b6a546bba9ff0b7829d52fbdcf763ace7b6fe0a2fa60', '[\"*\"]', '2025-05-27 19:48:05', NULL, '2025-05-27 18:58:58', '2025-05-27 19:48:05'),
+(64, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '92d9638e16a2a91b4418b1f288b7ed1ee0afef70fe947f845b3d4ddd4fe65897', '[\"*\"]', '2025-05-27 20:03:45', NULL, '2025-05-27 19:48:14', '2025-05-27 20:03:45'),
+(65, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '2cfd91902578f2010634df5823f7d850c3128a6d5679e17bd28b06394f9aaf91', '[\"*\"]', '2025-05-27 20:05:27', NULL, '2025-05-27 20:04:01', '2025-05-27 20:05:27'),
+(66, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'cd2bc42affb425266192e56a277c4fa8ec101446f3e69375092939b5c1f924f9', '[\"*\"]', '2025-05-27 23:17:04', NULL, '2025-05-27 20:43:59', '2025-05-27 23:17:04'),
+(67, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'f5963409796a96b5ff5b566adf9a38bef9e789418a7f8e2fcb0335c441ffe1a8', '[\"*\"]', '2025-05-28 18:58:16', NULL, '2025-05-28 18:53:22', '2025-05-28 18:58:16'),
+(68, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '0f1a11f38a32a69663e1cb08d6dd34edd3413c911ca2be64664fe6356d0e74e1', '[\"*\"]', '2025-05-28 19:05:45', NULL, '2025-05-28 18:58:15', '2025-05-28 19:05:45'),
+(69, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'f560680c1dc1303b3a06d63d629bc3579205c2a95ad3fd8fed86a9436a551264', '[\"*\"]', '2025-05-28 19:07:06', NULL, '2025-05-28 19:06:59', '2025-05-28 19:07:06'),
+(70, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '1ffba9075796075c0a95d7acf9531da9fcff7c82001f33058b603ff0a3f88b32', '[\"*\"]', '2025-05-28 19:15:15', NULL, '2025-05-28 19:15:09', '2025-05-28 19:15:15'),
+(71, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '0b2004b7121a735ce09608dc78f177500c84b610f301d6648b2c687cfdf3cd78', '[\"*\"]', '2025-05-28 22:56:26', NULL, '2025-05-28 19:25:57', '2025-05-28 22:56:26'),
+(72, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '2dc2db9d41ff8f0dec7138613cb4e468027f56e3523d4868b243f6d45bd8638b', '[\"*\"]', '2025-05-28 22:16:24', NULL, '2025-05-28 20:54:14', '2025-05-28 22:16:24'),
+(73, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'b08f8c0b44fac514e6d389c97b2cf0ad1ba172fa592bba5a463afc5a8015ab28', '[\"*\"]', '2025-05-29 17:25:21', NULL, '2025-05-29 17:19:44', '2025-05-29 17:25:21'),
+(74, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '08711cb3c5dd81f837136b2c74594b2cbeb83d2fd7ccfd0b1f952c3d0524db5e', '[\"*\"]', '2025-05-29 17:31:59', NULL, '2025-05-29 17:31:54', '2025-05-29 17:31:59'),
+(75, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '3b518b8c09c2a982b92dd43a560b853d33aa39e8f5f2e3e29a46a12d77eccb8c', '[\"*\"]', '2025-05-29 17:32:01', NULL, '2025-05-29 17:31:55', '2025-05-29 17:32:01'),
+(76, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '982ecf29e06b189b5b9bba8b92809b59a6cea227ab1278b352cd724858fb684f', '[\"*\"]', '2025-05-29 23:34:50', NULL, '2025-05-29 19:53:26', '2025-05-29 23:34:50'),
+(77, 'App\\Models\\User', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'API Token of: raju', '94c98fa0a61cf037362f5b0696d505b8bdcc68c5352fcfdc03fed25d5a44800e', '[\"*\"]', '2025-05-30 00:48:02', NULL, '2025-05-30 00:47:34', '2025-05-30 00:48:02'),
+(78, 'App\\Models\\User', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'API Token of: raju', '71e2efea4505feb26ca81348f847fe21ce45630e24167a0ac93618fe4a24efff', '[\"*\"]', '2025-05-30 00:50:45', NULL, '2025-05-30 00:48:12', '2025-05-30 00:50:45'),
+(79, 'App\\Models\\User', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'API Token of: raju', 'b58b5e880de6a816695ea1a94ecb21f3885a7c3885f46de45569efe3546f0162', '[\"*\"]', '2025-05-30 01:18:50', NULL, '2025-05-30 00:59:19', '2025-05-30 01:18:50'),
+(80, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'c12cd265ecbe93055b11a4f24649fbb5919501fdee8919ae3524b754bbc68143', '[\"*\"]', '2025-05-30 18:26:23', NULL, '2025-05-30 18:09:18', '2025-05-30 18:26:23'),
+(81, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '984082c41ad3df2ae6dd70c8fc6da7e8e26754461a526493bebacb24f2abb345', '[\"*\"]', '2025-05-30 20:23:30', NULL, '2025-05-30 18:28:15', '2025-05-30 20:23:30'),
+(82, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'c798a2ba81e119f72a7c389ea5cca75d599c983250bdedcc2f273331ec7f7dc9', '[\"*\"]', '2025-06-02 17:54:11', NULL, '2025-06-02 17:11:28', '2025-06-02 17:54:11'),
+(83, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '02104748b870e18c03b29c25e7c10e0de00a03fc26f6aba23720b5c6a6520055', '[\"*\"]', '2025-06-02 18:38:05', NULL, '2025-06-02 17:55:47', '2025-06-02 18:38:05'),
+(84, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', 'be13296fdcbed0699ec8a6ef79633a140a81e1f5fb5dc7ca52390a8f3c8929a5', '[\"*\"]', '2025-06-02 18:40:51', NULL, '2025-06-02 18:39:07', '2025-06-02 18:40:51'),
+(85, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '887f66d2c12c60fec1a9a2d3fb310607601c361f4fedb746084e029ee2acf57d', '[\"*\"]', '2025-06-02 18:45:13', NULL, '2025-06-02 18:44:50', '2025-06-02 18:45:13'),
+(86, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', '40c4953bff324538028afd214efe9ca39b82ab3a61fa05e0e1cbbb73224b15e6', '[\"*\"]', '2025-06-02 18:49:13', NULL, '2025-06-02 18:46:12', '2025-06-02 18:49:13'),
+(87, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', '13475b015b5bf57bf6bea51101a28bbe5d6c92ef42019db775b0136cc0d77ad0', '[\"*\"]', '2025-06-02 18:54:34', NULL, '2025-06-02 18:49:47', '2025-06-02 18:54:34'),
+(88, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '3a0b0753ce4e15b7d367a55282c8094fbd00b219001278bd5d85f393b5d1dae3', '[\"*\"]', '2025-06-02 18:56:01', NULL, '2025-06-02 18:55:33', '2025-06-02 18:56:01'),
+(89, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', 'c92e42b1ce0a0df8b6ee8f157224255a38950fe5c52ea4f8e4826c320d3f3105', '[\"*\"]', '2025-06-02 19:00:08', NULL, '2025-06-02 18:57:05', '2025-06-02 19:00:08'),
+(90, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'a268df37971d65143ec88c48ca8011ee25d2e782f79ed63eaf2a22af303d1711', '[\"*\"]', '2025-06-02 19:00:44', NULL, '2025-06-02 19:00:30', '2025-06-02 19:00:44'),
+(91, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', '8c09aae81b998bd9f7a49e5627b9251d8d4a2173c9d11b1a92d322fbe7dbdc22', '[\"*\"]', '2025-06-02 19:37:16', NULL, '2025-06-02 19:01:17', '2025-06-02 19:37:16'),
+(92, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '497bad0abae55a4f95c333336c5225cb65f837fe6c0af205ffb7408a4b26f748', '[\"*\"]', '2025-06-02 19:59:07', NULL, '2025-06-02 19:37:28', '2025-06-02 19:59:07'),
+(93, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '55f2164fa45724af371c1599b215049257292dd30c224344fac3b10956bb1b45', '[\"*\"]', '2025-06-02 23:35:06', NULL, '2025-06-02 23:34:13', '2025-06-02 23:35:06'),
+(94, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'bc8c25c2ccf14933700624ab2bf71924529a985714ca1bfa026aba971bbcccba', '[\"*\"]', '2025-06-02 23:44:11', NULL, '2025-06-02 23:44:01', '2025-06-02 23:44:11'),
+(95, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'e2548adbe0b9889802dc291bfcfd3e9b5e15828bd85c97d64eac2f8d2aff09d8', '[\"*\"]', '2025-06-03 00:55:22', NULL, '2025-06-03 00:13:16', '2025-06-03 00:55:22'),
+(96, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '46a70d50e50b93b7a0efcb0806310550a6f618660832e38fccbb2d35f922efd0', '[\"*\"]', '2025-06-03 01:10:05', NULL, '2025-06-03 00:58:49', '2025-06-03 01:10:05'),
+(97, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '8e08fe04a27817f595ceeb5785e5a64f7e03d99ce954c58f249bdb8906552def', '[\"*\"]', '2025-06-03 01:10:26', NULL, '2025-06-03 01:07:06', '2025-06-03 01:10:26'),
+(98, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'c921a9ef803897d4e1139046930880e6f4455eb6de4eb8f4bdeaba3844582221', '[\"*\"]', '2025-06-04 00:11:25', NULL, '2025-06-03 20:15:39', '2025-06-04 00:11:25'),
+(99, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '26b2fddbe80e6cc88780ebd01adfa1f62a5130362a66e86e173ae2ddf520fcd2', '[\"*\"]', '2025-06-03 23:45:16', NULL, '2025-06-03 23:38:42', '2025-06-03 23:45:16'),
+(100, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'e53fba79d5d56e0f8814733c0020a981f02b769208f525f6d6b6a38288bc7590', '[\"*\"]', '2025-06-04 01:05:44', NULL, '2025-06-03 23:45:34', '2025-06-04 01:05:44'),
+(101, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'b75de7714057e6404640bf96ad4dd5d9476648fbd0cb7bdb705ac77d45180734', '[\"*\"]', '2025-06-04 17:24:24', NULL, '2025-06-04 17:01:28', '2025-06-04 17:24:24'),
+(102, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '44f0d7c6e74ab485203888166a60f7fed6a24caf938ceb5b8ddb7c6732c04ddd', '[\"*\"]', '2025-06-04 17:24:53', NULL, '2025-06-04 17:24:36', '2025-06-04 17:24:53'),
+(103, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', '6eebc00ac334032749d75516d60b495e0d906b73eca4dcb362144a68eca90d3c', '[\"*\"]', '2025-06-04 18:35:12', NULL, '2025-06-04 17:25:41', '2025-06-04 18:35:12'),
+(104, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '875558c58f7768c8ab656af4a774083ce39b5fb7acd455eaaae84de7c3487b7c', '[\"*\"]', '2025-06-04 19:05:38', NULL, '2025-06-04 18:41:38', '2025-06-04 19:05:38'),
+(105, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'd1a9f9cf244b41174d51f37fb06e13c56b5ef114654d03034eac6f59085ea29c', '[\"*\"]', '2025-06-04 19:27:54', NULL, '2025-06-04 19:23:56', '2025-06-04 19:27:54'),
+(106, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '8ae8a69c6e36dbac22285c67f1bff822bfe95f3e78cbf658b694b196cca7a321', '[\"*\"]', '2025-06-04 19:31:55', NULL, '2025-06-04 19:29:09', '2025-06-04 19:31:55'),
+(107, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '9f63009a317bee46fc8cd518f824b55c50e47e10d2bf5d4c17f038016494f1dd', '[\"*\"]', '2025-06-04 19:59:24', NULL, '2025-06-04 19:33:33', '2025-06-04 19:59:24'),
+(108, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'ea9e62d608e64e3379b540ef6e37c28f0359641b29e2df34bcdbd3eabb5b9c8c', '[\"*\"]', '2025-06-04 20:33:45', NULL, '2025-06-04 20:14:47', '2025-06-04 20:33:45'),
+(109, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'c415faea17093e9c68adb6b3fe6bef36013eb975dd8ca0670a1000d8be2b97b3', '[\"*\"]', '2025-06-04 20:47:17', NULL, '2025-06-04 20:41:15', '2025-06-04 20:47:17'),
+(110, 'App\\Models\\User', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'API Token of: mariah', '28c68712e16c6db11913514012a73a40268060cad21057a51d5b86a77192d9d8', '[\"*\"]', '2025-06-04 22:43:39', NULL, '2025-06-04 20:55:59', '2025-06-04 22:43:39'),
+(111, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '89c441263f54658d0481e24d1bcd6b1296ca6e370e201f40f9c453b890f246fe', '[\"*\"]', '2025-06-04 23:35:16', NULL, '2025-06-04 22:43:58', '2025-06-04 23:35:16'),
+(112, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'bf0b50f8bd8146eba6cdf599035060bec70a1d75c05658e9875d760d509090f3', '[\"*\"]', '2025-06-05 01:03:24', NULL, '2025-06-04 23:35:27', '2025-06-05 01:03:24'),
+(113, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '56d42e8d7c0ae65435ce60dba2644c0a51a9614b2fa33d749e6c6f9ca74f9b9c', '[\"*\"]', '2025-06-05 01:24:20', NULL, '2025-06-05 01:18:19', '2025-06-05 01:24:20'),
+(114, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '4f60be8aa3ebf3694cbe5dcd535bd0573a3efa04c13d25aa5aa1d886860cc832', '[\"*\"]', '2025-06-05 01:27:44', NULL, '2025-06-05 01:27:04', '2025-06-05 01:27:44'),
+(115, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'd6e72d5839ba4895c471e99bcb7b739864d2eadaccbb9fe86fb74e9e677cda06', '[\"*\"]', '2025-06-05 17:07:49', NULL, '2025-06-05 17:06:58', '2025-06-05 17:07:49'),
+(116, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '9753389c70d4c83fb8f7451bfec0b0a97f071bc7653f2eb16d1872335595e691', '[\"*\"]', '2025-06-09 00:24:34', NULL, '2025-06-05 19:18:44', '2025-06-09 00:24:34'),
+(117, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '0b45b1dfc71ea4d9282324c16a9b414fbdf66dcb595aae7994d250e61bebc6b7', '[\"*\"]', '2025-06-09 01:13:19', NULL, '2025-06-09 00:24:31', '2025-06-09 01:13:19'),
+(118, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '2f09df06dd8121c1934673435713a2c4225b29781125132a8591608c12b283fd', '[\"*\"]', '2025-06-11 18:11:51', NULL, '2025-06-11 17:32:57', '2025-06-11 18:11:51'),
+(119, 'App\\Models\\User', 'b0b453bb-2ac3-4cc6-ab6b-7d0906299d8b', 'API Token', '20bb8c427dbd8a2d95bf874245394416d075df3d58071ec6684100cca1a27cf8', '[\"*\"]', '2025-06-11 18:14:25', NULL, '2025-06-11 18:13:50', '2025-06-11 18:14:25'),
+(120, 'App\\Models\\User', '6d422e94-9bb3-4564-b195-45f9ffbdd9dc', 'API Token', 'c7626fdfd74d4244daabece3185dd5bb8a865e1a1d3d21fe27e85ea9f6600e3f', '[\"*\"]', NULL, NULL, '2025-06-11 18:19:31', '2025-06-11 18:19:31'),
+(121, 'App\\Models\\User', '6d422e94-9bb3-4564-b195-45f9ffbdd9dc', 'API Token of: hanani', '304997946e7ff4bd0b9270db49da83fda23fbea84ad1ee54d4abfc334e880b56', '[\"*\"]', '2025-06-11 18:25:51', NULL, '2025-06-11 18:20:18', '2025-06-11 18:25:51'),
+(122, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', 'd788e422fd478bd3a9006e5fbdb2787bd0e0429cfcb0bfc7f2b7b199dc098567', '[\"*\"]', '2025-06-11 18:40:17', NULL, '2025-06-11 18:37:48', '2025-06-11 18:40:17'),
+(123, 'App\\Models\\User', 'cd7a00a0-316d-46f4-8ba0-a2dcf608620f', 'API Token', '201298c98a9281e165342e6a07a553ca52be3e35c532edd8341427b1dfd95372', '[\"*\"]', NULL, NULL, '2025-06-11 18:41:03', '2025-06-11 18:41:03'),
+(124, 'App\\Models\\User', 'b342aee6-ce5b-45ae-9b13-743f752f55de', 'API Token', '933eaeab5b8a5711e2bd1a60c0fff035fdb90f087cf968cbca89d3e8f2a1509a', '[\"*\"]', NULL, NULL, '2025-06-11 18:44:04', '2025-06-11 18:44:04'),
+(125, 'App\\Models\\User', '3227206c-ed58-43ec-adcc-fbe30d9b2bff', 'API Token', 'dbc82625f28443b0d10b5bf345920c3b04496faf98ccfc08366013a05e811db0', '[\"*\"]', NULL, NULL, '2025-06-11 18:51:15', '2025-06-11 18:51:15'),
+(126, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '019cfe05f5a4f75ae202712325be7004fb23b48c1bf91fa1694313fab25c40e7', '[\"*\"]', '2025-06-11 19:26:05', NULL, '2025-06-11 18:53:57', '2025-06-11 19:26:05'),
+(127, 'App\\Models\\User', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'API Token of: maza', '02f87cc0fbef13a56ce365eb05ea5a993d1316f14d5d81f5c2a46b5d3f2f2701', '[\"*\"]', '2025-06-11 23:42:56', NULL, '2025-06-11 23:42:48', '2025-06-11 23:42:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `point_redemptions`
+--
+
+CREATE TABLE `point_redemptions` (
+  `id` char(36) NOT NULL,
+  `user_id` char(36) NOT NULL,
+  `reward_item_id` char(36) NOT NULL,
+  `points_used` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `redeemed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `point_redemptions`
+--
+
+INSERT INTO `point_redemptions` (`id`, `user_id`, `reward_item_id`, `points_used`, `status`, `redeemed_at`, `notes`, `created_at`, `updated_at`) VALUES
+('9f001756-c532-411f-b6c0-2e20653c3f57', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '5f165515-4b81-406b-8758-dea98449cec9', 100, 'completed', '2025-05-25 18:43:23', NULL, '2025-05-25 18:43:23', '2025-05-25 18:43:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` char(36) NOT NULL,
+  `battery_brand_id` char(36) DEFAULT NULL,
+  `product_category_id` char(36) DEFAULT NULL,
+  `battery_brand_series_id` char(36) DEFAULT NULL,
+  `battery_size_id` char(36) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `cost_price` decimal(10,2) DEFAULT NULL,
+  `sale_price` decimal(10,2) DEFAULT NULL,
+  `capacity` int(11) DEFAULT NULL,
+  `cca` int(11) DEFAULT NULL,
+  `voltage` int(11) DEFAULT NULL,
+  `length` decimal(10,2) DEFAULT NULL,
+  `width` decimal(10,2) DEFAULT NULL,
+  `height` decimal(10,2) DEFAULT NULL,
+  `weight` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `battery_brand_id`, `product_category_id`, `battery_brand_series_id`, `battery_size_id`, `description`, `image`, `cost_price`, `sale_price`, `capacity`, `cca`, `voltage`, `length`, `width`, `height`, `weight`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('2c809a25-9cc7-11ef-81ed-d067e528c8df', '1a15a65b-13df-4b56-acee-eaf7011fb9cf', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'EMTRAC DIN100L', 'battery-emtrac.webp', NULL, NULL, 100, 900, 12, NULL, NULL, NULL, NULL, '2024-11-07 05:14:33', '2024-11-07 05:23:46', NULL),
+('2c86c531-9cc7-11ef-81ed-d067e528c8df', '1a15a65b-13df-4b56-acee-eaf7011fb9cf', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '32013a97-9c0d-11ef-81ed-d067e528c8df', 'EMTRAC DIN80L', 'battery-emtrac.webp', NULL, NULL, 80, 730, 12, NULL, NULL, NULL, NULL, '2024-11-07 05:14:33', '2024-11-07 05:23:51', NULL),
+('61ac6013-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'df808c27-80e8-450b-b25c-606154344554', '320a4edc-9c0d-11ef-81ed-d067e528c8df', 'AMARON DURO EFB M42L', 'battery-amaron-duro.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-25 09:01:25', NULL),
+('61b12c46-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'df808c27-80e8-450b-b25c-606154344554', '3211764c-9c0d-11ef-81ed-d067e528c8df', 'AMARON DURO EFB M42R', 'battery-amaron-duro.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-25 09:01:32', NULL),
+('61b41dc1-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'df808c27-80e8-450b-b25c-606154344554', '321e22b8-9c0d-11ef-81ed-d067e528c8df', 'AMARON DURO EFB Q85', 'battery-amaron-duro.webp', NULL, NULL, 70, 660, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-25 09:01:39', NULL),
+('61b6ee8b-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '301832f8-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS40ZL/38B20L', 'battery-amaron-go.webp', NULL, NULL, 35, 265, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-06 09:30:01', NULL),
+('61b96b4c-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS60L/46B24L', 'battery-amaron-go.webp', NULL, NULL, 45, 295, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-06 09:30:03', NULL),
+('61bcb389-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS60LS/46B24LS', 'battery-amaron-go.webp', NULL, NULL, 45, 295, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-06 09:30:04', NULL),
+('61bfc860-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '3071259e-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS60R/46B24R', 'battery-amaron-go.webp', NULL, NULL, 45, 295, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-06 09:30:06', NULL),
+('61c31eb6-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS60RS/46B24RS', 'battery-amaron-go.webp', NULL, NULL, 45, 295, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:07', '2024-11-06 09:30:06', NULL),
+('61c610cf-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS70L/65D26L', 'battery-amaron-go.webp', NULL, NULL, 50, 420, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:07', NULL),
+('61c95b81-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '3133a349-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NS70R/65D26R', 'battery-amaron-go.webp', NULL, NULL, 50, 420, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:07', NULL),
+('61cc68ff-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NX120L/95D31L', 'battery-amaron-go.webp', NULL, NULL, 70, 600, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:08', NULL),
+('61cf93a6-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO NX120R/95D31R', 'battery-amaron-go.webp', NULL, NULL, 70, 600, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:09', NULL),
+('61d4a176-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', 'a3c0519a-1fe4-4f83-aecb-ad392adbae85', '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'AMARON GO 55D23L', 'battery-amaron-go.webp', NULL, NULL, 48, 320, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:09', NULL),
+('61d77a7b-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '8853b7ce-7af6-4516-b3f2-22cf2f151829', '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'AMARON HILIFE 85D23L', 'battery-amaron-hilife.webp', NULL, NULL, 60, 550, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:19', NULL),
+('61db1146-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '8853b7ce-7af6-4516-b3f2-22cf2f151829', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'AMARON HILIFE 95D26L', 'battery-amaron-hilife.webp', NULL, NULL, 65, 600, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:19', NULL),
+('61de4860-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '8853b7ce-7af6-4516-b3f2-22cf2f151829', '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'AMARON HILIFE NS60L/55B24L', 'battery-amaron-hilife.webp', NULL, NULL, 45, 380, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:20', NULL),
+('61e15561-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '8853b7ce-7af6-4516-b3f2-22cf2f151829', '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'AMARON HILIFE NS60LS/55B24LS', 'battery-amaron-hilife.webp', NULL, NULL, 45, 380, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:21', NULL),
+('61e45550-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '8853b7ce-7af6-4516-b3f2-22cf2f151829', '3071259e-9c0d-11ef-81ed-d067e528c8df', 'AMARON HILIFE NS60R/55B24R', 'battery-amaron-hilife.webp', NULL, NULL, 45, 380, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:21', NULL),
+('61e7b769-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '8853b7ce-7af6-4516-b3f2-22cf2f151829', '3071259e-9c0d-11ef-81ed-d067e528c8df', 'AMARON HILIFE NS60R/55B24RS', 'battery-amaron-hilife.webp', NULL, NULL, 45, 380, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:22', NULL),
+('61eaaf73-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO DIN100L', 'battery-amaron-pro.webp', NULL, NULL, 100, 900, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:30', NULL),
+('61edcf58-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO DIN55L', 'battery-amaron-pro.webp', NULL, NULL, 55, 430, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:31', NULL),
+('61f06d19-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '04045a7c-9c12-11ef-81ed-d067e528c8df', 'AMARON PRO DIN55R', 'battery-amaron-pro.webp', NULL, NULL, 55, 430, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:31', NULL),
+('61f3be4a-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO DIN74L', 'battery-amaron-pro.webp', NULL, NULL, 74, 690, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:31', NULL),
+('6207197a-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '32013a97-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO DIN80L', 'battery-amaron-pro.webp', NULL, NULL, 80, 730, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:32', NULL),
+('620f1ee5-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '31f50390-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO LN1', 'battery-amaron-pro.webp', NULL, NULL, 45, 365, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:32', NULL),
+('623a671c-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO LN2', 'battery-amaron-pro.webp', NULL, NULL, 60, 550, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:32', NULL),
+('623f0b99-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO LN3', 'battery-amaron-pro.webp', NULL, NULL, 74, 690, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:08', '2024-11-06 09:30:32', NULL),
+('6272383b-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '32013a97-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO LN4', 'battery-amaron-pro.webp', NULL, NULL, 80, 730, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:09', '2024-11-06 09:30:33', NULL),
+('62976c41-9c1d-11ef-81ed-d067e528c8df', '533d425d-ea3b-4eac-b86e-7b072c2dc98a', 'cf662362-89de-11ef-beeb-401a58b01058', '6b850556-63d2-4205-af41-c2d645a48954', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'AMARON PRO LN5', 'battery-amaron-pro.webp', NULL, NULL, 100, 900, 12, NULL, NULL, NULL, NULL, '2024-11-06 08:59:09', '2024-11-06 09:30:33', NULL),
+('a98b5976-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '320a4edc-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF EFB M42L', 'battery-bosch.webp', NULL, NULL, 70, 600, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:46', '2024-11-25 09:02:06', NULL),
+('a992bccb-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3211764c-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF EFB M42R', 'battery-bosch.webp', NULL, NULL, 70, 600, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:46', '2024-11-25 09:02:03', NULL),
+('a998bf53-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '301832f8-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF NS40ZL', 'battery-bosch.webp', NULL, NULL, 70, 720, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:46', '2024-11-07 06:58:50', NULL),
+('a99d7f8d-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF NS60L', 'battery-bosch.webp', NULL, NULL, 70, 680, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 06:58:49', NULL),
+('a9a380eb-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF NS60LS', 'battery-bosch.webp', NULL, NULL, 80, 800, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 06:58:49', NULL),
+('a9aa0b1d-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3071259e-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF NS60R', 'battery-bosch.webp', NULL, NULL, 95, 850, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 06:58:49', NULL),
+('a9b2db54-9cbf-11ef-81ed-d067e528c8df', '761520d1-7da1-42b0-9da1-ecc238084fad', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'BOSCH MF NS60RS', 'battery-bosch.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 06:58:48', NULL),
+('a9c38bc5-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3243b4e4-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF AGM DIN100', 'battery-camel.webp', NULL, NULL, 100, 850, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-25 09:04:12', NULL),
+('a9c7e0c2-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF DIN100L', 'battery-camel.webp', NULL, NULL, 100, 850, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 07:04:46', NULL),
+('a9ce971b-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '323d28c3-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF AGM DIN70', 'battery-camel.webp', NULL, NULL, 70, 760, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-25 09:04:17', NULL),
+('a9d72323-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF DIN72L', 'battery-camel.webp', NULL, NULL, 72, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 07:04:47', NULL),
+('a9dbe689-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '32402874-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF AGM DIN80', 'battery-camel.webp', NULL, NULL, 80, 800, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-25 09:04:24', NULL),
+('a9e8d219-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '32013a97-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF DIN88L', 'battery-camel.webp', NULL, NULL, 88, 840, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-07 07:04:48', NULL),
+('a9f216b1-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '320a4edc-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF EFB M42L', 'battery-camel.webp', NULL, NULL, 42, 560, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-25 09:02:13', NULL),
+('a9f906fd-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '321e22b8-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF EFB Q85', 'battery-camel.webp', NULL, NULL, 65, 600, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-25 09:02:20', NULL),
+('a9fe0b7b-9cbf-11ef-81ed-d067e528c8df', '22615e77-d9be-4686-a2b2-d647c56e2e41', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '32250347-9c0d-11ef-81ed-d067e528c8df', 'CAMEL MF EFB S95', 'battery-camel.webp', NULL, NULL, 87, 750, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:20:47', '2024-11-25 09:02:28', NULL),
+('c3a78a61-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '3180c167-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET N100', 'battery-century-hybrid.webp', NULL, NULL, 85, 657, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:30', NULL),
+('c3ae3538-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '319cb370-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET N120', 'battery-century-hybrid.webp', NULL, NULL, 110, 720, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:32', NULL),
+('c3b43e73-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '31bd5784-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET N150', 'battery-century-hybrid.webp', NULL, NULL, 120, 815, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:32', NULL),
+('c3badc14-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '31d9f8ea-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET N200', 'battery-century-hybrid.webp', NULL, NULL, 150, 1020, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:33', NULL),
+('c3c05e01-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET N70ZL', 'battery-century-hybrid.webp', NULL, NULL, 65, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:34', NULL),
+('c3c66fb5-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET N70ZR', 'battery-century-hybrid.webp', NULL, NULL, 65, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:35', NULL),
+('c3cc7fa5-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET NS70L', 'battery-century-hybrid.webp', NULL, NULL, 55, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:36', NULL),
+('c3d2d9e9-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', 'b0bcf8a5-0a43-4b5e-a006-d22550ba36b9', '3133a349-9c0d-11ef-81ed-d067e528c8df', 'CENTURY HYBRID WET NS70R', 'battery-century-hybrid.webp', NULL, NULL, 55, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:30', '2024-11-07 07:20:36', NULL),
+('c3d8a648-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX 75D23L', 'battery-century-max.webp', NULL, NULL, 70, 610, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:48', NULL),
+('c3dd3a50-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX DIN100L', 'battery-century-max.webp', NULL, NULL, 100, 900, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:48', NULL),
+('c3e3b283-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX DIN55L', 'battery-century-max.webp', NULL, NULL, 60, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:49', NULL),
+('c3ea63c9-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '04045a7c-9c12-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX DIN55R', 'battery-century-max.webp', NULL, NULL, 60, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:49', NULL),
+('c3f04c22-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX DIN66L', 'battery-century-max.webp', NULL, NULL, 66, 680, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:49', NULL),
+('c3f5b4af-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '32013a97-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX DIN80L', 'battery-century-max.webp', NULL, NULL, 95, 790, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:50', NULL),
+('c3fdff58-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '320a4edc-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX EFB M42L', 'battery-century-max.webp', NULL, NULL, 45, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-25 09:02:37', NULL),
+('c406ebe4-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '3211764c-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX EFB M42R', 'battery-century-max.webp', NULL, NULL, 45, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-25 09:02:45', NULL),
+('c41b51c9-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '3180c167-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX N100', 'battery-century-max.webp', NULL, NULL, 100, 800, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:51', NULL),
+('c4206b85-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '319cb370-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX N120', 'battery-century-max.webp', NULL, NULL, 140, 900, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:51', NULL),
+('c4280347-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '31bd5784-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX N150', 'battery-century-max.webp', NULL, NULL, 150, 1000, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:52', NULL),
+('c42eb927-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '31d9f8ea-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX N200', 'battery-century-max.webp', NULL, NULL, 205, 1206, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:52', NULL),
+('c43528b4-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '321b0922-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX EFB N55', 'battery-century-max.webp', NULL, NULL, 55, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-25 09:02:52', NULL),
+('c43a4df9-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '301832f8-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS40ZL', 'battery-century-max.webp', NULL, NULL, 38, 350, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:53', NULL),
+('c44196c1-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS60L', 'battery-century-max.webp', NULL, NULL, 45, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:53', NULL),
+('c4486630-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS60LS', 'battery-century-max.webp', NULL, NULL, 45, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:53', NULL),
+('c4550c75-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '3071259e-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS60R', 'battery-century-max.webp', NULL, NULL, 45, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:54', NULL),
+('c45cc194-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS60RS', 'battery-century-max.webp', NULL, NULL, 45, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:20:54', NULL),
+('c461ea74-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS70L', 'battery-century-max.webp', NULL, NULL, 72, 620, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:21:00', NULL),
+('c4681500-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '3133a349-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NS70R', 'battery-century-max.webp', NULL, NULL, 72, 620, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:31', '2024-11-07 07:21:01', NULL),
+('c46f2d29-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NX120L', 'battery-century-max.webp', NULL, NULL, 85, 700, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:01', NULL),
+('c4749bd6-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX NX120R', 'battery-century-max.webp', NULL, NULL, 85, 700, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:01', NULL),
+('c47b3658-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '5f857529-1c50-4d50-9f5e-ca76342736f0', '321e22b8-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MARATHONER MAX EFB Q85', 'battery-century-max.webp', NULL, NULL, 75, 700, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-25 09:02:58', NULL),
+('c480c2ed-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF 55D23L', 'battery-century-motolite.webp', NULL, NULL, 60, 580, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:38', NULL),
+('c48859e0-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF DIN100L', 'battery-century-motolite.webp', NULL, NULL, 107, 776, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:39', NULL),
+('c48e3e1c-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF DIN55L', 'battery-century-motolite.webp', NULL, NULL, 55, 460, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:40', NULL),
+('c494e8bb-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF DIN66L', 'battery-century-motolite.webp', NULL, NULL, 60, 590, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:40', NULL),
+('c49b197f-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF N70ZL', 'battery-century-motolite.webp', NULL, NULL, 65, 553, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:40', NULL),
+('c4a1a9fb-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF N70ZR', 'battery-century-motolite.webp', NULL, NULL, 65, 553, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:41', NULL),
+('c4a82fc1-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '301832f8-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS40ZL', 'battery-century-motolite.webp', NULL, NULL, 30, 310, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:41', NULL),
+('c4ae4a00-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS60L', 'battery-century-motolite.webp', NULL, NULL, 40, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:42', NULL),
+('c4b4deb7-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS60LS', 'battery-century-motolite.webp', NULL, NULL, 40, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:42', NULL),
+('c4bb5af3-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '3071259e-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS60R', 'battery-century-motolite.webp', NULL, NULL, 40, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:42', NULL),
+('c4c11e72-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS60RS', 'battery-century-motolite.webp', NULL, NULL, 40, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:43', NULL),
+('c4c6d5f5-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS70L', 'battery-century-motolite.webp', NULL, NULL, 65, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:43', NULL),
+('c4cb86ef-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '64748ad4-43e7-4203-91a1-7358aa8e6879', '3133a349-9c0d-11ef-81ed-d067e528c8df', 'CENTURY MOTOLITE MF NS70R', 'battery-century-motolite.webp', NULL, NULL, 65, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:43', NULL),
+('c4d25282-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START 75D23L', 'battery-century-start.webp', NULL, NULL, 70, 610, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:19', NULL),
+('c4d88495-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START DIN100L', 'battery-century-start.webp', NULL, NULL, 100, 900, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:21', NULL),
+('c4df7eae-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START DIN55L', 'battery-century-start.webp', NULL, NULL, 55, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:21', NULL),
+('c4e70d6d-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '04045a7c-9c12-11ef-81ed-d067e528c8df', 'CENTURY START DIN55R', 'battery-century-start.webp', NULL, NULL, 55, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:22', NULL),
+('c4ee73bb-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START DIN66L', 'battery-century-start.webp', NULL, NULL, 60, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:22', NULL),
+('c4f47af3-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '32013a97-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START DIN80L', 'battery-century-start.webp', NULL, NULL, 95, 790, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2024-11-07 07:21:22', NULL),
+('c4f983a9-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '320a4edc-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START EFB M42L', 'battery-century-start.webp', NULL, NULL, 45, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c5008418-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '3211764c-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START EFB M42R', 'battery-century-start.webp', NULL, NULL, 45, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c5056036-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '3180c167-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START N100', 'battery-century-start.webp', NULL, NULL, 100, 800, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:32', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c50b7a7e-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '319cb370-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START N120', 'battery-century-start.webp', NULL, NULL, 140, 900, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c510e501-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '31bd5784-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START N150', 'battery-century-start.webp', NULL, NULL, 150, 1000, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c51719de-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '31d9f8ea-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START N200', 'battery-century-start.webp', NULL, NULL, 205, 1206, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c51c0dd9-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '321b0922-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START EFB N55', 'battery-century-start.webp', NULL, NULL, 55, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:41:53', '2025-01-09 04:41:53'),
+('c522ac50-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '301832f8-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS40ZL', 'battery-century-start.webp', NULL, NULL, 30, 310, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:25', NULL),
+('c5283e89-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS60L', 'battery-century-start.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:25', NULL),
+('c52d38e8-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS60LS', 'battery-century-start.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:26', NULL),
+('c532b7b5-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '3071259e-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS60R', 'battery-century-start.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:26', NULL),
+('c538ea1c-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS60RS', 'battery-century-start.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:27', NULL),
+('c53fb44b-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS70L', 'battery-century-start.webp', NULL, NULL, 60, 600, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:27', NULL),
+('c5454b12-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '3133a349-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NS70R', 'battery-century-start.webp', NULL, NULL, 60, 600, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2024-11-07 07:21:27', NULL),
+('c549d9c8-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NX120L', 'battery-century-start.webp', NULL, NULL, 70, 620, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:44:39', '2025-01-09 04:41:53'),
+('c5509e72-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START NX120R', 'battery-century-start.webp', NULL, NULL, 70, 620, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:44:39', '2025-01-09 04:41:53'),
+('c555f71d-9cbf-11ef-81ed-d067e528c8df', 'bdc54599-de09-4c03-8a23-d3c4e13c1c11', 'cf662362-89de-11ef-beeb-401a58b01058', '84787c5d-1c3a-48f3-b5b4-807bf32c34f6', '321e22b8-9c0d-11ef-81ed-d067e528c8df', 'CENTURY START EFB Q85', 'battery-century-start.webp', NULL, NULL, 75, 700, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:21:33', '2025-01-09 04:44:39', '2025-01-09 04:41:53'),
+('dd414bc5-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', 'faafb0ac-449b-4fa1-adbb-8c20fd5e0c3d', '301832f8-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY PREMIUM NS40ZL/44B19L', 'battery-fbm-premium.webp', NULL, NULL, 44, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:13', '2024-11-11 06:47:08', NULL),
+('e5860b37-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY 55D23L', 'battery-fbm.webp', NULL, NULL, 55, 450, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:51:40', NULL),
+('e58cd9b2-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY DIN55L', 'battery-fbm.webp', NULL, NULL, 60, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:52:06', NULL),
+('e59f7cc9-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '04045a7c-9c12-11ef-81ed-d067e528c8df', 'FBM ENERGY DIN55R', 'battery-fbm.webp', NULL, NULL, 60, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:52:13', NULL),
+('e5baf89b-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '32013a97-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY DIN75L', 'battery-fbm.webp', NULL, NULL, 75, 480, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:52:28', NULL),
+('e5c05e21-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3180c167-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY N100', 'battery-fbm.webp', NULL, NULL, 100, 650, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:52:36', NULL),
+('e5c7bfe8-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '319cb370-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY N120', 'battery-fbm.webp', NULL, NULL, 120, 690, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:52:48', NULL),
+('e5cc6caa-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31bd5784-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY N150', 'battery-fbm.webp', NULL, NULL, 150, 850, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:27', '2024-11-11 05:52:55', NULL),
+('e5d237d7-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31d9f8ea-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY N200', 'battery-fbm.webp', NULL, NULL, 200, 1100, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 05:53:02', NULL),
+('e5d8b97e-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '301832f8-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS40ZL/42B19L', 'battery-fbm.webp', NULL, NULL, 32, 280, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 05:53:12', NULL),
+('e5df3994-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS60L/55B24L', 'battery-fbm.webp', NULL, NULL, 55, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:46:00', NULL),
+('e5e91675-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS60LS/55B24LS', 'battery-fbm.webp', NULL, NULL, 55, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:46:15', NULL),
+('e5f5fbdc-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3071259e-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS60R/55B24R', 'battery-fbm.webp', NULL, NULL, 55, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:46:16', NULL),
+('e5feb7fe-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS60RS/55B24RS', 'battery-fbm.webp', NULL, NULL, 55, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:46:17', NULL),
+('e60a14f9-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS70L/65D26L', 'battery-fbm.webp', NULL, NULL, 65, 520, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:47:14', NULL),
+('e60f40fe-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3133a349-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NS70R/65D26R', 'battery-fbm.webp', NULL, NULL, 65, 520, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:47:13', NULL),
+('e6157896-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NX120L/95D31L', 'battery-fbm.webp', NULL, NULL, 95, 650, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:47:12', NULL),
+('e61b9c8c-9cbf-11ef-81ed-d067e528c8df', '2d12d219-3091-4a24-900c-728824632f6b', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'FBM ENERGY NX120R/95D31R', 'battery-fbm.webp', NULL, NULL, 95, 650, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:28', '2024-11-11 06:47:11', NULL),
+('f1a5c259-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY 60D23L', 'battery-hitec.webp', NULL, NULL, 55, 450, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:47', '2024-11-11 06:47:52', NULL),
+('f1abf428-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY DIN55L', 'battery-hitec.webp', NULL, NULL, 60, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:47', '2024-11-11 06:47:59', NULL),
+('f1b2e381-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '04045a7c-9c12-11ef-81ed-d067e528c8df', 'HITEC ENERGY DIN55R', 'battery-hitec.webp', NULL, NULL, 60, 420, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:47', '2024-11-11 06:48:04', NULL),
+('f1b8678b-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '301832f8-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS40ZL', 'battery-hitec.webp', NULL, NULL, 32, 280, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:47', '2024-11-11 06:48:10', NULL),
+('f1be02bc-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS60L', 'battery-hitec.webp', NULL, NULL, 45, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:48:27', NULL),
+('f1c2aa66-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS60LS', 'battery-hitec.webp', NULL, NULL, 45, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:48:34', NULL),
+('f1c898ae-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3071259e-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS60R', 'battery-hitec.webp', NULL, NULL, 45, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:48:35', NULL),
+('f1cf8fcc-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS60RS', 'battery-hitec.webp', NULL, NULL, 45, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:48:37', NULL),
+('f1d5228b-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS70L', 'battery-hitec.webp', NULL, NULL, 60, 520, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:48:49', NULL),
+('f1db017b-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3133a349-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NS70R', 'battery-hitec.webp', NULL, NULL, 60, 520, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:48:51', NULL),
+('f1e40c2a-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NX120L', 'battery-hitec.webp', NULL, NULL, 95, 650, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:49:50', NULL),
+('f1e9106c-9cbf-11ef-81ed-d067e528c8df', 'b38345ed-878e-4463-bd1e-ec6fefcb2241', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'HITEC ENERGY NX120R', 'battery-hitec.webp', NULL, NULL, 95, 650, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 06:49:52', NULL);
+INSERT INTO `products` (`id`, `battery_brand_id`, `product_category_id`, `battery_brand_series_id`, `battery_size_id`, `description`, `image`, `cost_price`, `sale_price`, `capacity`, `cca`, `voltage`, `length`, `width`, `height`, `weight`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('f22426cd-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER 60D23L', 'battery-sprinter.webp', NULL, NULL, 48, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 08:27:28', NULL),
+('f22a9497-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER DIN55L', 'battery-sprinter.webp', NULL, NULL, 45, 440, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 08:28:01', NULL),
+('f2309fe5-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '04045a7c-9c12-11ef-81ed-d067e528c8df', 'SPRINTER DIN55R', 'battery-sprinter.webp', NULL, NULL, 45, 440, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 08:28:05', NULL),
+('f24d6917-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '301832f8-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS40ZL', 'battery-sprinter.webp', NULL, NULL, 36, 320, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:48', '2024-11-11 08:29:39', NULL),
+('f266c24f-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS60L', 'battery-sprinter.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:30:17', NULL),
+('f26dbe11-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS60LS', 'battery-sprinter.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:30:21', NULL),
+('f273b4f4-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3071259e-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS60R', 'battery-sprinter.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:30:21', NULL),
+('f27d25a3-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS60RS', 'battery-sprinter.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:30:22', NULL),
+('f29189d1-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS70L', 'battery-sprinter.webp', NULL, NULL, 65, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:30:39', NULL),
+('f2ae74f9-9cbf-11ef-81ed-d067e528c8df', 'c26c5189-caa3-4821-8088-b1ed97e6f848', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3133a349-9c0d-11ef-81ed-d067e528c8df', 'SPRINTER NS70R', 'battery-sprinter.webp', NULL, NULL, 65, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:30:41', NULL),
+('f2cafe46-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31ec989a-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF 85D23L', 'battery-tuflong.webp', NULL, NULL, 65, 580, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:10:44', NULL),
+('f2e398c2-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31fa7183-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF DIN55L', 'battery-tuflong.webp', NULL, NULL, 52, 480, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:49', '2024-11-11 08:11:01', NULL),
+('f2fce6ff-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '04045a7c-9c12-11ef-81ed-d067e528c8df', 'TUFLONG MF DIN55R', 'battery-tuflong.webp', NULL, NULL, 52, 480, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:11:04', NULL),
+('f31cf332-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF DIN66L', 'battery-tuflong.webp', NULL, NULL, 66, 540, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:11:46', NULL),
+('f3421f3d-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3180c167-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF N100', 'battery-tuflong.webp', NULL, NULL, 100, 430, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:12:02', NULL),
+('f3558e5f-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '319cb370-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF N120', 'battery-tuflong.webp', NULL, NULL, 120, 525, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:14:54', NULL),
+('f3630c38-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31bd5784-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF N150', 'battery-tuflong.webp', NULL, NULL, 150, 685, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:15:04', NULL),
+('f36afdb6-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '31d9f8ea-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF N200', 'battery-tuflong.webp', NULL, NULL, 200, 720, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:15:10', NULL),
+('f379e3db-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '301832f8-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS40ZL', 'battery-tuflong.webp', NULL, NULL, 38, 330, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:13:13', NULL),
+('f37fd251-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '303a45c4-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS60L', 'battery-tuflong.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:50', '2024-11-11 08:13:20', NULL),
+('f384cb5c-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30a1142a-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS60LS', 'battery-tuflong.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:25', NULL),
+('f38941d5-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3071259e-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS60R', 'battery-tuflong.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:26', NULL),
+('f3912db9-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '30d2b87a-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS60RS', 'battery-tuflong.webp', NULL, NULL, 45, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:27', NULL),
+('f397164f-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '312cc5cd-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS70L', 'battery-tuflong.webp', NULL, NULL, 70, 580, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:42', NULL),
+('f39e0731-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3133a349-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NS70R', 'battery-tuflong.webp', NULL, NULL, 70, 580, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:44', NULL),
+('f3a38070-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NX120L', 'battery-tuflong.webp', NULL, NULL, 95, 750, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:55', NULL),
+('f3b03ba0-9cbf-11ef-81ed-d067e528c8df', '33801b4f-5488-418c-b2e8-e475f4ab058f', 'cf662362-89de-11ef-beeb-401a58b01058', NULL, '3149cefa-9c0d-11ef-81ed-d067e528c8df', 'TUFLONG MF NX120R', 'battery-tuflong.webp', NULL, NULL, 95, 750, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:13:57', NULL),
+('f3b85f1a-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '3203bf4a-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN100L/60044', 'battery-varta-blue.webp', NULL, NULL, 100, 760, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:15:39', NULL),
+('f3bdabdb-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '31f0a9a7-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN44L/54418', 'battery-varta-blue.webp', NULL, NULL, 44, 390, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:16:17', NULL),
+('f3c40a2d-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '31f50390-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN45L/54313', 'battery-varta-blue.webp', NULL, NULL, 43, 430, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:17:17', NULL),
+('f3c9b926-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '04045a7c-9c12-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN55L/55530', 'battery-varta-blue.webp', NULL, NULL, 55, 525, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:17:46', NULL),
+('f3cf640c-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '04045a7c-9c12-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN55R/55548', 'battery-varta-blue.webp', NULL, NULL, 55, 525, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:18:06', NULL),
+('f3d47c8a-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '04045a7c-9c12-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN62L/56219', 'battery-varta-blue.webp', NULL, NULL, 62, 570, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:18:34', NULL),
+('f3daae7a-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN65L/56513', 'battery-varta-blue.webp', NULL, NULL, 65, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:19:01', NULL),
+('f3e03aed-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN65L/56530', 'battery-varta-blue.webp', NULL, NULL, 65, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:19:37', NULL),
+('f3eca661-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '31fe77ff-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN66L/56618', 'battery-varta-blue.webp', NULL, NULL, 65, 550, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:19:42', NULL),
+('f3f1a03d-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '322bb08f-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE EFB DIN70', 'battery-varta-blue.webp', NULL, NULL, 70, 720, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-25 09:03:36', NULL),
+('f3f8d690-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '32013a97-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN75L/57539', 'battery-varta-blue.webp', NULL, NULL, 75, 630, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:21:12', NULL),
+('f4052427-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', 'd2d8bdd9-f70f-4e0e-a273-32b7bcd52dbc', '32013a97-9c0d-11ef-81ed-d067e528c8df', 'VARTA BLUE DIN80L/58039', 'battery-varta-blue.webp', NULL, NULL, 80, 730, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-11 08:21:28', NULL),
+('f415b2fd-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '32369978-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER AGM LN1', 'battery-varta-silver.webp', NULL, NULL, 50, 520, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:51', '2024-11-25 08:54:31', NULL),
+('f422e4cf-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '323a7a98-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER AGM LN2', 'battery-varta-silver.webp', NULL, NULL, 60, 680, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:54:36', NULL),
+('f42a38af-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '3228c134-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER EFB LN2', 'battery-varta-silver.webp', NULL, NULL, 60, 560, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:54:55', NULL),
+('f433c16e-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '323d28c3-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER AGM LN3', 'battery-varta-silver.webp', NULL, NULL, 70, 760, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:54:41', NULL),
+('f43b97c2-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '322bb08f-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER EFB LN3', 'battery-varta-silver.webp', NULL, NULL, 70, 720, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:55:00', NULL),
+('f44347e5-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '32402874-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER AGM LN4', 'battery-varta-silver.webp', NULL, NULL, 80, 800, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:54:05', NULL),
+('f44a787d-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '3243b4e4-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER AGM LN5', 'battery-varta-silver.webp', NULL, NULL, 95, 850, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:53:57', NULL),
+('f456259e-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '3246fc42-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER AGM LN6', 'battery-varta-silver.webp', NULL, NULL, 105, 950, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:53:41', NULL),
+('f463bfa8-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '320a4edc-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER EFB M42L', 'battery-varta-silver.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:55:07', NULL),
+('f46a671d-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '3211764c-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER EFB M42R', 'battery-varta-silver.webp', NULL, NULL, 40, 400, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:55:14', NULL),
+('f4782c81-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '321b0922-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER EFB N55', 'battery-varta-silver.webp', NULL, NULL, 55, 500, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:55:26', NULL),
+('f48090fd-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '321e22b8-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER Q85/115D23L', 'battery-varta-silver.webp', NULL, NULL, 70, 660, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-25 08:55:43', NULL),
+('f48804fa-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '32250347-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER S95/130D26L', 'battery-varta-silver.webp', NULL, NULL, 75, 720, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-11 08:24:14', NULL),
+('f491631b-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '313e3c20-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER T110/145D31L', 'battery-varta-silver.webp', NULL, NULL, 90, 820, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-11 08:24:26', NULL),
+('f4ab151a-9cbf-11ef-81ed-d067e528c8df', 'a73b3a30-20c3-4bce-a015-0f675ab15b93', 'cf662362-89de-11ef-beeb-401a58b01058', '9c87fdb6-6f69-4b9c-9bf6-41869f9c0ae9', '3249ef6c-9c0d-11ef-81ed-d067e528c8df', 'VARTA SILVER YTX14', 'battery-varta-silver.webp', NULL, NULL, 13, 200, 12, NULL, NULL, NULL, NULL, '2024-11-07 04:22:52', '2024-11-11 08:22:06', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_categories`
+--
+
+CREATE TABLE `product_categories` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+INSERT INTO `product_categories` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('cf662362-89de-11ef-beeb-401a58b01058', 'BATTERY', '2024-10-14 03:45:52', '2024-10-14 03:45:52', NULL),
+('cf668aaa-89de-11ef-beeb-401a58b01058', 'ACCESSORY', '2024-10-14 03:45:52', '2024-10-14 03:45:52', NULL),
+('cf668f4f-89de-11ef-beeb-401a58b01058', 'SERVICE', '2024-10-14 03:45:52', '2024-10-14 03:45:52', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reward_items`
+--
+
+CREATE TABLE `reward_items` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `points_cost` int(10) UNSIGNED NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `quantity` int(10) UNSIGNED DEFAULT NULL,
+  `valid_from` timestamp NULL DEFAULT NULL,
+  `valid_until` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `reward_items`
+--
+
+INSERT INTO `reward_items` (`id`, `name`, `description`, `points_cost`, `image_url`, `is_active`, `quantity`, `valid_from`, `valid_until`, `created_at`, `updated_at`) VALUES
+('03c8d348-f896-4d2d-80cd-9d4666261d41', 'RM10 Voucher', 'Get RM10 off your next purchase.', 300, 'assets/promo/membership.jpg', 1, NULL, NULL, NULL, '2025-05-25 18:36:09', '2025-05-25 18:36:09'),
+('0df6db10-3177-4f9e-86aa-7040ecc7aad0', 'Expired Test Reward', 'This reward was only valid last month.', 50, NULL, 1, NULL, NULL, '2025-04-25 18:36:09', '2025-05-25 18:36:09', '2025-05-25 18:36:09'),
+('1f80f349-3839-4fba-9370-690fbf8aa702', 'Car Wash Coupon', 'Free standard car wash.', 150, 'assets/promo/promo2.jpg', 1, NULL, NULL, NULL, '2025-05-25 18:36:09', '2025-05-25 18:36:09'),
+('5f165515-4b81-406b-8758-dea98449cec9', 'Free Battery Check', 'Complimentary battery health check service.', 100, 'assets/promo/promo3.jpg', 1, NULL, NULL, NULL, '2025-05-25 18:36:09', '2025-05-25 18:36:09'),
+('8066ea34-f7b5-4ffc-b2d6-0dea8fd9ea2e', 'Inactive Test Reward', 'This reward is not active.', 20, NULL, 0, NULL, NULL, NULL, '2025-05-25 18:36:09', '2025-05-25 18:36:09'),
+('df87cd33-6711-44e7-9a20-f7a5494f5476', 'RM20 Voucher', 'Get RM20 off your next purchase.', 500, 'assets/promo/idk.jpg', 1, 100, NULL, NULL, '2025-05-25 18:36:09', '2025-05-25 18:36:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `ic` varchar(255) DEFAULT NULL,
+  `otp` varchar(255) DEFAULT NULL,
+  `otp_expires_at` timestamp NULL DEFAULT NULL,
+  `two_fa_enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `total_inspections` int(11) NOT NULL DEFAULT 0,
+  `total_battery_installations` int(11) NOT NULL DEFAULT 0,
+  `terms_accepted` tinyint(1) NOT NULL DEFAULT 0,
+  `terms_accepted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `phone`, `ic`, `otp`, `otp_expires_at`, `two_fa_enabled`, `remember_token`, `created_at`, `updated_at`, `total_inspections`, `total_battery_installations`, `terms_accepted`, `terms_accepted_at`) VALUES
+('3227206c-ed58-43ec-adcc-fbe30d9b2bff', 'noraini', 'aini@gmail.com', NULL, '$2y$10$9AL4OWs054jUvB2j0BtO5OqgFIDjWbdISqUIluViLPKtpLInavKXu', '01111201714', NULL, NULL, NULL, 1, NULL, '2025-06-11 18:51:10', '2025-06-11 18:52:04', 0, 0, 1, '2025-06-11 18:51:23'),
+('371e6238-25e6-4ab1-8437-455b9e7c00a2', 'hana', 'hana@gmail.com', NULL, '$2y$10$KEOu6nXaqGMRLb/hdY8QCOpN97ajDdGP1eDMS3cw9uKAd/rwWnWWi', '01117220198', '050129060676', '918922', '2025-05-18 21:09:41', 0, NULL, '2025-05-18 21:04:41', '2025-05-19 21:00:33', 0, 0, 0, NULL),
+('40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'maza', 'maza@gmail.com', NULL, '$2y$10$Hd1uKBvUce6Q/B/VPgk4I.J6tDApDbRSMfE1eHEjm1HMaCNSTDth6', '01117220198', '050129060676', '219402', '2025-05-16 19:39:52', 0, NULL, '2025-05-16 19:34:56', '2025-05-16 20:36:52', 0, 0, 0, NULL),
+('471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'raju', 'raju@gmail.com', NULL, '$2y$10$JdfUtBCvxDCZMsWK30jbuujppGkJfHBQmgARH.Sc0AVBD5IUS10/C', '01117220198', '01029010173', '697178', '2025-05-19 01:23:43', 0, NULL, '2025-05-19 01:18:43', '2025-05-30 00:47:00', 0, 0, 0, NULL),
+('559ccc3f-bb36-44b2-b88c-d9e9da8853ae', 'ahmad', 'ahmad@gmail.com', NULL, '$2y$10$logluJjIWo/bOGuvSIc/fO3bQBxxXadn9izs/lzzSJ3KCE4GPzs0S', '01117220198', NULL, '569094', '2025-05-18 22:12:44', 0, NULL, '2025-05-18 22:07:44', '2025-05-18 22:07:44', 0, 0, 0, NULL),
+('6365dcfc-1056-4f70-9a45-def47c140c01', 'dina', 'dina@gmail.com', NULL, '$2y$10$D/.jgoWz3gT3RO2GyeqTKuYkqNXJl.IieAwRepVBDW6LFehHmfV7m', '01117220198', NULL, '746770', '2025-05-16 20:14:10', 0, NULL, '2025-05-16 20:09:10', '2025-05-16 20:09:10', 0, 0, 0, NULL),
+('6b96b5ad-00f4-4506-98ee-46dedf147331', 'alia', 'alia@gmail.com', NULL, '$2y$10$3tmmn36.2l4g4OPyzqRfuOmKv4uMJhsoc/VaJ73yMCzO7pCU/Qxla', '01117220198', NULL, '152801', '2025-05-19 00:46:21', 0, NULL, '2025-05-19 00:41:21', '2025-05-19 00:41:21', 0, 0, 0, NULL),
+('6d422e94-9bb3-4564-b195-45f9ffbdd9dc', 'hanani', 'nani@gmail.com', NULL, '$2y$10$xs77.rnF.zHCtNofghRntedOR00hoiJaxYvWilpRTcftqr9vcocWq', '0123445678', NULL, NULL, NULL, 1, NULL, '2025-06-11 18:19:24', '2025-06-11 18:20:04', 0, 0, 0, NULL),
+('a13114ba-86cb-435f-88ca-a1253fda9208', 'zara', 'zara@gmail.com', NULL, '$2y$10$toD8HyKJh1RDhf6fFZkDpeJtjc3NYfywcYqPcHXiZBWIxe8Bw5QvC', '011172201998', '010246070756', '947305', '2025-05-19 00:44:58', 0, NULL, '2025-05-19 00:40:04', '2025-05-23 20:14:52', 0, 0, 0, NULL),
+('ac0f1c12-6021-44e9-984f-c6de830762c7', 'ali', 'ali@gmail.com', NULL, '$2y$10$rJFGGvpr3qaX5KU9nm4aeemQ0FqYpAOvRPDsk7sjTUlI1PC0qlXfS', '01117220198', '060127060678', '844361', '2025-05-16 19:42:25', 0, NULL, '2025-05-16 19:37:25', '2025-05-20 19:38:31', 0, 0, 0, NULL),
+('ae3b9e6b-2edb-401f-b5c4-0eca54b42737', 'adam', 'adam@gmail.com', NULL, '$2y$10$jxi6LSyVC52pQF3atLUDeO/VuHrT92A0cYJ8g0Yui6pvj8Yg.8pG2', '01117220198', NULL, '485709', '2025-05-19 01:21:48', 0, NULL, '2025-05-19 01:16:48', '2025-05-19 01:16:48', 0, 0, 0, NULL),
+('b95af51e-7afb-463b-b1de-04b61ef27a01', 'abu', 'abu@gmail.com', NULL, '$2y$10$TIPdS6S4iXg31vQxFK2F7ekO0RI4zXV27L9kv/D33GpO7l4UxNCiS', '01117220198', NULL, '518588', '2025-05-18 21:08:18', 0, NULL, '2025-05-18 21:03:23', '2025-05-18 21:03:23', 0, 0, 0, NULL),
+('ea80f906-1c86-4639-84b8-3de2f03ad192', 'mariah', 'mariah@gmail.com', NULL, '$2y$10$4t1fKe3qwsf00.RQ0GxDFeygetqzu0YE05r4f3y4mmAE2CjcyOEpO', '01117220198', NULL, NULL, NULL, 1, NULL, '2025-05-19 19:16:13', '2025-05-19 19:16:50', 0, 0, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_cars`
+--
+
+CREATE TABLE `user_cars` (
+  `id` char(36) NOT NULL,
+  `user_id` char(36) NOT NULL,
+  `car_brand_id` char(36) NOT NULL,
+  `car_model_id` char(36) NOT NULL,
+  `license_plate` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_cars`
+--
+
+INSERT INTO `user_cars` (`id`, `user_id`, `car_brand_id`, `car_model_id`, `license_plate`, `created_at`, `updated_at`) VALUES
+('1aa54794-4223-44ec-bb4d-d6ccc5baf161', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '9e9e55a4-0348-4119-a831-e54ee747e35a', '2167f29a-b38c-11ef-818d-00155d060d12', 'SUV122', '2025-05-26 22:35:04', '2025-05-26 22:35:04'),
+('1d1103c0-7b97-4d02-aed0-384a40093110', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '929e1351-eb98-4870-b277-dcf1e8dfc275', '1e10d223-b38c-11ef-818d-00155d060d12', 'wrt41', '2025-05-26 22:27:48', '2025-05-26 22:27:48'),
+('20cc45a4-7205-4b07-9fc6-b58b47eaccb9', 'ea80f906-1c86-4639-84b8-3de2f03ad192', '9a0c8baa-1e37-48e6-96ee-eaab28d70ed4', '2695cd4e-b38c-11ef-818d-00155d060d12', 'A12', '2025-06-04 22:15:23', '2025-06-04 22:15:23'),
+('5bc2ae00-0d81-40fe-8b41-255e6959e90d', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'b1058203-f07c-4e77-8787-8332c997d74e', '1ee0971c-b38c-11ef-818d-00155d060d12', 'UTEM123', '2025-05-26 18:49:49', '2025-05-26 18:49:49'),
+('7dd70d8b-ebcd-4a16-813e-70448adbc097', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', '1e99d1aa-b38c-11ef-818d-00155d060d12', 'AA121', '2025-05-27 00:23:22', '2025-05-27 00:23:22'),
+('834048f7-0129-47a6-81b3-707f37a05215', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '8e112e38-869c-4434-89c3-6c33dd1fd147', '1f202cf7-b38c-11ef-818d-00155d060d12', 'asa', '2025-06-04 17:21:42', '2025-06-04 17:21:42'),
+('8adaa4ab-9d6b-4d03-959a-cb3e3b76d99d', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 'b1058203-f07c-4e77-8787-8332c997d74e', '1ee0971c-b38c-11ef-818d-00155d060d12', 'ssa', '2025-06-04 22:19:17', '2025-06-04 22:19:17'),
+('9211f5d3-ba0c-407b-9966-fbbd8314698b', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '929e1351-eb98-4870-b277-dcf1e8dfc275', '1e0c636d-b38c-11ef-818d-00155d060d12', 'MAZ124', '2025-05-26 20:57:02', '2025-05-27 00:37:14'),
+('a4b72916-c34e-4d0a-b549-a3efc50cc2b8', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '828c809c-b067-11ef-b176-00155d060d12', '1f1653fa-b38c-11ef-818d-00155d060d12', 'a222', '2025-05-27 00:24:02', '2025-05-27 00:24:02'),
+('bf1f9019-98a8-4e28-bddb-d365fdb473a6', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', '1724c2aa-7971-4bfe-ae06-79eeb0b32503', '1e716840-b38c-11ef-818d-00155d060d12', 'AVS', '2025-05-26 23:39:18', '2025-05-26 23:39:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_points`
+--
+
+CREATE TABLE `user_points` (
+  `id` char(36) NOT NULL,
+  `user_id` char(36) NOT NULL,
+  `points` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_points`
+--
+
+INSERT INTO `user_points` (`id`, `user_id`, `points`, `created_at`, `updated_at`) VALUES
+('9f0007d3-0d2b-47a4-b527-c178da44a19e', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 900, '2025-05-25 18:00:02', '2025-05-25 18:43:23'),
+('9f027d22-6113-41ad-8513-226c17c3a6fe', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 0, '2025-05-26 23:19:42', '2025-05-26 23:19:42'),
+('9f102dbe-ed6d-4a72-933e-5dc135fb8f2a', 'ea80f906-1c86-4639-84b8-3de2f03ad192', 0, '2025-06-02 18:39:19', '2025-06-02 18:39:19'),
+('9f2241d9-bba2-4d6b-b8a8-dd2f68856d87', '6d422e94-9bb3-4564-b195-45f9ffbdd9dc', 0, '2025-06-11 18:20:24', '2025-06-11 18:20:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profiles`
+--
+
+CREATE TABLE `user_profiles` (
+  `id` char(36) DEFAULT NULL,
+  `user_id` char(36) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `postcode` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `profile_image` varchar(255) DEFAULT NULL,
+  `gender` enum('male','female','other') DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_profiles`
+--
+
+INSERT INTO `user_profiles` (`id`, `user_id`, `address`, `city`, `postcode`, `state`, `profile_image`, `gender`, `dob`, `created_at`, `updated_at`) VALUES
+('a425000a-fe78-48a2-91f8-da54cb190438', '40ef3dc8-a51e-4110-ad81-3115f66fa4d3', 'no 400, blok 17, felda keratong 2', 'bandar tun abdul razak', '26900', 'pahang', 'profile_images/1748407475.jpg', 'female', '2005-01-29', '2025-05-16 19:34:56', '2025-05-27 20:44:35'),
+('77cc040b-7fe4-4fd6-aefb-325b86c04fd0', 'ac0f1c12-6021-44e9-984f-c6de830762c7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-16 19:37:25', '2025-05-26 23:06:04'),
+('94597887-ba96-475d-a68f-e57b90e8300b', '6365dcfc-1056-4f70-9a45-def47c140c01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-16 20:09:11', '2025-05-26 23:06:04'),
+('5fda34ac-6cd0-42d8-bc1b-0ff5d18f28d7', 'b95af51e-7afb-463b-b1de-04b61ef27a01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-18 21:03:24', '2025-05-26 23:06:04'),
+('9423c338-3194-4d43-9bc6-7db0640994e6', '371e6238-25e6-4ab1-8437-455b9e7c00a2', 'no 401 blok 17 felda keratong 3', 'bandar tun abdul razak', '26900', 'pahang', NULL, 'female', '2003-05-20', '2025-05-18 21:04:41', '2025-05-26 23:06:04'),
+('85d55d9c-c08d-4831-a0da-3ed80bcbcf10', '559ccc3f-bb36-44b2-b88c-d9e9da8853ae', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-18 22:07:44', '2025-05-26 23:06:04'),
+('5fe46d60-06ff-4589-af4c-c48787dc5dc6', 'a13114ba-86cb-435f-88ca-a1253fda9208', 'muadzam shah', 'bandar tun abdul razak', '26900', 'johor', 'profile_images/1748060092.png', 'female', '2001-05-24', '2025-05-19 00:40:04', '2025-05-26 23:06:04'),
+('1aeac3cc-54b2-44ce-a88f-fec558e29e03', '6b96b5ad-00f4-4506-98ee-46dedf147331', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-19 00:41:21', '2025-05-26 23:06:04'),
+('abe0e0d2-d513-4cba-bd90-79c7d60fe40e', 'ae3b9e6b-2edb-401f-b5c4-0eca54b42737', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-19 01:16:48', '2025-05-26 23:06:04'),
+('094c6e7d-7ea2-4141-af8d-e25e0be82a0e', '471700d7-c726-4c4f-9a97-a1ad3b7104fa', 'taman dahlia', 'pasir gudang', '81750', 'johor', NULL, NULL, NULL, '2025-05-19 01:18:43', '2025-05-26 23:20:26'),
+('af15348e-eb5e-48d8-8aac-9e911909a7f8', 'ea80f906-1c86-4639-84b8-3de2f03ad192', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-19 19:16:14', '2025-05-26 23:06:04'),
+('9f22417d-f462-4174-b466-36c958a0f95f', '6d422e94-9bb3-4564-b195-45f9ffbdd9dc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-06-11 18:19:24', '2025-06-11 18:19:24'),
+('9f224cd9-2233-4e97-8f9f-356d24707817', '3227206c-ed58-43ec-adcc-fbe30d9b2bff', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-06-11 18:51:10', '2025-06-11 18:51:10');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `battery_brands`
+--
+ALTER TABLE `battery_brands`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `battery_brand_series`
+--
+ALTER TABLE `battery_brand_series`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `battery_brand_id` (`battery_brand_id`);
+
+--
+-- Indexes for table `battery_sizes`
+--
+ALTER TABLE `battery_sizes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `battery_type_id` (`battery_type_id`) USING BTREE;
+
+--
+-- Indexes for table `battery_types`
+--
+ALTER TABLE `battery_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookings_user_id_foreign` (`user_id`),
+  ADD KEY `bookings_user_car_id_foreign` (`user_car_id`),
+  ADD KEY `bookings_technician_id_foreign` (`technician_id`);
+
+--
+-- Indexes for table `car_brands`
+--
+ALTER TABLE `car_brands`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`);
+
+--
+-- Indexes for table `car_compatible_battery`
+--
+ALTER TABLE `car_compatible_battery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_car_model` (`car_model_id`);
+
+--
+-- Indexes for table `car_models`
+--
+ALTER TABLE `car_models`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `car_brand_id` (`car_brand_id`);
+
+--
+-- Indexes for table `car_recommended_battery`
+--
+ALTER TABLE `car_recommended_battery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_car_recommended_battery` (`car_model_id`);
+
+--
+-- Indexes for table `districts`
+--
+ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exclusive_brands`
+--
+ALTER TABLE `exclusive_brands`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `battery_brand_id` (`battery_brand_id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `outlets`
+--
+ALTER TABLE `outlets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `outlets_district_id_foreign` (`district_id`);
+
+--
+-- Indexes for table `outlet_map_links`
+--
+ALTER TABLE `outlet_map_links`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `outlet_id` (`outlet_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `password_reset_tokens_email_index` (`email`);
+
+--
+-- Indexes for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `point_redemptions`
+--
+ALTER TABLE `point_redemptions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `point_redemptions_user_id_foreign` (`user_id`),
+  ADD KEY `point_redemptions_reward_item_id_foreign` (`reward_item_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_category_id` (`product_category_id`),
+  ADD KEY `battery_brand_series_id` (`battery_brand_series_id`),
+  ADD KEY `battery_size_id` (`battery_size_id`),
+  ADD KEY `fk_battery_brand` (`battery_brand_id`);
+
+--
+-- Indexes for table `product_categories`
+--
+ALTER TABLE `product_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reward_items`
+--
+ALTER TABLE `reward_items`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `reward_items_name_unique` (`name`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `user_cars`
+--
+ALTER TABLE `user_cars`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_cars_user_id_foreign` (`user_id`),
+  ADD KEY `user_cars_car_brand_id_foreign` (`car_brand_id`),
+  ADD KEY `user_cars_car_model_id_foreign` (`car_model_id`);
+
+--
+-- Indexes for table `user_points`
+--
+ALTER TABLE `user_points`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_points_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `user_profiles`
+--
+ALTER TABLE `user_profiles`
+  ADD KEY `user_profiles_user_id_foreign` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `battery_brand_series`
+--
+ALTER TABLE `battery_brand_series`
+  ADD CONSTRAINT `battery_brand_series_ibfk_1` FOREIGN KEY (`battery_brand_id`) REFERENCES `battery_brands` (`id`);
+
+--
+-- Constraints for table `battery_sizes`
+--
+ALTER TABLE `battery_sizes`
+  ADD CONSTRAINT `battery_sizes_ibfk_1` FOREIGN KEY (`battery_type_id`) REFERENCES `battery_types` (`id`);
+
+--
+-- Constraints for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD CONSTRAINT `bookings_technician_id_foreign` FOREIGN KEY (`technician_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `bookings_user_car_id_foreign` FOREIGN KEY (`user_car_id`) REFERENCES `user_cars` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `car_compatible_battery`
+--
+ALTER TABLE `car_compatible_battery`
+  ADD CONSTRAINT `fk_car_model` FOREIGN KEY (`car_model_id`) REFERENCES `car_models` (`id`);
+
+--
+-- Constraints for table `car_models`
+--
+ALTER TABLE `car_models`
+  ADD CONSTRAINT `car_models_ibfk_1` FOREIGN KEY (`car_brand_id`) REFERENCES `car_brands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `car_recommended_battery`
+--
+ALTER TABLE `car_recommended_battery`
+  ADD CONSTRAINT `fk_car_recommended_battery` FOREIGN KEY (`car_model_id`) REFERENCES `car_models` (`id`);
+
+--
+-- Constraints for table `exclusive_brands`
+--
+ALTER TABLE `exclusive_brands`
+  ADD CONSTRAINT `exclusive_brands_ibfk_1` FOREIGN KEY (`battery_brand_id`) REFERENCES `battery_brands` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `outlets`
+--
+ALTER TABLE `outlets`
+  ADD CONSTRAINT `outlets_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `outlet_map_links`
+--
+ALTER TABLE `outlet_map_links`
+  ADD CONSTRAINT `outlet_map_links_ibfk_1` FOREIGN KEY (`outlet_id`) REFERENCES `outlets` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `point_redemptions`
+--
+ALTER TABLE `point_redemptions`
+  ADD CONSTRAINT `point_redemptions_reward_item_id_foreign` FOREIGN KEY (`reward_item_id`) REFERENCES `reward_items` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `point_redemptions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_cars`
+--
+ALTER TABLE `user_cars`
+  ADD CONSTRAINT `user_cars_car_brand_id_foreign` FOREIGN KEY (`car_brand_id`) REFERENCES `car_brands` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_cars_car_model_id_foreign` FOREIGN KEY (`car_model_id`) REFERENCES `car_models` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_cars_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_points`
+--
+ALTER TABLE `user_points`
+  ADD CONSTRAINT `user_points_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_profiles`
+--
+ALTER TABLE `user_profiles`
+  ADD CONSTRAINT `user_profiles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
